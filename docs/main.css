@@ -17,8 +17,7 @@ body {
   font-size: 1rem;
   width: 3rem; }
   .pcard:focus, .pcard-master:focus {
-    outline: none;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); }
+    outline: none; }
   .pcard--selected, .pcard-master--selected {
     border-color: blue;
     text-decoration: none; }
