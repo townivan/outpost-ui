@@ -65,7 +65,7 @@ export function initCardListeners(){
     
     allProductionCardElements.map(pcard => {
         pcard.addEventListener('click', function(e) {
-            e.originalTarget.classList.toggle('pcard--selected');
+            e.target.classList.toggle('pcard--selected');
 
             let areAllSelected_or = true;
             let allPCards_or = [...document.querySelectorAll('.pcard_or')]
