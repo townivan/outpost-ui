@@ -1,0 +1,273 @@
+body {
+  font-size: 17px; }
+
+.pcardRow {
+  display: flex; }
+
+.pcardRow > *, .pcardInsertionDiv > * {
+  margin-right: 5px; }
+
+.pcard, .pcard-master {
+  background-color: transparent;
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 3rem; }
+  .pcard--selected, .pcard-master--selected {
+    border-color: blue;
+    text-decoration: none; }
+
+.uxform-container {
+  margin-bottom: 1.5rem; }
+
+.uxform-textfield {
+  background-color: #fff;
+  border-radius: 8px;
+  border: 2px solid #c3d5e1;
+  border-color: #c3d5e1;
+  border-color: #c3d5e1;
+  box-sizing: border-box;
+  color: #000;
+  font-family: "Open Sans", sans-serif;
+  font-size: inherit;
+  padding: .4rem 1rem;
+  width: 100%; }
+  .uxform-textfield:invalid {
+    box-shadow: none; }
+
+.uxform-button {
+  box-sizing: border-box;
+  background-color: #357c08;
+  border: 1px transparent solid;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Open Sans", sans-serif;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.5rem;
+  padding: .719em 1.5em;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  transition: background-color .3s linear; }
+  .uxform-button:hover {
+    background-color: #015294; }
+  @media (min-width: 768px) {
+    .uxform-button {
+      width: auto; } }
+
+.uxform-button--block {
+  box-sizing: border-box;
+  background-color: #357c08;
+  border: 1px transparent solid;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Open Sans", sans-serif;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.5rem;
+  padding: .719em 1.5em;
+  text-align: center;
+  text-decoration: none;
+  width: 100%;
+  transition: background-color .3s linear;
+  display: block; }
+  .uxform-button--block:hover {
+    background-color: #015294; }
+  @media (min-width: 768px) {
+    .uxform-button--block {
+      width: auto; } }
+  @media (min-width: 768px) {
+    .uxform-button--block {
+      width: 100%; } }
+
+.uxform-select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAYCAYAAADOMhxqAAAAAXNSR0IArs4c6QAAAZJJREFUOBHVk7FKw1AUhnOTUIcGXESK4NqhSxO6SS04FlzEZxChOLi6SMFFH0F8BvUVSi1OlrRLIbNDWywYtUulTfz/0BPSNH0AL1zOOf/57r3nXs7VtIxRLpdPODNSmkqLlUplez6fD6ibplnqdrtfSUZPBvQB34VhuMdJP51fOQFlVAG2AYkeKqVq/X6/IwvjE+r1+hbghwRMRlFjThYY4uTz+Wv4pxIn7M50Og3G43GLWnS04zilxWLhIs5RzBi/hmE4rusO9GazqQdBwFI2wVyfI0PW8H2/gTrPM3ZNS/ue532YUH3MRjq7If7eoP8rWaEdnvBKmZ2Zvgna5FnHuICz0pFpkDEZssZoNPopFAqf0I6zQNGw4LLX67Wi1kBJyrbtNmxVgKQF3AFcgw2jbqWDz3IGaJYEl/6MOTKM424dDocTlMYNjpZgZADeoOkeRYv/A4VisXgLIPqejOlToy9DfpbEGu5ygM58oYBXOUTtr3ESTlySiHi1d5S2i93f8DXvRRfLbl0blmVdrYlL4Q8yaI6pSwQXRQAAAABJRU5ErkJggg==");
+  background-position: calc(100% - 12px) 50%;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  border: 2px solid #c3d5e1;
+  box-sizing: border-box;
+  color: #000;
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: inherit;
+  padding: .4rem 1rem;
+  width: 100%; }
+
+.uxform-textarea {
+  box-sizing: border-box;
+  background-color: #fff;
+  border: 2px solid #c3d5e1;
+  border-radius: 8px;
+  font-family: "Open Sans", sans-serif;
+  font-size: inherit;
+  padding: .4rem 1rem;
+  width: 100%;
+  cursor: ns-resize;
+  resize: vertical;
+  overflow: auto; }
+
+.uxform-label {
+  box-sizing: border-box;
+  color: #5a7184;
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  font-size: inherit;
+  font-weight: 400;
+  margin-bottom: .3rem; }
+
+.uxform-required {
+  box-sizing: border-box;
+  color: red;
+  font-family: "Open Sans", sans-serif;
+  font-size: inherit;
+  font-weight: bolder; }
+
+/*
+ * WTF, forms?
+ * Released under MIT and copyright 2014 Mark Otto.
+ * http://wtfforms.com
+ *
+ * Embedded icons from Open Iconic.
+ * Released under MIT and copyright 2014 Waybury.
+ * http://useiconic.com/open
+ */
+.uxform-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  flex-direction: column; }
+  .uxform-fieldset > legend {
+    padding: 0;
+    display: none; }
+
+.uxform-stacked label {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px; }
+  @media (min-width: 768px) {
+    .uxform-stacked label {
+      margin-bottom: 10px; } }
+
+fieldset.uxform-stacked label:last-child {
+  margin-bottom: 0; }
+
+.uxform-inline label {
+  margin-right: 1rem; }
+  .uxform-inline label:last-of-type {
+    margin-right: 0; }
+
+/*
+ * Checkboxes and radios
+ */
+.uxform-custom-ui {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  padding-left: 1.5rem;
+  cursor: pointer; }
+
+.uxform-custom-ui input {
+  position: absolute;
+  opacity: 0;
+  z-index: -1; }
+
+.uxform-control-indicator {
+  position: absolute;
+  left: 0;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  font-size: 65%;
+  color: #eee;
+  text-align: center;
+  background-color: white;
+  background-size: 50% 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px darkgray solid;
+  margin-top: .25em; }
+
+/* Focus */
+.uxform-custom-ui input:focus ~ .uxform-control-indicator {
+  box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.2rem #0074d9; }
+
+/* Checked state */
+.uxform-custom-ui input:checked ~ .uxform-control-indicator {
+  color: #fff;
+  background-color: #0074d9; }
+
+/* Active */
+.uxform-custom-ui input:active ~ .uxform-control-indicator {
+  color: #fff;
+  background-color: #84c6ff; }
+
+/* Checkbox modifiers */
+.uxform-checkbox {
+  font-family: "Open Sans", sans-serif;
+  font-size: inherit; }
+
+.uxform-checkbox .uxform-control-indicator {
+  border-radius: .25rem; }
+
+.uxform-checkbox input:checked ~ .uxform-control-indicator {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTYuNCwxTDUuNywxLjdMMi45LDQuNUwyLjEsMy43TDEuNCwzTDAsNC40bDAuNywwLjdsMS41LDEuNWwwLjcsMC43bDAuNy0wLjdsMy41LTMuNWwwLjctMC43TDYuNCwxTDYuNCwxeiINCgkvPg0KPC9zdmc+DQo=); }
+
+/* Radio modifiers */
+.uxform-radio {
+  font-family: "Open Sans", sans-serif;
+  font-size: inherit; }
+
+.uxform-radio .uxform-control-indicator {
+  border-radius: 50%; }
+
+.uxform-radio input:checked ~ .uxform-control-indicator {
+  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTQsMUMyLjMsMSwxLDIuMywxLDRzMS4zLDMsMywzczMtMS4zLDMtM1M1LjcsMSw0LDF6Ii8+DQo8L3N2Zz4NCg==); }
+
+/**
+ * Validation styles */
+/* Applying an error class means we keep browser level feedback, error handling, and focus management. */
+.uxform-error-summary {
+  background-color: rgba(231, 86, 86, 0.15);
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem; }
+
+.uxform-error-summary-highlight {
+  color: #b33535; }
+
+.uxform-textfield.error,
+.uxform-select.error,
+.uxform-textarea.error {
+  background-color: rgba(231, 86, 86, 0.15);
+  border-color: #b33535;
+  box-shadow: none; }
+
+.uxform-textfield.error:valid,
+.uxform-select.error:valid,
+.uxform-textarea.error:valid {
+  background-color: #fff;
+  border-color: #c3d5e1; }
+
+/* util */
+.uxform-hideme {
+  display: none !important; }

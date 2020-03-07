@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>outpost-ui</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link href="main.css" rel="stylesheet">
+</head>
+<body>
+    <h1>outpost-ui</h1>
+
+    <p>Max: <span id="cardsMax">-</span></p>
+    <p>Selected: <span id="cardsSelected">-</span></p>
+
+    <div>
+        <button type="button" id="pcardmaster_none">None</button>
+        <button type="button" id="pcardmaster_all">All</button>
+    </div>
+
+    <section id="productionCardArea">
+        <div class="pcardRow">
+            <button type="button" id="pcardmaster_or" class="pcard-master">or</button>
+            <div id="pCardRenderInsertionPoint_or" class="pcardInsertionDiv"></div>
+        </div>
+        <div class="pcardRow">
+            <button type="button" id="pcardmaster_wa" class="pcard-master">wa</button>
+            <div id="pCardRenderInsertionPoint_wa" class="pcardInsertionDiv"></div>
+        </div>
+    </section>
+
+    <script src="main.js" type="module"></script>
+    <!-- <script src="main.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,333 @@
+$font-family: 'Open Sans', sans-serif; // 'Barlow', sans-serif;
+$grayblue: #c3d5e1;
+$grayblue-dark: #5a7184;
+$white: #fff;
+$black: #000;
+$indicator-checked: #0074d9;
+$indicator-active: #84c6ff;
+$red-dark: #b33535;
+$error-bg: rgba(231,86,86,.15);
+
+$mobile-width: 375px;
+$tablet-width: 768px;
+$desktop-width: 1024px;
+
+@mixin mobile {
+    @media (min-width: #{$mobile-width}) { // mobile-first style
+        @content;
+    }
+}
+@mixin tablet {
+    @media (min-width: #{$tablet-width}) {
+        @content;
+    }
+}
+@mixin desktop {
+    @media (min-width: #{$desktop-width}) {
+        @content;
+    }
+}
+@mixin custom-breakpoint($pixel-number) {
+    @media (min-width: #{$pixel-number}) {
+        @content;
+    }
+}
+
+body{
+    font-size: 17px;
+}
+
+.pcardRow{
+    display: flex; 
+}
+.pcardRow > *, .pcardInsertionDiv > * {
+    margin-right: 5px;
+}
+.pcard, .pcard-master{ // production card
+    background-color: transparent;
+    color: blue;
+    cursor: pointer;
+    // font-family: 'Lucida Console', Monaco, monospace;
+    text-decoration: underline;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 3rem;
+    &--selected{
+        border-color:blue;
+        text-decoration: none;
+    }
+}
+
+
+
+
+
+
+
+
+
+.uxform-container{
+    margin-bottom: 1.5rem;
+}
+
+.uxform-textfield {
+    background-color: $white;
+    border-radius: 8px;
+    border: 2px solid $grayblue;
+    border-color: $grayblue;
+    border-color: $grayblue;
+
+    box-sizing: border-box;
+    color: $black;
+    font-family: $font-family;
+    font-size: inherit; // 1rem
+    
+    padding: .4rem 1rem;
+    width: 100%;
+    &:invalid{
+        box-shadow: none; // override default mozilla style
+    }
+}
+
+@mixin uxform-button{
+    box-sizing: border-box;
+    background-color: #357c08;
+    border: 1px transparent solid;
+    border-radius: 8px;
+    color: $white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: $font-family;
+    font-size: inherit; // 1rem
+    font-weight: 400;
+    line-height: 1.5rem;
+    padding: .719em 1.5em; 
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    transition: background-color .3s linear;
+    &:hover{
+        background-color: #015294;
+    }
+    @include tablet() {
+        width: auto;
+    }
+}
+.uxform-button{
+    @include uxform-button;
+}
+.uxform-button--block{
+    @include uxform-button;
+    display: block;
+    @include tablet() { 
+        width: 100%; // must be in a media query to override the media query in the base mixin.
+    }
+}
+
+.uxform-select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: $white;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAYCAYAAADOMhxqAAAAAXNSR0IArs4c6QAAAZJJREFUOBHVk7FKw1AUhnOTUIcGXESK4NqhSxO6SS04FlzEZxChOLi6SMFFH0F8BvUVSi1OlrRLIbNDWywYtUulTfz/0BPSNH0AL1zOOf/57r3nXs7VtIxRLpdPODNSmkqLlUplez6fD6ibplnqdrtfSUZPBvQB34VhuMdJP51fOQFlVAG2AYkeKqVq/X6/IwvjE+r1+hbghwRMRlFjThYY4uTz+Wv4pxIn7M50Og3G43GLWnS04zilxWLhIs5RzBi/hmE4rusO9GazqQdBwFI2wVyfI0PW8H2/gTrPM3ZNS/ue532YUH3MRjq7If7eoP8rWaEdnvBKmZ2Zvgna5FnHuICz0pFpkDEZssZoNPopFAqf0I6zQNGw4LLX67Wi1kBJyrbtNmxVgKQF3AFcgw2jbqWDz3IGaJYEl/6MOTKM424dDocTlMYNjpZgZADeoOkeRYv/A4VisXgLIPqejOlToy9DfpbEGu5ygM58oYBXOUTtr3ESTlySiHi1d5S2i93f8DXvRRfLbl0blmVdrYlL4Q8yaI6pSwQXRQAAAABJRU5ErkJggg==");
+    background-position: calc(100% - 12px) 50%;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    border: 2px solid $grayblue;
+    box-sizing: border-box;
+    color: $black;
+    display: block;
+    font-family: $font-family;
+    font-size: inherit; // 1rem
+    padding: .4rem 1rem;
+    width: 100%;
+}
+.uxform-textarea {
+    box-sizing: border-box;
+    background-color: $white;
+    border: 2px solid $grayblue;
+    border-radius: 8px;
+    font-family: $font-family;
+    font-size: inherit; // 1rem
+    padding: .4rem 1rem;
+    width: 100%;
+    cursor: ns-resize;
+    resize: vertical;
+    overflow: auto;
+}
+.uxform-label {
+    box-sizing: border-box;
+    color: $grayblue-dark;
+    display: block;
+    font-family: $font-family;
+    font-size: inherit; // 1rem
+    font-weight: 400;
+    margin-bottom: .3rem;
+}
+.uxform-required {
+    box-sizing: border-box;
+    color: red;
+    font-family: $font-family;
+    font-size: inherit; // 1rem
+    font-weight: bolder;
+}
+
+/*
+ * WTF, forms?
+ * Released under MIT and copyright 2014 Mark Otto.
+ * http://wtfforms.com
+ *
+ * Embedded icons from Open Iconic.
+ * Released under MIT and copyright 2014 Waybury.
+ * http://useiconic.com/open
+ */
+
+
+.uxform-fieldset{
+    border:none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    flex-direction: column;
+    & > legend{
+        padding: 0;
+        display: none;
+    }
+}
+.uxform-stacked label{
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    @include tablet() {
+        margin-bottom: 10px;
+    }
+    // @include desktop() {
+    //     margin-bottom: 7px;
+    // }
+}
+fieldset.uxform-stacked label:last-child{
+    margin-bottom: 0;
+}
+.uxform-inline label{
+    margin-right: 1rem;
+    &:last-of-type{
+        margin-right:0;
+    }
+}
+/*
+ * Checkboxes and radios
+ */
+
+.uxform-custom-ui { // uxform-custom-ui
+    position: relative;
+    display: inline-flex;
+    align-items: flex-start;
+    padding-left: 1.5rem;
+    cursor: pointer;
+}
+.uxform-custom-ui input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1; // Put the input behind the label so it doesn't overlay text
+}
+.uxform-control-indicator {
+    position: absolute;
+    left: 0;
+    display: block;
+    width:  1rem;
+    height: 1rem;
+    line-height: 1rem;
+    font-size: 65%;
+    color: #eee;
+    text-align: center;
+    background-color: white;  // #eee
+    background-size: 50% 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px darkgray solid;
+    margin-top: .25em;
+}
+/* Focus */
+.uxform-custom-ui input:focus ~ .uxform-control-indicator {
+    box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem $indicator-checked;
+}
+  
+/* Checked state */
+.uxform-custom-ui input:checked ~ .uxform-control-indicator {
+    color: #fff;
+    background-color: $indicator-checked;
+}
+  
+/* Active */
+.uxform-custom-ui input:active ~ .uxform-control-indicator {
+    color: #fff;
+    background-color: $indicator-active;
+}
+  
+/* Checkbox modifiers */
+.uxform-checkbox{
+    font-family: $font-family;
+    font-size: inherit; // 1rem
+}
+.uxform-checkbox .uxform-control-indicator {
+    border-radius: .25rem;
+}
+.uxform-checkbox input:checked ~ .uxform-control-indicator {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTYuNCwxTDUuNywxLjdMMi45LDQuNUwyLjEsMy43TDEuNCwzTDAsNC40bDAuNywwLjdsMS41LDEuNWwwLjcsMC43bDAuNy0wLjdsMy41LTMuNWwwLjctMC43TDYuNCwxTDYuNCwxeiINCgkvPg0KPC9zdmc+DQo=);
+}
+  
+/* Radio modifiers */
+.uxform-radio{
+    font-family: $font-family;
+    font-size: inherit; // 1rem
+}
+.uxform-radio .uxform-control-indicator {
+    border-radius: 50%;
+}
+.uxform-radio input:checked ~ .uxform-control-indicator {
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTQsMUMyLjMsMSwxLDIuMywxLDRzMS4zLDMsMywzczMtMS4zLDMtM1M1LjcsMSw0LDF6Ii8+DQo8L3N2Zz4NCg==);
+}
+  
+
+/**
+ * Validation styles */
+// Never Style input:invalid, it is bad. It triggers way too early. Uncomment to see. */
+// input:invalid { 
+//     border-color: red;
+// }
+
+/* Applying an error class means we keep browser level feedback, error handling, and focus management. */
+.uxform-error-summary{
+    background-color: $error-bg;
+    font-family: $font-family;
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+.uxform-error-summary-highlight{
+    color: $red-dark;
+}
+
+.uxform-textfield.error,
+.uxform-select.error,
+.uxform-textarea.error {
+    background-color: $error-bg;
+    border-color: $red-dark;
+    box-shadow: none;
+}
+.uxform-textfield.error:valid,
+.uxform-select.error:valid,
+.uxform-textarea.error:valid {
+    background-color: $white;
+    border-color: $grayblue;
+}
+
+/* util */
+.uxform-hideme{
+    display: none !important;
+} 
