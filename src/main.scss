@@ -53,10 +53,15 @@ body{
     border-radius: 4px;
     font-size: 1rem;
     width: 3rem;
+    &:focus{
+        outline: none;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
     &--selected{
         border-color:blue;
         text-decoration: none;
     }
+    
 }
 
 
