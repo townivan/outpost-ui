@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>outpost-ui</title>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js" integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0=" crossorigin="anonymous"></script>
     <link href="main.css" rel="stylesheet">
 </head>
 <body>
@@ -21,11 +22,13 @@
 
     <section id="productionCardArea">
         <div class="pcardRow">
-            <button type="button" id="pcardmaster_or" class="pcard-master">or</button>
+            <button type="button" id="pcardsort_or" class="pcard-sort"><i class="fas fa-sort-amount-down-alt"></i></button>
+            <button type="button" id="pcardmaster_or" class="pcard-master">all or</button>
             <div id="pCardRenderInsertionPoint_or" class="pcardInsertionDiv"></div>
         </div>
         <div class="pcardRow">
-            <button type="button" id="pcardmaster_wa" class="pcard-master">wa</button>
+            <button type="button" id="pcardsort_wa" class="pcard-sort"><i class="fas fa-sort-amount-down-alt"></i></button>
+            <button type="button" id="pcardmaster_wa" class="pcard-master">all wa</button>
             <div id="pCardRenderInsertionPoint_wa" class="pcardInsertionDiv"></div>
         </div>
     </section>

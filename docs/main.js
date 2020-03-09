@@ -37,13 +37,15 @@ export function render(){
 
     onlyCards_or.sort(compareValues('value'));
     onlyCards_or.map(card => {
-        const code = `<button type="button" class="pcard pcard_or" value="${card.value}">${card.value}</button>`;
+        // const code = `<button type="button" class="pcard pcard_or" value="${card.value}">${card.value}</button>`;
+        const code = `<button class="pcard pcard_or" value="${card.value}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_or += code;
     })
     
     onlyCards_wa.sort(compareValues('value'));
     onlyCards_wa.map(card => {
-        const code = `<button type="button" class="pcard pcard_wa" value="${card.value}">${card.value}</button>`;
+        // const code = `<button type="button" class="pcard pcard_wa" value="${card.value}">${card.value}</button>`;
+        const code = `<button class="pcard pcard_wa" value="${card.value}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_wa += code;
     })
 

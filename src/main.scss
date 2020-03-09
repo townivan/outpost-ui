@@ -8,6 +8,8 @@ $indicator-active: #84c6ff;
 $red-dark: #b33535;
 $error-bg: rgba(231,86,86,.15);
 
+$ore: #d59667;
+
 $mobile-width: 375px;
 $tablet-width: 768px;
 $desktop-width: 1024px;
@@ -36,14 +38,18 @@ $desktop-width: 1024px;
 body{
     font-size: 17px;
 }
-
+ 
 .pcardRow{
     display: flex; 
+    margin-bottom: .5rem;
 }
 .pcardRow > *, .pcardInsertionDiv > * {
     margin-right: 5px;
 }
-.pcard, .pcard-master{ // production card
+.pcard-sort{
+    font-size: 30px;
+}
+.pcard-master{ // production card
     background-color: transparent;
     color: blue;
     cursor: pointer;
@@ -63,6 +69,43 @@ body{
     }
     
 }
+
+.pcard{
+    font-size: 37px;
+    margin-right: 1rem;
+    background-color: transparent;
+    border: 1px black solid;
+    border-radius: 4px;
+    padding: 0 1rem;
+    color: black;
+    border-color: black;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+    background-color: lighten($ore, 30%);
+    width: 80px;
+    &:active{
+        background-color:lightgray;
+    }
+    &--selected{
+        background-color: #d59667;
+    }
+
+}
+
+.cb1{
+    position: absolute;
+    right: -7px;
+    top: -7px;
+    pointer-events: none;
+}
+
+
+
 
 
 
