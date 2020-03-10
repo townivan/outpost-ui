@@ -26,9 +26,11 @@ export function firstInit() {
     let testarr = [1, 3, 6];
     let n = testarr.length;
     let final = [];
-
+    // https://www.geeksforgeeks.org/print-sums-subsets-given-set/
+    // based on recursive c# example
     subsetSums(testarr, 0, n - 1, 0);
     console.log('final.sort((a, b) => a - b):', final.sort((a, b) => a - b))
+    // https://alligator.io/js/array-sort-numbers/
     //myArray.sort((a, b) => a - b);
 
 
