@@ -13,12 +13,15 @@ state.cards.push(drawCard('wa'));
 state.cards.push(drawCard('wa'));
 state.cards.push(drawCard('wa'));
 
+state.cards.sort(compareValues('value'));
+
+
 console.log('state.cards:', state.cards);
 
 events.firstInit();
 render();
 
-export function render(){
+export function render() {
     let cardsMax = 0;
     let onlyCards_or = [];
     let onlyCards_wa = [];
@@ -27,10 +30,10 @@ export function render(){
     state.cards.map(card => {
         cardsMax += card.value;
         // render cards...
-        if(card.cardType === 'or'){
+        if (card.cardType === 'or') {
             onlyCards_or.push(card);
         }
-        if(card.cardType === 'wa'){
+        if (card.cardType === 'wa') {
             onlyCards_wa.push(card);
         }
     })
@@ -41,7 +44,7 @@ export function render(){
         const code = `<button class="pcard pcard_or" value="${card.value}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_or += code;
     })
-    
+
     onlyCards_wa.sort(compareValues('value'));
     onlyCards_wa.map(card => {
         // const code = `<button type="button" class="pcard pcard_wa" value="${card.value}">${card.value}</button>`;
@@ -63,33 +66,33 @@ export function render(){
  * @param {string} cardType or wa ti re mi nc om ro mo
  * @returns {obj} cardObj
  */
-export function drawCard(cardType){
+export function drawCard(cardType) {
     let possibleCards = [];
-    if (cardType === 'or'){
+    if (cardType === 'or') {
         possibleCards = [1, 2, 3, 4, 5];
     }
-    if (cardType === 'wa'){
+    if (cardType === 'wa') {
         possibleCards = [4, 5, 6, 7, 8, 9, 10];
     }
-    if (cardType === 'ti'){
+    if (cardType === 'ti') {
         possibleCards = [7, 8, 9, 10, 11, 12, 13];
     }
-    if (cardType === 're'){
+    if (cardType === 're') {
         possibleCards = [9, 10, 11, 12, 13, 14, 15, 16, 17];
     }
-    if (cardType === 'mi'){
+    if (cardType === 'mi') {
         possibleCards = [14, 15, 16, 17, 18, 19, 20];
     }
-    if (cardType === 'nc'){
+    if (cardType === 'nc') {
         possibleCards = [14, 16, 18, 20, 22, 24, 26];
     }
-    if (cardType === 'om'){
+    if (cardType === 'om') {
         possibleCards = [20, 25, 30, 35, 40];
     }
-    if (cardType === 'ro'){
+    if (cardType === 'ro') {
         possibleCards = [30, 35, 40, 45, 50];
     }
-    if (possibleCards.length === 0){
+    if (possibleCards.length === 0) {
         throw new Error(`drawCard(cardType) received an invalid cardType of ${cardType}`);
     }
     const randomCardValue = possibleCards[Math.floor(Math.random() * possibleCards.length)];
@@ -102,24 +105,24 @@ export function drawCard(cardType){
 
 export function compareValues(key, order = 'asc') {
     return function innerSort(a, b) {
-      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-        // property doesn't exist on either object
-        return 0;
-      }
-  
-      const varA = (typeof a[key] === 'string')
-        ? a[key].toUpperCase() : a[key];
-      const varB = (typeof b[key] === 'string')
-        ? b[key].toUpperCase() : b[key];
-  
-      let comparison = 0;
-      if (varA > varB) {
-        comparison = 1;
-      } else if (varA < varB) {
-        comparison = -1;
-      }
-      return (
-        (order === 'desc') ? (comparison * -1) : comparison
-      );
+        if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+            // property doesn't exist on either object
+            return 0;
+        }
+
+        const varA = (typeof a[key] === 'string')
+            ? a[key].toUpperCase() : a[key];
+        const varB = (typeof b[key] === 'string')
+            ? b[key].toUpperCase() : b[key];
+
+        let comparison = 0;
+        if (varA > varB) {
+            comparison = 1;
+        } else if (varA < varB) {
+            comparison = -1;
+        }
+        return (
+            (order === 'desc') ? (comparison * -1) : comparison
+        );
     };
-  }
+}
