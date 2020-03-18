@@ -38,7 +38,8 @@ export function firstInit() {
 
         // Print current subset 
         if (l > r) {
-            // Console.Write(sum + " "); 
+            //Console.Write(sum + " "); 
+            console.log('sum ', sum)
             final.push(sum);
             return;
         }
@@ -50,6 +51,29 @@ export function firstInit() {
         subsetSums(arr, l + 1, r, sum);
     }
 
+    let arrayToWork = [1, 3, 6];
+    console.log(arrayToWork)
+    let x = combinations(arrayToWork).filter(a => a.length >= 2)
+    function combinations(array) {
+        return new Array(1 << array.length).fill().map(
+            (e1, i) => array.filter((e2, j) => i & 1 << j));
+    }
+    console.log('combinations(x):', x)
+
+    let arrayOfComboObjects = []
+    arrayOfComboObjects.push({ value: 0, match: [0] });
+    arrayToWork.map(comboArr => {
+        const arrSum = comboArr
+        arrayOfComboObjects.push({ value: arrSum, match: [comboArr] });
+    })
+
+    const arrSum = comboArr => comboArr.reduce((a, b) => a + b, 0)
+
+    x.map(comboArr => {
+        let thesum = arrSum(comboArr)
+        arrayOfComboObjects.push({ value: thesum, match: comboArr });
+    })
+    console.log('arrayOfComboObjects:', arrayOfComboObjects)
 
     // let testarr2 = ArrayAddition(testarr);
     // console.log('testarr2', testarr2);
