@@ -29,7 +29,7 @@ export function firstInit() {
     // https://www.geeksforgeeks.org/print-sums-subsets-given-set/
     // based on recursive c# example
     subsetSums(testarr, 0, n - 1, 0);
-    console.log('final.sort((a, b) => a - b):', final.sort((a, b) => a - b))
+    // console.log('final.sort((a, b) => a - b):', final.sort((a, b) => a - b))
     // https://alligator.io/js/array-sort-numbers/
     //myArray.sort((a, b) => a - b);
 
@@ -39,7 +39,7 @@ export function firstInit() {
         // Print current subset 
         if (l > r) {
             //Console.Write(sum + " "); 
-            console.log('sum ', sum)
+            // console.log('sum ', sum)
             final.push(sum);
             return;
         }
@@ -52,13 +52,13 @@ export function firstInit() {
     }
 
     let arrayToWork = [1, 3, 6];
-    console.log(arrayToWork)
+    // console.log(arrayToWork)
     let x = combinations(arrayToWork).filter(a => a.length >= 2)
     function combinations(array) {
         return new Array(1 << array.length).fill().map(
             (e1, i) => array.filter((e2, j) => i & 1 << j));
     }
-    console.log('combinations(x):', x)
+    // console.log('combinations(x):', x)
 
     let arrayOfComboObjects = []
     arrayOfComboObjects.push({ value: 0, match: [0] });
@@ -73,7 +73,7 @@ export function firstInit() {
         let thesum = arrSum(comboArr)
         arrayOfComboObjects.push({ value: thesum, match: comboArr });
     })
-    console.log('arrayOfComboObjects:', arrayOfComboObjects)
+    // console.log('arrayOfComboObjects:', arrayOfComboObjects)
 
     // let testarr2 = ArrayAddition(testarr);
     // console.log('testarr2', testarr2);
@@ -171,7 +171,7 @@ export function initCardListeners() {
 
             e.target.classList.toggle('pcard--selected');
             let cb = e.target.querySelector('input');
-            console.log('cb:', cb)
+            // console.log('cb:', cb)
             cb.checked = !cb.checked;
 
 

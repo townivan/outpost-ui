@@ -2,23 +2,32 @@ import * as events from './events.js';
 
 // or=Ore wa=Water ti=Titanium re=Research mi=Microbiotics nc=New_Chemicals om=Orbital_Medicine ro=Ring_Ore mo=Moon_Ore
 export const state = {
+    playerIdSeed: 0,
+    players: [],
     cards: [],
+    localPlayerId: 0
 };
 
-state.cards.push(drawCard('or'));
-state.cards.push(drawCard('or'));
-state.cards.push(drawCard('or'));
-state.cards.push(drawCard('or'));
-state.cards.push(drawCard('wa'));
-state.cards.push(drawCard('wa'));
-state.cards.push(drawCard('wa'));
+state.players.push(addPlayer('Ivan'));
+state.players.push(addPlayer('Jason'));
 
-state.cards.sort(compareValues('value'));
+console.table(state)
 
 
-console.log('state.cards:', state.cards);
+// state.cards.push(drawCard('or'));
+// state.cards.push(drawCard('or'));
+// state.cards.push(drawCard('or'));
+// state.cards.push(drawCard('or'));
+// state.cards.push(drawCard('wa'));
+// state.cards.push(drawCard('wa'));
+// state.cards.push(drawCard('wa'));
 
-events.firstInit();
+// state.cards.sort(compareValues('value'));
+
+
+// console.log('state.cards:', state.cards);
+
+// events.firstInit();
 render();
 
 export function render() {
@@ -27,7 +36,7 @@ export function render() {
     let onlyCards_wa = [];
     let allCardCode_or = '';
     let allCardCode_wa = '';
-    state.cards.map(card => {
+    state.players[0].cards.map(card => {
         cardsMax += card.value;
         // render cards...
         if (card.cardType === 'or') {
@@ -59,6 +68,70 @@ export function render() {
 
     events.initCardListeners();
     events.calcProductionCardSelection();
+
+    // render overviewPanel
+    let allOverViewCode = ``;
+    let rowCode = ``;
+
+    rowCode = `<div class="rowOverview">`;
+    rowCode += `<div class="overviewCol1">Player(TurnOrder)</div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx">${player.name}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+    rowCode = `<div class="rowOverview">`;
+    rowCode += `<div class="overviewCol1">Victory Points</div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx">${player.vp}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+    rowCode = `<div class="rowOverview">`;
+    rowCode += `<div class="overviewCol1">Cards</div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx">${player.cards.length} of ${player.handLimit}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+    rowCode = `<div class="rowOverview">`;
+    rowCode += `<div class="overviewCol1">Cards by type</div>`;
+    state.players.map(player => {
+        let countOr = 0;
+        let countWa = 0;
+        player.cards.map(card => {
+            if (card.cardType === 'or') { countOr++; }
+            if (card.cardType === 'wa') { countWa++; }
+        })
+        rowCode += `<div class="overviewColx">
+        ${countOr > 0 ? countOr + 'or' : ''} 
+        ${countWa > 0 ? countWa + 'wa' : ''}
+        </div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+    rowCode = `<div class="rowOverview">`;
+    rowCode += `<div class="overviewCol1">Colonist</div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx">${player.colonist} of ${player.colonistMax}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+    rowCode = `<div class="rowOverview">`;
+    rowCode += `<div class="overviewCol1">Robots</div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx">${player.robots} of ${player.colonistMax}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+    let overviewPanel = document.getElementById('overviewPanel');
+    overviewPanel.innerHTML = allOverViewCode;
 }
 
 /**
@@ -125,4 +198,28 @@ export function compareValues(key, order = 'asc') {
             (order === 'desc') ? (comparison * -1) : comparison
         );
     };
+}
+
+function initialdraw(arr) {
+    arr.push(drawCard('or'));
+    arr.push(drawCard('or'));
+    arr.push(drawCard('or'));
+    arr.push(drawCard('or'));
+    arr.push(drawCard('wa'));
+    arr.push(drawCard('wa'));
+}
+
+function addPlayer(name = 'Larry') {
+    let p = {};
+    p.name = name;
+    p.id = state.playerIdSeed;
+    state.playerIdSeed++;
+    p.cards = [];
+    initialdraw(p.cards);
+    p.vp = 3;
+    p.handLimit = 10;
+    p.colonist = 3;
+    p.colonistMax = 5;
+    p.robots = 0;
+    return p;
 }
