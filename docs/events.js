@@ -18,7 +18,7 @@ export function firstInit() {
         })
     })
 
-
+    // toggle select all/none of the Or cards in your hand...
     document.getElementById('pcardmaster_or').addEventListener('click', function (e) {
         if (this.classList.contains('pcard-master--selected')) {
             this.classList.remove('pcard-master--selected');
@@ -31,9 +31,13 @@ export function firstInit() {
         allpcards_or.map(pcard => { // arrow function preserves 'this' binding to orig
             if (this.classList.contains('pcard-master--selected')) {
                 pcard.classList.add('pcard--selected')
+                let innerCB = pcard.querySelector('input');
+                innerCB.checked = true;
             }
             else {
                 pcard.classList.remove('pcard--selected')
+                let innerCB = pcard.querySelector('input');
+                innerCB.checked = false;
             }
         })
         calcProductionCardSelection();
@@ -52,9 +56,13 @@ export function firstInit() {
         allpcards_wa.map(pcard => { // arrow function preserves 'this' binding to orig
             if (this.classList.contains('pcard-master--selected')) {
                 pcard.classList.add('pcard--selected')
+                let innerCB = pcard.querySelector('input');
+                innerCB.checked = true;
             }
             else {
                 pcard.classList.remove('pcard--selected')
+                let innerCB = pcard.querySelector('input');
+                innerCB.checked = false;
             }
         })
         calcProductionCardSelection();
