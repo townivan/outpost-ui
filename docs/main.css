@@ -1,16 +1,44 @@
+*, *:before, *:after {
+  box-sizing: border-box; }
+
+.bgOr {
+  background-color: #d59667; }
+
+.bgWa {
+  background-color: #7789A9; }
+
+.bgTi {
+  background-color: lightgrey; }
+
+.bgOrBorder {
+  border: 2px #d59667 solid; }
+
+.bgWaBorder {
+  border: 2px #7789A9 solid; }
+
+.bgTiBorder {
+  border: 2px lightgrey solid; }
+
 body {
-  font-size: 17px; }
+  font-size: 17px;
+  font-family: 'Oxygen Mono', monospace; }
 
 .rowOverview {
-  display: flex; }
+  display: flex;
+  margin-bottom: 1px;
+  align-items: center; }
   .rowOverview > * {
     margin-right: 5px; }
 
 .overviewCol1 {
-  width: 150px; }
+  width: 270px;
+  text-align: right;
+  margin-right: 20px;
+  display: inline-block; }
 
 .overviewColx {
-  min-width: 50px; }
+  width: 120px;
+  text-align: center; }
 
 .slider {
   -webkit-appearance: none;

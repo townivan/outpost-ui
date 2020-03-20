@@ -1,3 +1,6 @@
+*, *:before, *:after{
+    box-sizing: border-box;
+}
 $font-family: 'Open Sans', sans-serif; // 'Barlow', sans-serif;
 $grayblue: #c3d5e1;
 $grayblue-dark: #5a7184;
@@ -8,8 +11,29 @@ $indicator-active: #84c6ff;
 $red-dark: #b33535;
 $error-bg: rgba(231,86,86,.15);
 
-$ore: #d59667;
-$water: #7789A9;
+$Or: #d59667;
+$Wa: #7789A9;
+$Ti: lightgrey;
+
+.bgOr{
+    background-color: $Or;
+}
+.bgWa{
+    background-color: $Wa;
+}
+.bgTi{
+    background-color: $Ti;
+}
+
+.bgOrBorder{
+    border: 2px $Or solid;
+}
+.bgWaBorder{
+    border: 2px $Wa solid;
+}
+.bgTiBorder{
+    border: 2px $Ti solid;
+}
 
 $mobile-width: 375px;
 $tablet-width: 768px;
@@ -38,18 +62,25 @@ $desktop-width: 1024px;
 
 body{
     font-size: 17px;
+    font-family: 'Oxygen Mono', monospace;
 }
 .rowOverview{
     display: flex;
+    margin-bottom: 1px;
+    align-items: center;
     & > *{
         margin-right: 5px;
     }
 }
 .overviewCol1{
-    width: 150px;
+    width: 270px;
+    text-align: right;
+    margin-right: 20px;
+    display: inline-block;
 }
 .overviewColx{
-    min-width: 50px;
+    width: 120px;
+    text-align: center;
 }
 
 .slider {
@@ -126,7 +157,7 @@ body{
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     user-select: none;
-    background-color: lighten($ore, 30%);
+    background-color: lighten($Or, 30%);
     width: 80px;
     &:active{
         background-color:lightgray;
@@ -135,15 +166,15 @@ body{
     //     background-color: #d59667;
     // }
     &_or{
-        background-color: lighten($ore, 30%);
+        background-color: lighten($Or, 30%);
         &.pcard--selected{
-            background-color: $ore;
+            background-color: $Or;
         }
     }
     &_wa{
-        background-color: lighten($water, 30%);
+        background-color: lighten($Wa, 30%);
         &.pcard--selected{
-            background-color: $water;
+            background-color: $Wa;
         }
     }
 }
