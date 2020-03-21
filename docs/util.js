@@ -33,3 +33,80 @@ export function shuffleArray(array) {
         array[j] = temp;
     }
 }
+
+export function logit(msg) {
+    let stamp = displayTime();
+    let targetEl = document.getElementById('log');
+    targetEl.innerHTML = targetEl.innerHTML + `<div>${stamp} > Round ${main.state.round}: ${msg}</div>`;
+}
+
+function displayTime() {
+    var str = "";
+
+    var currentTime = new Date()
+    var hours = currentTime.getHours()
+    var minutes = currentTime.getMinutes()
+    var seconds = currentTime.getSeconds()
+
+    if (minutes < 10) {
+        minutes = "0" + minutes
+    }
+    if (seconds < 10) {
+        seconds = "0" + seconds
+    }
+    str += hours + ":" + minutes + ":" + seconds + " ";
+    if (hours > 11) {
+        str += "PM"
+    } else {
+        str += "AM"
+    }
+    return str;
+}
+
+export function getPlayerByTurnOrder(turnOrderNumber) {
+    for (let i = 0; i < main.state.players.length; i++) {
+        if (main.state.players[i].turnOrder === turnOrderNumber) {
+            return main.state.players[i];
+        }
+    }
+}
+export function getPlayerById(id) {
+    for (let i = 0; i < main.state.players.length; i++) {
+        if (main.state.players[i].id === id) {
+            return main.state.players[i];
+        }
+    }
+}
+export function getPlayerMe() {
+    for (let i = 0; i < main.state.players.length; i++) {
+        if (main.state.players[i].isYou) {
+            return main.state.players[i];
+        }
+    }
+}
+export function isObjInHereWithValue(arr, key, val) {
+    // console.log('welcome to isObjInHereWithValue(arr, key, val)...');
+    // console.log('arr', arr);
+    // console.log('key', key);
+    // console.log('val', val);
+    let result = false;
+    arr.map(obj => {
+        if (obj[key] === val) {
+            result = true;
+        }
+    })
+    return result;
+}
+export function getObjInHereWithValue(arr, key, val) {
+    // console.log('welcome to getObjInHereWithValue(arr, key, val)...');
+    // console.log('arr', arr);
+    // console.log('key', key);
+    // console.log('val', val);
+    let result = null;
+    arr.map(obj => {
+        if (obj[key] === val) {
+            result = obj;
+        }
+    })
+    return result;
+}

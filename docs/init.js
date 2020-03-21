@@ -1,12 +1,16 @@
 import * as main from './main.js';
 import * as util from './util.js';
+import * as turn from './turn.js';
 
 export function initialize() {
-    main.state.players.push(addPlayer('Ivan'));
-    main.state.players.push(addPlayer('Jason'));
-    main.state.players.push(addPlayer('Calvin'));
-    main.state.players.push(addPlayer('Gabriel'));
+    main.state.players.push(main.addPlayer('Ivan'));
+    main.state.players[0].isYou = true;
+    main.state.players.push(main.addPlayer('Jason'));
+    main.state.players[1].vp = 4; // testing
+    main.state.players.push(main.addPlayer('Calvin'));
+    main.state.players.push(main.addPlayer('Gabriel'));
 
+    /*
     // establish turnOrder
     let arrayOfPlayers = [];
     main.state.players.map(player => {
@@ -22,63 +26,30 @@ export function initialize() {
 
     // sort the players by their randomized turnOrder
     main.state.players.sort(util.compareValues('turnOrder'));
+
+    main.state.currentPlayerNumber = main.state.players[0].turnOrder;
+    */
+
+    main.state.currentPlayerNumber = main.state.players[0].turnOrder;
+
+    main.state.eqMax = main.state.players.length - 1
+    main.state.equipment.map(eq => {
+        eq.amount = main.state.eqMax;
+    })
+
+    turn.replaceEquipment();
+
+
+
+    util.logit('Game initialization.');
+    
+    util.logit('Replace purchased colony upgrade cards (complete)');
+    util.logit('Distribute production cards (complete)');
+    util.logit('Discard excess production cards (n/a)');
+    util.logit(`Perform player actions...awaiting player(${util.getPlayerByTurnOrder(main.state.currentPlayerNumber).name})`);
+
 }
 
-export function addPlayer(name = 'Larry') {
-    let p = {};
-    p.name = name;
-    p.id = main.state.playerIdSeed;
-    main.state.playerIdSeed++;
-    p.cards = [];
-    p.vp = 3;
-    p.handLimit = 10;
-    p.colonist = 3;
-    p.colonistMax = 5;
-    p.robots = 0;
-    p.factories = [];
-    p.turnOrder = 0;
-
-    p.updateFactoryCounts = function () {
-        let OrCount = 0;
-        let OrManned = 0;
-
-        let WaCount = 0;
-        let WaManned = 0;
-
-        let TiCount = 0;
-        let TiManned = 0;
-
-        this.factories.map(factory => {
-            if (factory.type === "Or") {
-                OrCount++;
-                if (factory.isManned) { OrManned++; }
-            }
-            if (factory.type === "Wa") {
-                WaCount++;
-                if (factory.isManned) { WaManned++; }
-            }
-            if (factory.type === "Ti") {
-                TiCount++;
-                if (factory.isManned) { TiManned++; }
-            }
-        })
-        this.OrCount = OrCount;
-        this.OrManned = OrManned;
-
-        this.WaCount = WaCount;
-        this.WaManned = WaManned;
-
-        this.TiCount = TiCount;
-        this.TiManned = TiManned;
-    }
-    p.dataLibraryCount = 0;
-    p.warehouseCount = 0;
-    p.heavyEquipmentCount = 0;
-    p.noduleCount = 0;
-
-    initialdraw(p);
-    return p;
-}
 
 export function initialdraw(player) {
     player.cards.push(main.drawCard('Or'));

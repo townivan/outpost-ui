@@ -1,6 +1,7 @@
 import * as events from './events.js';
 import * as util from './util.js';
 import * as init from './init.js';
+import * as turn from './turn.js';
 
 // or=Ore wa=Water ti=Titanium re=Research mi=Microbiotics nc=New_Chemicals om=Orbital_Medicine ro=Ring_Ore mo=Moon_Ore
 export const state = {
@@ -11,12 +12,105 @@ export const state = {
     era2Trigger: 10,
     era3Trigger: 35,
     round: 1,
+    currentPlayerNumber: null,
+    currentEra: 1,
+    eqMax: null,
+    equipment: [
+        { id: 0, name: "Data Library", price: 15, era: 1, vp: 1, amount: 0, isUpForBid: false, },
+        { id: 1, name: "Warehouse", price: 25, era: 1, vp: 1, amount: 0, isUpForBid: false, },
+        { id: 3, name: "Heavy Equipment", price: 30, era: 1, vp: 1, amount: 0, isUpForBid: false, },
+        { id: 4, name: "Nodule", price: 25, era: 1, vp: 2, amount: 0, isUpForBid: false, },
+        { id: 5, name: "Scientists", price: 40, era: 2, vp: 2, amount: 0, isUpForBid: false, },
+        { id: 6, name: "Orbital Lab", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, },
+        { id: 7, name: "Robots", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, },
+        { id: 8, name: "Laboratory", price: 80, era: 2, vp: 5, amount: 0, isUpForBid: false, },
+        { id: 9, name: "Ecoplants", price: 30, era: 2, vp: 5, amount: 0, isUpForBid: false, },
+        { id: 10, name: "Outpost", price: 100, era: 2, vp: 5, amount: 0, isUpForBid: false, },
+        { id: 11, name: "Space Station", price: 120, era: 3, vp: 10, amount: 0, isUpForBid: false, },
+        { id: 12, name: "Planetary Cruiser", price: 160, era: 3, vp: 15, amount: 0, isUpForBid: false, },
+        { id: 13, name: "Moonbase", price: 200, era: 3, vp: 20, amount: 0, isUpForBid: false, },
+    ], // seed this during init  {name:"Data Library", price:15, era:1, vp:1, available:3, id=0}, {}
+    eqUpForBidArray: [],
 };
 
 init.initialize();
 events.firstInit();
 console.log(state)
 render();
+
+turn.startRound();
+
+// Sequence of play each round:
+// 1. determine player order
+// 2. replace purchased colony upgrade cards (equipment)
+// 3. distribute production cards
+// 4. discard excess production cards
+// 5. perform player turns
+// 6. check for victory
+
+// Player turn actions:
+// 1. bid on colony upgrade cards (optional)
+// 2. purchase factories (optional)
+// 3. purchase and assign colonists and/or robots (optional)
+// 4. end turn
+
+export function addPlayer(name = 'Larry') {
+    let p = {};
+    p.isYou = false;
+    p.name = name;
+    p.id = state.playerIdSeed;
+    state.playerIdSeed++;
+    p.cards = [];
+    p.vp = 3;
+    p.handLimit = 10;
+    p.colonist = 3;
+    p.colonistMax = 5;
+    p.robots = 0;
+    p.factories = [];
+    p.turnOrder = 0;
+    p.isAwaitingTurn = true;
+
+    p.updateFactoryCounts = function () {
+        let OrCount = 0;
+        let OrManned = 0;
+
+        let WaCount = 0;
+        let WaManned = 0;
+
+        let TiCount = 0;
+        let TiManned = 0;
+
+        this.factories.map(factory => {
+            if (factory.type === "Or") {
+                OrCount++;
+                if (factory.isManned) { OrManned++; }
+            }
+            if (factory.type === "Wa") {
+                WaCount++;
+                if (factory.isManned) { WaManned++; }
+            }
+            if (factory.type === "Ti") {
+                TiCount++;
+                if (factory.isManned) { TiManned++; }
+            }
+        })
+        this.OrCount = OrCount;
+        this.OrManned = OrManned;
+
+        this.WaCount = WaCount;
+        this.WaManned = WaManned;
+
+        this.TiCount = TiCount;
+        this.TiManned = TiManned;
+    }
+    p.dataLibraryCount = 0;
+    p.warehouseCount = 0;
+    p.heavyEquipmentCount = 0;
+    p.noduleCount = 0;
+
+    init.initialdraw(p);
+    return p;
+}
 
 export function render() {
     let cardsMax = 0;
@@ -58,14 +152,14 @@ export function render() {
     events.calcProductionCardSelection();
 
     // render overviewPanel
-    let allOverViewCode = ``;
+    let allOverViewCode = `<div id="availableEq">Eq up for bid: ${state.eqUpForBidArray.toString()}</div>`;
     let rowCode = ``;
 
     rowCode = `<div class="rowOverview">`;
     rowCode += `<div class="overviewCol1">Player(TurnOrder)</div>`;
     state.players.map(player => {
         player.updateFactoryCounts();
-        rowCode += `<div class="overviewColx">${player.name} (${player.turnOrder})</div>`;
+        rowCode += `<div class="overviewColx">${player.name} (${player.isAwaitingTurn ? player.turnOrder : 'X'})</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;

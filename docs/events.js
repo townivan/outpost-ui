@@ -1,6 +1,12 @@
 import * as main from './main.js';
+import * as util from './util.js';
+import * as turn from './turn.js';
 
 export function firstInit() {
+
+    document.getElementById('endTurnBtn').addEventListener('click', function (e) {
+        turn.endTurnBtn();
+    })
 
     document.getElementById('pcardmaster_none').addEventListener('click', function (e) {
         let allPCardMasters = [...document.querySelectorAll('.pcard-master')];
