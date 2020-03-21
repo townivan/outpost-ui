@@ -18,18 +18,30 @@
 
     <section id="overviewPanel"></section>
 
-    <p>Max: <span id="cardsMax">-</span></p>
-    <p>Selected: <span id="cardsSelected">-</span></p>
+    <section id="cardSelectionPanel">
+        <div class="selectArea1">
+            <div class="selectedSummaryNumbersArea1">
+                Selected: 
+                <div class="selectedSummaryNumbersArea2">
+                    <span id="cardsSelected" class="numberSpacer numberSpacerLeft">-</span>&nbsp;of&nbsp;<span id="cardsMax" class="numberSpacer numberSpacerRight">-</span> max.
+                </div>
+            </div>
 
+            <div>
+                <button type="button" id="pcardmaster_none">None</button>
+                <button type="button" id="pcardmaster_all">All</button>
+            </div>
+        </div>
 
-    <br>
-    <div><i class="fas fa-lock-open"></i> Research</div>
-    <div><i class="fas fa-lock-open"></i> Microbiotics</div>
+        <div class="selectLockArea">
+            <div><i class="fas fa-lock-open"></i> Research</div>
+            <div><i class="fas fa-lock-open"></i> Microbiotics</div>
+        </div>
+    </section>
 
-    <div>
-        <button type="button" id="pcardmaster_none">None</button>
-        <button type="button" id="pcardmaster_all">All</button>
-    </div>
+    
+
+    
 
     <section id="productionCardArea">
         <div class="pcardRow">
@@ -48,6 +60,10 @@
 
     <section id="turnActionsArea">
         <button id="endTurnBtn">End Turn</button>
+        <button id="buyBtnColonist">Buy Colonist</button>
+        <button id="buyBtnRobot">Buy Robot</button>
+        <button id="buyBtnOr">Buy Or</button>
+        <button id="buyBtnWa">Buy Wa</button>
     </section>
 
     <section id="purchaseArea"></section>

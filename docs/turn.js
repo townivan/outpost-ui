@@ -107,8 +107,9 @@ export function determinePlayerOrder() {
 
     // shuffle each group
     groups.map(group => {
-        util.shuffleArray(group)
+        util.shuffleArray(group.members)
     })
+    // console.log(groups)
 
     // create array of playerIds in the correct order....
     let orderedPlayerIds = [];
@@ -191,8 +192,7 @@ export function distributeProductionCards(){
         player.cards.map(card =>{
             handWeight+= card.weight
         })
-        //console.log(`the handweight for ${player.name} is ${handWeight}`);
-        //console.log(main.state)
+
         if (handWeight > player.handLimit){
             // sort cards by lowest values first
             player.cards.sort(util.compareValues('value'));
@@ -215,7 +215,6 @@ export function distributeProductionCards(){
             }
             
             console.log('cards: ', player.cards)
-
         }
     })
     main.render();

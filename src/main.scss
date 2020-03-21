@@ -192,6 +192,42 @@ body{
 }
 
 
+#cardSelectionPanel{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+}
+.selectedSummaryNumbersArea1{
+    display: flex;
+}
+.selectedSummaryNumbersArea2{
+    display: flex;
+    justify-content: space-between;
+}
+.numberSpacer{
+    width: 36px;
+    // background-color: pink;
+    &Left{
+        text-align: right;
+    }
+    &Right{
+        text-align: left;
+    }
+}
+
+#turnActionsArea{
+    display: flex;
+}
+
+.selectArea1{
+    display: flex;
+}
+.selectLockArea{
+    display: flex;
+}
+
+
 
 
 

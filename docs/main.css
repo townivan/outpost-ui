@@ -135,6 +135,35 @@ body {
   top: -7px;
   pointer-events: none; }
 
+#cardSelectionPanel {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: .5rem;
+  padding-top: .5rem; }
+
+.selectedSummaryNumbersArea1 {
+  display: flex; }
+
+.selectedSummaryNumbersArea2 {
+  display: flex;
+  justify-content: space-between; }
+
+.numberSpacer {
+  width: 36px; }
+  .numberSpacerLeft {
+    text-align: right; }
+  .numberSpacerRight {
+    text-align: left; }
+
+#turnActionsArea {
+  display: flex; }
+
+.selectArea1 {
+  display: flex; }
+
+.selectLockArea {
+  display: flex; }
+
 .uxform-container {
   margin-bottom: 1.5rem; }
 

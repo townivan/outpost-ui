@@ -8,7 +8,7 @@ export function initialize() {
     main.state.players.push(main.addPlayer('Ivan'));
     main.state.players[0].isYou = true;
     main.state.players.push(main.addPlayer('Jason'));
-    main.state.players[1].vp = 4; // testing
+    // main.state.players[1].vp = 4; // testing
     main.state.players.push(main.addPlayer('Calvin'));
     main.state.players.push(main.addPlayer('Gabriel'));
 
@@ -37,22 +37,12 @@ export function initialize() {
 
 // happens during addPlayer() in main...
 export function initialdraw(player) {
-    let newCard = null;
-
-    // newCard = main.drawCard('Or'); player.cards.push(newCard); if (player.isYou) {util.logit(`You draw ${newCard.cardType}:${newCard.value}`); }
     privateDrawFunction(player, 'Or');
     privateDrawFunction(player, 'Or');
     privateDrawFunction(player, 'Or');
     privateDrawFunction(player, 'Or');
     privateDrawFunction(player, 'Wa');
     privateDrawFunction(player, 'Wa');
-
-    // player.cards.push(main.drawCard('Or'));
-    // player.cards.push(main.drawCard('Or'));
-    // player.cards.push(main.drawCard('Or'));
-    // player.cards.push(main.drawCard('Or'));
-    // player.cards.push(main.drawCard('Wa'));
-    // player.cards.push(main.drawCard('Wa'));
 
     player.factories.push(main.addFactory('Or'));
     player.factories.push(main.addFactory('Or'));
@@ -62,8 +52,6 @@ export function initialdraw(player) {
     })
 
     function privateDrawFunction(player, type){
-        // console.log('privateDrawFunction...')
-        // console.log('player:', player)
         let newCard = null;
         newCard = main.drawCard(type); 
         player.cards.push(newCard); 
