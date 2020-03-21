@@ -108,7 +108,7 @@ export function addPlayer(name = 'Larry') {
     p.heavyEquipmentCount = 0;
     p.noduleCount = 0;
 
-    init.initialdraw(p);
+    //init.initialdraw(p);
     return p;
 }
 
@@ -118,7 +118,7 @@ export function render() {
     let onlyCards_wa = [];
     let allCardCode_or = '';
     let allCardCode_wa = '';
-    state.players[0].cards.map(card => {
+    util.getPlayerMe().cards.map(card => {
         cardsMax += card.value;
         // render cards...
         if (card.cardType === 'Or') {

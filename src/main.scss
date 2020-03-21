@@ -163,6 +163,7 @@ body{
     user-select: none;
     background-color: lighten($Or, 30%);
     width: 80px;
+    margin-bottom: 5px;
     &:active{
         background-color:lightgray;
     }

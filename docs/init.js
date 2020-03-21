@@ -3,6 +3,8 @@ import * as util from './util.js';
 import * as turn from './turn.js';
 
 export function initialize() {
+    util.logit('Game initialization.');
+
     main.state.players.push(main.addPlayer('Ivan'));
     main.state.players[0].isYou = true;
     main.state.players.push(main.addPlayer('Jason'));
@@ -10,39 +12,21 @@ export function initialize() {
     main.state.players.push(main.addPlayer('Calvin'));
     main.state.players.push(main.addPlayer('Gabriel'));
 
-    /*
-    // establish turnOrder
-    let arrayOfPlayers = [];
+    main.state.currentPlayerNumber = main.state.players[0].turnOrder;
+
+    // initial draws
     main.state.players.map(player => {
-        arrayOfPlayers.push(player.id);
+        initialdraw(player);
     })
-    util.shuffleArray(arrayOfPlayers);
-    console.log('arrayOfPlayers:', arrayOfPlayers);
-
-    // assign the randomized turnOrders to each player
-    main.state.players.map((player, i) => {
-        player.turnOrder = arrayOfPlayers[i] + 1;
-    })
-
-    // sort the players by their randomized turnOrder
-    main.state.players.sort(util.compareValues('turnOrder'));
-
-    main.state.currentPlayerNumber = main.state.players[0].turnOrder;
-    */
-
-    main.state.currentPlayerNumber = main.state.players[0].turnOrder;
 
     main.state.eqMax = main.state.players.length - 1
     main.state.equipment.map(eq => {
         eq.amount = main.state.eqMax;
     })
 
-    turn.replaceEquipment();
+    // turn.replaceEquipment();
 
-
-
-    util.logit('Game initialization.');
-    
+       
     util.logit('Replace purchased colony upgrade cards (complete)');
     util.logit('Distribute production cards (complete)');
     util.logit('Discard excess production cards (n/a)');
@@ -51,13 +35,24 @@ export function initialize() {
 }
 
 
+// happens during addPlayer() in main...
 export function initialdraw(player) {
-    player.cards.push(main.drawCard('Or'));
-    player.cards.push(main.drawCard('Or'));
-    player.cards.push(main.drawCard('Or'));
-    player.cards.push(main.drawCard('Or'));
-    player.cards.push(main.drawCard('Wa'));
-    player.cards.push(main.drawCard('Wa'));
+    let newCard = null;
+
+    // newCard = main.drawCard('Or'); player.cards.push(newCard); if (player.isYou) {util.logit(`You draw ${newCard.cardType}:${newCard.value}`); }
+    privateDrawFunction(player, 'Or');
+    privateDrawFunction(player, 'Or');
+    privateDrawFunction(player, 'Or');
+    privateDrawFunction(player, 'Or');
+    privateDrawFunction(player, 'Wa');
+    privateDrawFunction(player, 'Wa');
+
+    // player.cards.push(main.drawCard('Or'));
+    // player.cards.push(main.drawCard('Or'));
+    // player.cards.push(main.drawCard('Or'));
+    // player.cards.push(main.drawCard('Or'));
+    // player.cards.push(main.drawCard('Wa'));
+    // player.cards.push(main.drawCard('Wa'));
 
     player.factories.push(main.addFactory('Or'));
     player.factories.push(main.addFactory('Or'));
@@ -65,5 +60,16 @@ export function initialdraw(player) {
     player.factories.map(factory => {
         factory.isManned = true;
     })
+
+    function privateDrawFunction(player, type){
+        // console.log('privateDrawFunction...')
+        // console.log('player:', player)
+        let newCard = null;
+        newCard = main.drawCard(type); 
+        player.cards.push(newCard); 
+        if (player.isYou) {
+            util.logit(`You draw ${newCard.cardType}:${newCard.value}`); 
+        }
+    }
 }
 

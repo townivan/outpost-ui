@@ -116,7 +116,8 @@ body {
   /* IE 10+ */
   user-select: none;
   background-color: #f6e9df;
-  width: 80px; }
+  width: 80px;
+  margin-bottom: 5px; }
   .pcard:active {
     background-color: lightgray; }
   .pcard_or {
