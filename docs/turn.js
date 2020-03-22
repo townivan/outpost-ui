@@ -219,6 +219,10 @@ export function distributeProductionCards(){
     main.render();
 }
 export function buyColonists(playerId, buyNumber){
+    let purchaseErrorEl = document.getElementById('purchaseError');
+    purchaseErrorEl.innerHTML = ''; // reset any errors
+    let purchaseErrorReasons = '';
+
     buyNumber = buyNumber*1;
     console.log(`welcome to buyColonists(playerId=${playerId})`)
     let player = null;
@@ -231,37 +235,50 @@ export function buyColonists(playerId, buyNumber){
 
     // handle cards via the local player first.
 
-    // get selected cards and total amount
-    // let selectedCards = util.getSelectedCards();
-    // let selectedAmount = 0;
-    // selectedCards.map(card => {
-    //     selectedAmount += card.value;
-    // })
     let selectedAmount = util.getSelectedAmountFromCards();
     console.log('selectedAmount:', selectedAmount)
 
     // calc price of order
-    let unitPrice = 5;
+    let unitPrice = 10;
     // apply discounts here later (todo)
-    // check if this amount would exceed limits (todo)
     let totalCost = buyNumber * unitPrice;
     console.log('totalCost:', totalCost)
 
+    let validPurchase = false;
+    let check1 = false;
+    let check2 = false;
+
     if (selectedAmount >= totalCost){
+        check1 = true;
+    }
+    else{
+        purchaseErrorReasons += `purchase error: selected amount < total cost. `;
+    }
+
+    if ((player.colonist + buyNumber) <= player.colonistMax){
+        check2 = true;
+    }
+    else{
+        purchaseErrorReasons += `purchase error: exceeds player's colonist max. `;
+    }
+    
+    if (check1 && check2){
+        validPurchase = true;
+    }
+
+    if (validPurchase){
         // purchase successful!  process...
-        // add amount of colonists to player
         player.colonist += buyNumber;
-        // remove selected cards from player
         util.spendCards();
         // update VP and render
         main.calcVp();
         main.render();
         util.logit(`${player.name} spends ${selectedAmount}c to purchase ${buyNumber} colonist(s).`);
-        //console.log('main.state:', main.state)
     }
     else {
         // purchase failed! process...
-        console.log('purchase failed!!')
+        console.log('purchase failed!!');
+        purchaseErrorEl.innerHTML = purchaseErrorReasons;
     }
 
 

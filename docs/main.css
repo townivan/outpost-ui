@@ -167,6 +167,9 @@ body {
 .buyNumberInput {
   width: 2rem; }
 
+#purchaseError {
+  color: red; }
+
 .uxform-container {
   margin-bottom: 1.5rem; }
 
