@@ -59,11 +59,20 @@
     </section>
 
     <section id="turnActionsArea">
-        <button id="endTurnBtn">End Turn</button>
-        <button id="buyBtnColonist">Buy Colonist</button>
-        <button id="buyBtnRobot">Buy Robot</button>
-        <button id="buyBtnOr">Buy Or</button>
-        <button id="buyBtnWa">Buy Wa</button>
+        <button type="button" id="endTurnBtn">End Turn</button>
+        <!-- <button type="button" id="buyBtnColonist">Buy Colonist</button>
+        <button type="button" id="buyBtnRobot">Buy Robot</button>
+        <button type="button" id="buyBtnOr">Buy Or</button>
+        <button type="button" id="buyBtnWa">Buy Wa</button> -->
+        --
+        <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
+        <select id="buySelect">
+            <option value="colonist">colonist</option>
+            <option value="robot">robot</option>
+            <option value="factoryOr">factoryOr</option>
+            <option value="factoryWa">factoryWa</option>
+        </select>
+        <button type="button" id="buyButton">Buy</button>
     </section>
 
     <section id="purchaseArea"></section>

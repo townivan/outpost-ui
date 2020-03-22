@@ -139,7 +139,7 @@ export function render() {
     onlyCards_wa.sort(util.compareValues('value'));
     onlyCards_wa.map(card => {
         // const code = `<button type="button" class="pcard pcard_wa" value="${card.value}">${card.value}</button>`;
-        const code = `<button class="pcard pcard_wa" value="${card.value}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        const code = `<button class="pcard pcard_wa" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_wa += code;
     })
 
@@ -313,7 +313,7 @@ export function render() {
  * @param {string} cardType or wa ti re mi nc om ro mo
  * @returns {obj} cardObj
  */
-export function drawCard(cardType) {
+export function drawCard(cardType, playerId) {
     let possibleCards = [];
     if (cardType === 'Or') {
         possibleCards = [1, 2, 3, 4, 5];
@@ -352,6 +352,7 @@ export function drawCard(cardType) {
         value: randomCardValue,
         weight: cardWeight,
         id: state.cardIdSeed,
+        ownerId: playerId,
     }
     state.cardIdSeed++;
     return cardObj;
@@ -369,4 +370,25 @@ export function addFactory(reqType = 'Or') {
     if (reqType === 'Ti') { f.type = reqType; }
     f.isManned = false;
     return f;
+}
+
+export function calcVp(){
+    console.log('welcome to calcVp()...')
+
+    state.players.map(player => {
+        let playerTotalVp = 0;
+        // calc vp from factories
+        player.factories.map(factory => {
+            if (factory.type === "Or") {
+                if (factory.isManned) { playerTotalVp++; }
+            }
+            if (factory.type === "Wa") {
+                if (factory.isManned) { playerTotalVp++; }
+            }
+            if (factory.type === "Ti") {
+                if (factory.isManned) { playerTotalVp = playerTotalVp + 2; }
+            }
+        })
+        player.vp = playerTotalVp;
+    })
 }

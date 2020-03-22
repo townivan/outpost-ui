@@ -4,9 +4,20 @@ import * as turn from './turn.js';
 
 export function firstInit() {
 
+    // turn buttons BEGIN
     document.getElementById('endTurnBtn').addEventListener('click', function (e) {
         turn.endTurnBtn();
     })
+    document.getElementById('buyButton').addEventListener('click', function (e) {
+        let buyNumber = document.getElementById('buyNumber').value;
+        let buySelect = document.getElementById('buySelect');
+        if (buySelect.value === 'colonist'){
+            turn.buyColonists(-1, buyNumber); // (playerId, buyNumber)
+        }
+        
+    })
+    // turn buttons END
+
 
     document.getElementById('pcardmaster_none').addEventListener('click', function (e) {
         let allPCardMasters = [...document.querySelectorAll('.pcard-master')];

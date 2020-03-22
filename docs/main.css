@@ -164,6 +164,9 @@ body {
 .selectLockArea {
   display: flex; }
 
+.buyNumberInput {
+  width: 2rem; }
+
 .uxform-container {
   margin-bottom: 1.5rem; }
 

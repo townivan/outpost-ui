@@ -49,13 +49,13 @@ export function endTurnBtn() {
     endTurn(me)
 }
 export function endTurn(player) {
-    console.log('this player is ending their turn...', player);
+    // console.log('this player is ending their turn...', player);
     util.logit(`${player.name} ends their turn.`);
     player.isAwaitingTurn = false;
 
     if (player.turnOrder == main.state.players.length) {
         // end the round!
-        console.log('end the round!');
+        // console.log('end the round!');
         endRound();
     }
     else {
@@ -68,7 +68,7 @@ export function endTurn(player) {
 }
 
 export function determinePlayerOrder() {
-    console.log('welcome to determinePlayerOrder()...')
+    // console.log('welcome to determinePlayerOrder()...')
     // group by vp values
     // sort by groups
     // shuffle within each group
@@ -109,7 +109,6 @@ export function determinePlayerOrder() {
     groups.map(group => {
         util.shuffleArray(group.members)
     })
-    // console.log(groups)
 
     // create array of playerIds in the correct order....
     let orderedPlayerIds = [];
@@ -219,4 +218,52 @@ export function distributeProductionCards(){
     })
     main.render();
 }
+export function buyColonists(playerId, buyNumber){
+    buyNumber = buyNumber*1;
+    console.log(`welcome to buyColonists(playerId=${playerId})`)
+    let player = null;
+    if (playerId === -1){
+        player = util.getPlayerMe();
+    }
+    else{
+        player = getPlayerById(playerId);
+    }
 
+    // handle cards via the local player first.
+
+    // get selected cards and total amount
+    // let selectedCards = util.getSelectedCards();
+    // let selectedAmount = 0;
+    // selectedCards.map(card => {
+    //     selectedAmount += card.value;
+    // })
+    let selectedAmount = util.getSelectedAmountFromCards();
+    console.log('selectedAmount:', selectedAmount)
+
+    // calc price of order
+    let unitPrice = 5;
+    // apply discounts here later (todo)
+    // check if this amount would exceed limits (todo)
+    let totalCost = buyNumber * unitPrice;
+    console.log('totalCost:', totalCost)
+
+    if (selectedAmount >= totalCost){
+        // purchase successful!  process...
+        // add amount of colonists to player
+        player.colonist += buyNumber;
+        // remove selected cards from player
+        util.spendCards();
+        // update VP and render
+        main.calcVp();
+        main.render();
+        util.logit(`${player.name} spends ${selectedAmount}c to purchase ${buyNumber} colonist(s).`);
+        //console.log('main.state:', main.state)
+    }
+    else {
+        // purchase failed! process...
+        console.log('purchase failed!!')
+    }
+
+
+
+}

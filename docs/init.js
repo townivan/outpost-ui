@@ -53,7 +53,7 @@ export function initialdraw(player) {
 
     function privateDrawFunction(player, type){
         let newCard = null;
-        newCard = main.drawCard(type); 
+        newCard = main.drawCard(type, player.id); 
         player.cards.push(newCard); 
         if (player.isYou) {
             util.logit(`You draw ${newCard.cardType}:${newCard.value}`); 
