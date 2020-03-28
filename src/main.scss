@@ -192,6 +192,41 @@ body{
 }
 
 
+
+.factoryBtn{
+    font-size: 37px;
+    margin-right: 1rem;
+    background-color: transparent;
+    border: 1px black solid;
+    border-radius: 4px;
+    padding: 0 1rem;
+    color: black;
+    border-color: black;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+    background-color: lighten($Or, 30%);
+    width: 80px;
+    margin-bottom: 5px;
+    &:active{
+        background-color:lightgray;
+    }
+    &_Or{
+        background-color: $Or;
+    }
+    &_Wa{
+        background-color: $Wa;
+    }
+}
+.factoryBtn *{
+    pointer-events: none;
+}
+
+
 #cardSelectionPanel{
     display: flex;
     justify-content: space-between;
@@ -235,7 +270,9 @@ body{
 
 
 
-
+.hideme{
+    display: none;
+}
 
 
 

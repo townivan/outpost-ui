@@ -7,8 +7,10 @@ export function initialize() {
 
     main.state.players.push(main.addPlayer('Ivan'));
     main.state.players[0].isYou = true;
+    // main.state.players[0].robotsEqCount = 1; // testing
     main.state.players.push(main.addPlayer('Jason'));
     // main.state.players[1].vp = 4; // testing
+    // main.state.players[1].robotsEqCount = 1; // testing
     main.state.players.push(main.addPlayer('Calvin'));
     main.state.players.push(main.addPlayer('Gabriel'));
 
@@ -44,12 +46,12 @@ export function initialdraw(player) {
     privateDrawFunction(player, 'Wa');
     privateDrawFunction(player, 'Wa');
 
-    player.factories.push(main.addFactory('Or'));
-    player.factories.push(main.addFactory('Or'));
-    player.factories.push(main.addFactory('Wa'));
-    player.factories.map(factory => {
-        factory.isManned = true;
-    })
+    player.factories.push(main.addFactory(player, 'Or'));
+    player.factories.push(main.addFactory(player, 'Or'));
+    player.factories.push(main.addFactory(player, 'Wa'));
+    // player.factories.map(factory => {
+    //     factory.isManned = true;
+    // })
 
     function privateDrawFunction(player, type){
         let newCard = null;

@@ -135,6 +135,38 @@ body {
   top: -7px;
   pointer-events: none; }
 
+.factoryBtn {
+  font-size: 37px;
+  margin-right: 1rem;
+  background-color: transparent;
+  border: 1px black solid;
+  border-radius: 4px;
+  padding: 0 1rem;
+  color: black;
+  border-color: black;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+  /* Chrome all / Safari all */
+  -moz-user-select: none;
+  /* Firefox all */
+  -ms-user-select: none;
+  /* IE 10+ */
+  user-select: none;
+  background-color: #f6e9df;
+  width: 80px;
+  margin-bottom: 5px; }
+  .factoryBtn:active {
+    background-color: lightgray; }
+  .factoryBtn_Or {
+    background-color: #d59667; }
+  .factoryBtn_Wa {
+    background-color: #7789A9; }
+
+.factoryBtn * {
+  pointer-events: none; }
+
 #cardSelectionPanel {
   display: flex;
   justify-content: space-between;
@@ -169,6 +201,9 @@ body {
 
 #purchaseError {
   color: red; }
+
+.hideme {
+  display: none; }
 
 .uxform-container {
   margin-bottom: 1.5rem; }

@@ -4,6 +4,69 @@ import * as turn from './turn.js';
 
 export function firstInit() {
 
+    // document-level event handler
+    document.addEventListener('click',function(e){
+
+        if(e.target && e.target.classList.contains('factoryBtn')){
+            //do something
+            let me = util.getPlayerMe();
+            let hasRobots = false;
+            if (me.robotsEqCount > 0 ){ hasRobots = true; }
+            let thisFactory = util.getObjInHereWithValue(me.factories, 'id', e.target.dataset.guid*1)
+
+            console.log('me:', me)
+            console.log('hasRobots:', hasRobots)
+            console.log('thisFactory:', thisFactory)
+            //console.log('that is a factory');
+            let indicator1 = e.target.querySelector('.indicator1');
+            let indicator2 = e.target.querySelector('.indicator2');
+            let indicator3 = e.target.querySelector('.indicator3');
+
+            if (e.target.dataset.state === 'unmanned'){
+                // increment to...
+                indicator1.classList.add('hideme');
+                indicator2.classList.remove('hideme');
+                indicator3.classList.add('hideme');
+                e.target.dataset.state = "colonist";
+                thisFactory.mannedBy = 'colonist';
+                thisFactory.isManned = true;
+            }
+            else if (e.target.dataset.state === 'colonist'){
+                // increment to...
+                if (hasRobots){
+                    indicator1.classList.add('hideme');
+                    indicator2.classList.add('hideme');
+                    indicator3.classList.remove('hideme');
+                    e.target.dataset.state = "robot";
+                    thisFactory.mannedBy = 'robot';
+                    thisFactory.isManned = true;
+                }
+                else{
+                    indicator1.classList.remove('hideme');
+                    indicator2.classList.add('hideme');
+                    indicator3.classList.add('hideme');
+                    e.target.dataset.state = "unmanned";
+                    thisFactory.mannedBy = 'unmanned';
+                    thisFactory.isManned = false;
+                }
+            }
+            else if (e.target.dataset.state === 'robot'){
+                // increment to...
+                indicator1.classList.remove('hideme');
+                indicator2.classList.add('hideme');
+                indicator3.classList.add('hideme');
+                e.target.dataset.state = "unmanned";
+                thisFactory.mannedBy = 'unmanned';
+                thisFactory.isManned = false;
+            }
+
+            me.updateFactoryCounts();
+            console.log('me:', me)
+            main.render();
+        }
+    });
+
+
     // turn buttons BEGIN
     document.getElementById('endTurnBtn').addEventListener('click', function (e) {
         turn.endTurnBtn();
@@ -17,6 +80,11 @@ export function firstInit() {
         
     })
     // turn buttons END
+
+    // document.getElementById('endTurnBtn').addEventListener('click', function (e) {
+    //     turn.endTurnBtn();
+    // })
+    
 
 
     document.getElementById('pcardmaster_none').addEventListener('click', function (e) {
@@ -131,7 +199,7 @@ export function initCardListeners() {
             calcProductionCardSelection();
         });
     })
-
+    // initFactoryListeners();
 }
 
 export function calcProductionCardSelection() {
@@ -142,3 +210,40 @@ export function calcProductionCardSelection() {
     })
     document.getElementById('cardsSelected').innerHTML = selectedValueSum.toString();
 }
+
+/*
+export function initFactoryListeners() {
+    // console.log('welcome to initFactoryListeners()...')
+    const allFactoryButtons = [...document.querySelectorAll('#turnManageFactoriesArea .factoryBtn')];
+    console.log('allFactoryButtons:', allFactoryButtons)
+    
+
+    allFactoryButtons.map(factory => {
+        
+        if (factory.getAttribute('listener') !== 'true') {
+            factory.addEventListener('click', function (e) {
+
+                console.log('this factory was clicked: ', e.target);
+
+                let cbColonist = e.target.querySelector('.factoryOperatedByColonistCB');
+                let cbRobot = e.target.querySelector('.factoryOperatedByRobotCB');
+                // console.log('cbColonist:', cbColonist)
+                // console.log('cbRobot:', cbRobot)
+
+                console.log('e.target.dataset.state:', e.target.dataset.state)
+                if (e.target.dataset.state === 'manned'){
+                    // increment to...
+                    e.target.dataset.state = "colonist";
+                    cbColonist.checked = true;
+                }
+
+                const elementClicked = e.target;
+                elementClicked.setAttribute('listener', 'true');
+                //console.log('event has been attached');
+            });
+        }
+
+
+    })
+
+}*/

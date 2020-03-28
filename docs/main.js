@@ -8,6 +8,7 @@ export const state = {
     playerIdSeed: 0,
     players: [],
     cardIdSeed: 0,
+    factoryIdSeed: 0,
     localPlayerId: 0,
     era2Trigger: 10,
     era3Trigger: 35,
@@ -39,20 +40,6 @@ console.log(state)
 render();
 
 turn.startRound();
-
-// Sequence of play each round:
-// 1. determine player order
-// 2. replace purchased colony upgrade cards (equipment)
-// 3. distribute production cards
-// 4. discard excess production cards
-// 5. perform player turns
-// 6. check for victory
-
-// Player turn actions:
-// 1. bid on colony upgrade cards (optional)
-// 2. purchase factories (optional)
-// 3. purchase and assign colonists and/or robots (optional)
-// 4. end turn
 
 export function addPlayer(name = 'Larry') {
     let p = {};
@@ -108,9 +95,25 @@ export function addPlayer(name = 'Larry') {
     p.heavyEquipmentCount = 0;
     p.noduleCount = 0;
 
+    p.robotsEqCount = 0;
+
     //init.initialdraw(p);
     return p;
 }
+
+// Sequence of play each round:
+// 1. determine player order
+// 2. replace purchased colony upgrade cards (equipment)
+// 3. distribute production cards
+// 4. discard excess production cards
+// 5. perform player turns
+// 6. check for victory
+
+// Player turn actions:
+// 1. bid on colony upgrade cards (optional)
+// 2. purchase factories (optional)
+// 3. purchase and assign colonists and/or robots (optional)
+// 4. end turn
 
 export function render() {
     let cardsMax = 0;
@@ -118,7 +121,8 @@ export function render() {
     let onlyCards_wa = [];
     let allCardCode_or = '';
     let allCardCode_wa = '';
-    util.getPlayerMe().cards.map(card => {
+    let me = util.getPlayerMe();
+    me.cards.map(card => {
         cardsMax += card.value;
         // render cards...
         if (card.cardType === 'Or') {
@@ -132,14 +136,14 @@ export function render() {
     onlyCards_or.sort(util.compareValues('value'));
     onlyCards_or.map(card => {
         // const code = `<button type="button" class="pcard pcard_or" value="${card.value}">${card.value}</button>`;
-        const code = `<button class="pcard pcard_or" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_or" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_or += code;
     })
 
     onlyCards_wa.sort(util.compareValues('value'));
     onlyCards_wa.map(card => {
         // const code = `<button type="button" class="pcard pcard_wa" value="${card.value}">${card.value}</button>`;
-        const code = `<button class="pcard pcard_wa" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_wa" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_wa += code;
     })
 
@@ -303,6 +307,30 @@ export function render() {
     allOverViewCode += rowCode;
 
 
+    // render player factories
+    let allFactoryCode = '';
+    me.factories.map(factory => {
+        console.log('factory:', factory)
+        allFactoryCode += renderFactory(me, factory)
+    });
+
+    document.getElementById('turnManageFactoriesArea').innerHTML = allFactoryCode;
+
+    function renderFactory(player, factory){
+
+        let factoryTemplate = `
+        <button type="button" class="factoryBtn factoryBtn_${factory.type}" data-state="${factory.mannedBy}" data-ownerId="${player.id}" data-guid="${factory.id}">
+            <i class="fas fa-industry"></i>
+            <i class="fas fa-ban indicator1 ${factory.mannedBy=='unmanned' ? '' : 'hideme'}"></i>
+            <i class="fas fa-user indicator2 ${factory.mannedBy=='colonist' ? '' : 'hideme'}"></i>
+            <i class="fas fa-robot indicator3 ${factory.mannedBy=='robot' ? '' : 'hideme'}"></i>
+        </button>`;
+        return factoryTemplate;
+    }
+
+    // turnManageFactoriesArea
+
+
 
     let overviewPanel = document.getElementById('overviewPanel');
     overviewPanel.innerHTML = allOverViewCode;
@@ -363,12 +391,62 @@ export function drawCard(cardType, playerId) {
 
 
 
-export function addFactory(reqType = 'Or') {
+export function addFactory(player, reqType = 'Or') {
+    // console.log('welcome to addFactory()...');
+    // console.log('player:', player)
     let f = {};
-    if (reqType === 'Or') { f.type = reqType; }
-    if (reqType === 'Wa') { f.type = reqType; }
-    if (reqType === 'Ti') { f.type = reqType; }
+    if (reqType === 'Or') { f.type = reqType; f.ownerId = player.id; }
+    if (reqType === 'Wa') { f.type = reqType; f.ownerId = player.id; }
+    if (reqType === 'Ti') { f.type = reqType; f.ownerId = player.id; }
     f.isManned = false;
+    // auto-man logic attempt
+    f.mannedBy = 'unmanned';
+
+    let availableOperators = 0;
+    let operatorsCurrentlyManningSomething = 0;
+
+    let colonistActivelyManningCount = 0;
+    let robotActivelyManningCount = 0;
+    let availableColonistCount = player.colonist*1;
+    let availableRobotCount = player.robots*1;
+
+    player.factories.map(factory => {
+        if (factory.isManned){
+            operatorsCurrentlyManningSomething++;
+            if (factory.mannedBy == 'colonist'){
+                colonistActivelyManningCount++;
+                availableColonistCount--;
+            }
+            if (factory.mannedBy == 'robot'){
+                robotActivelyManningCount++;
+                availableRobotCount--;
+            }
+        }
+    })
+
+    
+
+    if (player.robotsEqCount == 0){
+        availableOperators = player.colonist*1 - operatorsCurrentlyManningSomething;
+    }
+    else{ // has robots equipment
+        availableOperators = (player.colonist*1)*2 - operatorsCurrentlyManningSomething;
+    }
+    
+    if (availableOperators > 0){
+        f.isManned = true;
+        if (availableColonistCount > 0 ){
+            f.mannedBy = 'colonist'
+        }
+        else{
+            f.mannedBy = 'robot'
+        }
+    }
+    // console.log(`${player.name} has ${player.colonist} colonists.`);
+    // console.log(`${player.name} has ${operatorsCurrentlyManningSomething} operatorsCurrentlyManningSomething.`);
+    // console.log(`${player.name} has ${availableOperators} available operators.`);
+    f.id = state.factoryIdSeed;
+    state.factoryIdSeed++;
     return f;
 }
 

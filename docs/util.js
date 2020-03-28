@@ -107,6 +107,12 @@ export function isObjInHereWithValue(arr, key, val) {
     })
     return result;
 }
+/**
+ * 
+ * @param {array} arr array
+ * @param {string} key 
+ * @param {*} val if looking for a number, make it a number when passing or it won't match
+ */
 export function getObjInHereWithValue(arr, key, val) {
     // console.log('welcome to getObjInHereWithValue(arr, key, val)...');
     // console.log('arr', arr);
