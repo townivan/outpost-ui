@@ -25,12 +25,14 @@ export function firstInit() {
 
             if (e.target.dataset.state === 'unmanned'){
                 // increment to...
-                indicator1.classList.add('hideme');
-                indicator2.classList.remove('hideme');
-                indicator3.classList.add('hideme');
-                e.target.dataset.state = "colonist";
-                thisFactory.mannedBy = 'colonist';
-                thisFactory.isManned = true;
+                if (me.availableColonistCount > 0 || me.availableRobotCount > 0){
+                    indicator1.classList.add('hideme');
+                    indicator2.classList.remove('hideme');
+                    indicator3.classList.add('hideme');
+                    e.target.dataset.state = "colonist";
+                    thisFactory.mannedBy = 'colonist';
+                    thisFactory.isManned = true;
+                }
             }
             else if (e.target.dataset.state === 'colonist'){
                 // increment to...
@@ -62,7 +64,7 @@ export function firstInit() {
             }
 
             me.updateFactoryCounts();
-            console.log('me:', me)
+            // console.log('me:', me)
             main.render();
         }
     });

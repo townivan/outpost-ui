@@ -52,6 +52,8 @@ export function addPlayer(name = 'Larry') {
     p.colonist = 3;
     p.colonistMax = 5;
     p.robots = 0;
+    p.availableColonistCount = 0;
+    p.availableRobotCount = 0;
     p.factories = [];
     p.turnOrder = 0;
     p.isAwaitingTurn = true;
@@ -330,11 +332,14 @@ export function render() {
 
     document.getElementById('factoriesMyAvailableColonists').innerHTML = availableColonistCount;
     document.getElementById('factoriesMyAvailableRobots').innerHTML = availableRobotCount;
+    me.availableColonistCount = availableColonistCount;
+    me.availableRobotCount = availableRobotCount;
+
 
     let allFactoryCode = '';
 
     me.factories.map(factory => {
-        console.log('factory:', factory)
+        // console.log('factory:', factory)
         allFactoryCode += renderFactory(me, factory)
     });
 
@@ -416,9 +421,9 @@ export function drawCard(cardType, playerId) {
 
 
 export function addFactory(player, reqType = 'Or') {
-    console.log('welcome to addFactory()...');
-    console.log('colonist.colonist:', player.colonist)
-    console.log('player:', player)
+    // console.log('welcome to addFactory()...');
+    // console.log('colonist.colonist:', player.colonist)
+    // console.log('player:', player)
     let f = {};
     if (reqType === 'Or') { f.type = reqType; f.ownerId = player.id; }
     if (reqType === 'Wa') { f.type = reqType; f.ownerId = player.id; }
@@ -453,6 +458,8 @@ export function addFactory(player, reqType = 'Or') {
     player.availableRobotCount = availableRobotCount;
     document.getElementById('factoriesMyAvailableColonists').innerHTML = availableColonistCount;
     document.getElementById('factoriesMyAvailableRobots').innerHTML = availableRobotCount;
+    player.availableColonistCount = availableColonistCount;
+    player.availableRobotCount = availableRobotCount;
     
 
     if (player.robotsEqCount == 0){
@@ -480,7 +487,7 @@ export function addFactory(player, reqType = 'Or') {
 }
 
 export function calcVp(){
-    console.log('welcome to calcVp()...')
+    // console.log('welcome to calcVp()...')
 
     state.players.map(player => {
         let playerTotalVp = 0;
