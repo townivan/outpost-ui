@@ -5,14 +5,17 @@ import * as turn from './turn.js';
 export function initialize() {
     util.logit('Game initialization.');
 
-    main.state.players.push(main.addPlayer('Ivan'));
-    main.state.players[0].isYou = true;
+    // main.state.players.push(main.addPlayer('Ivan'));
+    // main.state.players[0].isYou = true;
     // main.state.players[0].robotsEqCount = 1; // testing
     main.state.players.push(main.addPlayer('Jason'));
     // main.state.players[1].vp = 4; // testing
     // main.state.players[1].robotsEqCount = 1; // testing
     main.state.players.push(main.addPlayer('Calvin'));
+    main.state.players.push(main.addPlayer('Ivan'));
+    main.state.players[2].isYou = true;
     main.state.players.push(main.addPlayer('Gabriel'));
+    
 
     main.state.currentPlayerNumber = main.state.players[0].turnOrder;
 

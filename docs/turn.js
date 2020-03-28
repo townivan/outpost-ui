@@ -1,5 +1,6 @@
 import * as main from './main.js';
 import * as util from './util.js';
+import * as ai from './ai.js';
 
 
 
@@ -375,7 +376,9 @@ export function startBid(){
     if (!main.state.bidstate.isActive){  // if there isn't already an active bid (just to be safe)
         main.state.bidstate.isActive = true;
         bidInit();
+        ai.startAiBidding();
     }
+
 
 
 }
@@ -422,7 +425,7 @@ function bidInit(){
 
     // update upcoming bid data
     document.getElementById('newBidAmountInput').value = biddableInitialAmount*1 + 1;
-    
+
 
     
 }
