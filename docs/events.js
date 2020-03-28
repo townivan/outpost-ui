@@ -14,9 +14,10 @@ export function firstInit() {
             if (me.robotsEqCount > 0 ){ hasRobots = true; }
             let thisFactory = util.getObjInHereWithValue(me.factories, 'id', e.target.dataset.guid*1)
 
-            console.log('me:', me)
-            console.log('hasRobots:', hasRobots)
-            console.log('thisFactory:', thisFactory)
+            // console.log('me:', me)
+            // console.log('hasRobots:', hasRobots)
+            // console.log('thisFactory:', thisFactory)
+
             //console.log('that is a factory');
             let indicator1 = e.target.querySelector('.indicator1');
             let indicator2 = e.target.querySelector('.indicator2');
@@ -72,10 +73,14 @@ export function firstInit() {
         turn.endTurnBtn();
     })
     document.getElementById('buyButton').addEventListener('click', function (e) {
+        let me = util.getPlayerMe();
         let buyNumber = document.getElementById('buyNumber').value;
         let buySelect = document.getElementById('buySelect');
         if (buySelect.value === 'colonist'){
-            turn.buyColonists(-1, buyNumber); // (playerId, buyNumber)
+            turn.buyColonists(me, buyNumber); // (player, buyNumber)
+        }
+        if (buySelect.value.includes('factory')){
+            turn.buyFactory(me, buyNumber, buySelect.value); // (player, buyNumber)
         }
         
     })

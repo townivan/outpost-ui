@@ -218,20 +218,21 @@ export function distributeProductionCards(){
     })
     main.render();
 }
-export function buyColonists(playerId, buyNumber){
+export function buyColonists(player, buyNumber){
+    console.log('welcome to buyColonists()...');
     let purchaseErrorEl = document.getElementById('purchaseError');
     purchaseErrorEl.innerHTML = ''; // reset any errors
     let purchaseErrorReasons = '';
 
     buyNumber = buyNumber*1;
-    console.log(`welcome to buyColonists(playerId=${playerId})`)
-    let player = null;
-    if (playerId === -1){
-        player = util.getPlayerMe();
-    }
-    else{
-        player = getPlayerById(playerId);
-    }
+    console.log(`welcome to buyColonists(player=${player.name})`)
+    // let player = null;
+    // if (playerId === -1){
+    //     player = util.getPlayerMe();
+    // }
+    // else{
+    //     player = getPlayerById(playerId);
+    // }
 
     // handle cards via the local player first.
 
@@ -282,5 +283,69 @@ export function buyColonists(playerId, buyNumber){
     }
 
 
+
+}
+export function buyFactory(player, buyNumber, factoryType){
+    console.log('welcome to buyFactory()...');
+    console.log('player:', player);
+    console.log('buyNumber:', buyNumber);
+    console.log('factoryType:', factoryType);
+
+    let purchaseErrorEl = document.getElementById('purchaseError');
+    purchaseErrorEl.innerHTML = ''; // reset any errors
+    let purchaseErrorReasons = '';
+
+    buyNumber = buyNumber*1;
+
+    let selectedAmount = util.getSelectedAmountFromCards();
+    console.log('selectedAmount:', selectedAmount)
+
+    // calc price of order
+    let unitPrice = null;
+    if (factoryType == 'factoryOr'){ unitPrice = 10; }
+    if (factoryType == 'factoryWa'){ unitPrice = 20; }
+    // apply discounts here later (todo)
+    let totalCost = buyNumber * unitPrice;
+    console.log('totalCost:', totalCost)
+
+    let validPurchase = false;
+    let check1 = false;
+    let check2 = false;
+
+    if (selectedAmount >= totalCost){
+        check1 = true;
+    }
+    else{
+        purchaseErrorReasons += `purchase error: selected amount < total cost. `;
+    }
+
+    // ## add rules for purchasing factories here.  (like the New Chemicals rule) TODO
+    check2 = true;
+    // if ((player.colonist + buyNumber) <= player.colonistMax){
+    //     check2 = true;
+    // }
+    // else{
+    //     purchaseErrorReasons += `purchase error: exceeds player's colonist max. `;
+    // }
+    
+    if (check1 && check2){
+        validPurchase = true;
+    }
+
+    if (validPurchase){
+        // purchase successful!  process...
+        if (factoryType == 'factoryOr'){ player.factories.push(main.addFactory(player, 'Or')); }
+        if (factoryType == 'factoryWa'){ player.factories.push(main.addFactory(player, 'Wa')); }
+        util.spendCards();
+        // update VP and render
+        main.calcVp();
+        main.render();
+        util.logit(`${player.name} spends ${selectedAmount}c to purchase ${buyNumber} ${factoryType} factory(s).`);
+    }
+    else {
+        // purchase failed! process...
+        console.log('purchase failed!!');
+        purchaseErrorEl.innerHTML = purchaseErrorReasons;
+    }
 
 }

@@ -162,7 +162,7 @@ export function render() {
     rowCode += `<div class="overviewCol1">Player(TurnOrder)</div>`;
     state.players.map(player => {
         player.updateFactoryCounts();
-        rowCode += `<div class="overviewColx">${player.name} (${player.isAwaitingTurn ? player.turnOrder : 'X'})</div>`;
+        rowCode += `<div class="overviewColx ${player.isYou ? 'highlightme' : ''}">${player.name} (${player.isAwaitingTurn ? player.turnOrder : 'X'})</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
@@ -314,13 +314,31 @@ export function render() {
 
 
     // render player factories
+    let availableColonistCount = me.colonist*1;
+    let availableRobotCount = me.robots*1;
+
+    me.factories.map(factory => {
+        if (factory.isManned){
+            if (factory.mannedBy == 'colonist'){
+                availableColonistCount--;
+            }
+            if (factory.mannedBy == 'robot'){
+                availableRobotCount--;
+            }
+        }
+    })
+
+    document.getElementById('factoriesMyAvailableColonists').innerHTML = availableColonistCount;
+    document.getElementById('factoriesMyAvailableRobots').innerHTML = availableRobotCount;
+
     let allFactoryCode = '';
+
     me.factories.map(factory => {
         console.log('factory:', factory)
         allFactoryCode += renderFactory(me, factory)
     });
 
-    document.getElementById('turnManageFactoriesArea').innerHTML = allFactoryCode;
+    document.getElementById('turnManageFactoriesInsert').innerHTML = allFactoryCode;
 
     function renderFactory(player, factory){
 
@@ -398,8 +416,9 @@ export function drawCard(cardType, playerId) {
 
 
 export function addFactory(player, reqType = 'Or') {
-    // console.log('welcome to addFactory()...');
-    // console.log('player:', player)
+    console.log('welcome to addFactory()...');
+    console.log('colonist.colonist:', player.colonist)
+    console.log('player:', player)
     let f = {};
     if (reqType === 'Or') { f.type = reqType; f.ownerId = player.id; }
     if (reqType === 'Wa') { f.type = reqType; f.ownerId = player.id; }
@@ -430,6 +449,10 @@ export function addFactory(player, reqType = 'Or') {
         }
     })
 
+    player.availableColonistCount = availableColonistCount;
+    player.availableRobotCount = availableRobotCount;
+    document.getElementById('factoriesMyAvailableColonists').innerHTML = availableColonistCount;
+    document.getElementById('factoriesMyAvailableRobots').innerHTML = availableRobotCount;
     
 
     if (player.robotsEqCount == 0){
