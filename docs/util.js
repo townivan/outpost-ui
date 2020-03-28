@@ -163,3 +163,24 @@ export function spendCards(){
 export function simpleArrayContains(arr, value){
     return (arr.indexOf(value) > -1);
 }
+
+// ai util stuff.
+export function getMaxHandValue(player){
+    let sum = 0;
+    player.cards.map(card => {
+        sum += card.value*1;
+    })
+    return sum;
+}
+export function randomBool(){ // https://stackoverflow.com/a/36756561
+    var a = new Uint8Array(1);
+    crypto.getRandomValues(a);
+    return a[0] > 127;
+}
+export function stupidSelectCardsToPay(player, targetValue){ // sums lowest value cards until target value achieved
+    console.log('welcome to stupidSelectCardsToPay()...')
+    var clonedCards = JSON.parse(JSON.stringify(player.cards))
+    clonedCards.sort(compareValues('value'));
+    console.log('clonedCards:', clonedCards)
+    // clonedCards.sort(util.compareValues('value', 'desc'));
+}

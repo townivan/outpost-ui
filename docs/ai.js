@@ -63,4 +63,8 @@ export function startAiBidding(){
 function counterBid(player) {
     console.log('welcome to counterBid()...');
     console.log('player:', player);
+    console.log(`${player.name}'s max hand value is ${util.getMaxHandValue(player)}`)
+    console.log('randomBool():', util.randomBool());
+
+    util.stupidSelectCardsToPay(player, 20);
 }
