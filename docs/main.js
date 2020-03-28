@@ -37,9 +37,8 @@ export const state = {
 init.initialize();
 events.firstInit();
 console.log(state)
-render();
-
 turn.startRound();
+render();
 
 export function addPlayer(name = 'Larry') {
     let p = {};
@@ -250,37 +249,44 @@ export function render() {
 
     // now for equipment...
 
+    //state.eqUpForBidArray
+    let gotEq = false;
+    
+    gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Data Library');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1">Data Library (2 left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Data Library (2 left)</div>`;
     state.players.map(player => {
-        rowCode += `<div class="overviewColx">${player.dataLibraryCount}</div>`;
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.dataLibraryCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
 
 
+    gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Warehouse');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1">Warehouse (2 left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Warehouse (2 left)</div>`;
     state.players.map(player => {
-        rowCode += `<div class="overviewColx">${player.warehouseCount}</div>`;
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.warehouseCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
 
 
+    gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Heavy Equipment');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1">Heavy Equipment (2 left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Heavy Equipment (2 left)</div>`;
     state.players.map(player => {
-        rowCode += `<div class="overviewColx">${player.heavyEquipmentCount}</div>`;
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.heavyEquipmentCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
 
 
+    gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Nodule');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1">Nodule (2 left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Nodule (2 left)</div>`;
     state.players.map(player => {
-        rowCode += `<div class="overviewColx">${player.noduleCount}</div>`;
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.noduleCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;

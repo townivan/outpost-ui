@@ -167,6 +167,9 @@ body {
 .factoryBtn * {
   pointer-events: none; }
 
+.highlightme {
+  background-color: lightyellow; }
+
 #cardSelectionPanel {
   display: flex;
   justify-content: space-between;
