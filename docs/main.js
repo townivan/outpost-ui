@@ -7,6 +7,7 @@ import * as turn from './turn.js';
 export const state = {
     playerIdSeed: 0,
     players: [],
+    seatSeed: 0,
     cardIdSeed: 0,
     factoryIdSeed: 0,
     localPlayerId: 0,
@@ -17,10 +18,10 @@ export const state = {
     currentEra: 1,
     eqMax: null,
     equipment: [
-        { id: 0, name: "Data Library", price: 15, era: 1, vp: 1, amount: 0, isUpForBid: false, },
-        { id: 1, name: "Warehouse", price: 25, era: 1, vp: 1, amount: 0, isUpForBid: false, },
-        { id: 3, name: "Heavy Equipment", price: 30, era: 1, vp: 1, amount: 0, isUpForBid: false, },
-        { id: 4, name: "Nodule", price: 25, era: 1, vp: 2, amount: 0, isUpForBid: false, },
+        { id: 0, name: "Data Library", price: 15, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul>`, },
+        { id: 1, name: "Warehouse", price: 25, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Warehouse [c25] (1vp) era1</div><ul><li>+5 Hand Limit.</li></ul>`, },
+        { id: 3, name: "Heavy Equipment", price: 30, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Heavy Equipment [c30] (1vp) era1</div><ul><li>Required to purchase Titanium Factories</li><li>c5 discount on <strong>Nodule</strong> cards.</li><li>c5 discount on <strong>Warehouse</strong> cards.</li><li>c15 discount on <strong>Outpost</strong> cards.</li></ul>`, },
+        { id: 4, name: "Nodule", price: 25, era: 1, vp: 2, amount: 0, isUpForBid: false, desc: `<div>Nodule [c25] (2vp) era1</div><ul><li>+3 Colony Support Limit.</li></ul>`, },
         { id: 5, name: "Scientists", price: 40, era: 2, vp: 2, amount: 0, isUpForBid: false, },
         { id: 6, name: "Orbital Lab", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, },
         { id: 7, name: "Robots", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, },
@@ -32,6 +33,15 @@ export const state = {
         { id: 13, name: "Moonbase", price: 200, era: 3, vp: 20, amount: 0, isUpForBid: false, },
     ], // seed this during init  {name:"Data Library", price:15, era:1, vp:1, available:3, id=0}, {}
     eqUpForBidArray: [],
+    playerIdsBySeatArray: [],
+    bidstate: {
+        isActive: false,
+        players: [],
+        eq: null,
+        round: 0,
+        currentLeaderId: null,
+        currentValue: 0,
+    },
 };
 
 init.initialize();
@@ -46,6 +56,8 @@ export function addPlayer(name = 'Larry') {
     p.name = name;
     p.id = state.playerIdSeed;
     state.playerIdSeed++;
+    p.seat = state.seatSeed;
+    state.seatSeed++;
     p.cards = [];
     p.vp = 3;
     p.handLimit = 10;

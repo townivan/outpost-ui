@@ -84,13 +84,17 @@ export function firstInit() {
         if (buySelect.value.includes('factory')){
             turn.buyFactory(me, buyNumber, buySelect.value); // (player, buyNumber)
         }
-        
+    })
+    document.getElementById('biddableSelect').addEventListener('change', function (e) {
+        let selectValue = this.options[this.selectedIndex].value;
+        let selectedEq = util.getObjInHereWithValue(main.state.equipment, 'name', selectValue);
+        document.getElementById('biddableInitialAmount').value = selectedEq.price;
     })
     // turn buttons END
 
-    // document.getElementById('endTurnBtn').addEventListener('click', function (e) {
-    //     turn.endTurnBtn();
-    // })
+    document.getElementById('biddableStartBid').addEventListener('click', function (e) {
+        turn.startBid();
+    })
     
 
 

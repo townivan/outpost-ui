@@ -60,45 +60,67 @@
 
     <section id="turnActionsArea">
         <button type="button" id="endTurnBtn">End Turn</button>
-        <!-- <button type="button" id="buyBtnColonist">Buy Colonist</button>
-        <button type="button" id="buyBtnRobot">Buy Robot</button>
-        <button type="button" id="buyBtnOr">Buy Or</button>
-        <button type="button" id="buyBtnWa">Buy Wa</button> -->
         --
-        <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
-        <select id="buySelect">
-            <option value="colonist">colonist</option>
-            <option value="robot">robot</option>
-            <option value="factoryOr">factoryOr</option>
-            <option value="factoryWa">factoryWa</option>
-        </select>
-        <button type="button" id="buyButton">Buy</button>
-        <div id="purchaseError"></div>
+        <div>
+            <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
+            <select id="buySelect">
+                <option value="colonist">colonist</option>
+                <option value="robot">robot</option>
+                <option value="factoryOr">factoryOr</option>
+                <option value="factoryWa">factoryWa</option>
+            </select>
+            <button type="button" id="buyButton">Buy</button>
+            <div id="purchaseError"></div>
+        </div>
+        --
+        <div>
+            Equipment:
+            <select id="biddableSelect"></select><!-- updated in turn.replaceEquipment()-->
+            <input id="biddableInitialAmount" type="number" />
+            <button type="button" id="biddableStartBid">Bid</button>
+        </div>
     </section>
     <br>
-    <!-- <div>
-        <button type="button" class="factoryBtn factoryBtn_Or" data-state="unmanned">
-            <i class="fas fa-industry"></i>
-            <i class="fas fa-ban indicator1"></i>
-            <i class="fas fa-user indicator2 hideme"></i>
-            <i class="fas fa-robot indicator3 hideme"></i>
-        </button>
 
-        <button type="button" class="factoryBtn factoryBtn_Or" data-state="unmanned">
-            <i class="fas fa-industry"></i>
-            <i class="fas fa-ban indicator1"></i>
-            <i class="fas fa-user indicator2 hideme"></i>
-            <i class="fas fa-robot indicator3 hideme"></i>
-        </button>
+    <section id="biddingArea">
+        <div id="biddingClosedArea">There are currently no active bids.</div>
+        <div id="biddingOpenArea">
+            <div id="biddingPlayerListArea" class="biddingPlayerListArea">
+                <div class="biddingPlayerBox">
+                    <div class="biddingPlayerBox--statusHeader">waiting...</div>
+                    <div class="biddingPlayerBox--nameLabel">Player B</div>
+                    <div class="biddingPlayerBox--flag"></div>
+                </div>
 
-        <button type="button" class="factoryBtn factoryBtn_Wa" data-state="unmanned">
-            <i class="fas fa-industry"></i>
-            <i class="fas fa-ban indicator1"></i>
-            <i class="fas fa-user indicator2 hideme"></i>
-            <i class="fas fa-robot indicator3 hideme"></i>
-        </button>
-    </div>
-    <br> -->
+                <div class="biddingPlayerBox">
+                    <div class="biddingPlayerBox--statusHeader">waiting...</div>
+                    <div class="biddingPlayerBox--nameLabel">Player A</div>
+                    <div class="biddingPlayerBox--flag"></div>
+                </div>
+
+                <div class="biddingPlayerBox">
+                    <div class="biddingPlayerBox--statusHeader">active</div>
+                    <div class="biddingPlayerBox--nameLabel">Player C</div>
+                    <div class="biddingPlayerBox--flag"></div>
+                </div>
+            </div>
+
+            <div id="biddingEqUpForBidDesc">
+                <!-- <div id="biddingEqUpForBidDesc--name">Data Library</div> -->
+                <div id="biddingEqUpForBidDesc--desc">
+                    <div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul>
+                </div>
+                <div id="biddingEqUpForBidDesc--currentBid">Current bid 25c by Player A</div>
+                <div id="biddingEqUpForBidDesc--actionsArea">
+                    <input type="number" id="newBidAmountInput" value="26" /> 
+                    <button type="button">bid</button> or 
+                    <button type="button">pass</button> or 
+                    <button type="button">pass all</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="turnManageFactoriesArea">
 
         <div>
@@ -110,6 +132,7 @@
     </section>
 
     <section id="purchaseArea"></section>
+
 
     <section id="logArea">
         <div id="log"></div>

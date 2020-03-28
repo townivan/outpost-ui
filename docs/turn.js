@@ -171,12 +171,24 @@ export function replaceEquipment() {
 
     console.log('main.state.eqUpForBidArray:', main.state.eqUpForBidArray)
 
+    // update biddableSelect select
+    let biddableSelectEl = document.getElementById('biddableSelect');
+    let biddableSelectCode = ''
+    main.state.eqUpForBidArray.map(eq => {
+        biddableSelectCode += `<option value="${eq}">${eq}</option>`;
+    })
+    biddableSelectEl.innerHTML = biddableSelectCode;
+
+    let selectValue = biddableSelectEl.options[biddableSelectEl.selectedIndex].value;
+    let selectedEq = util.getObjInHereWithValue(main.state.equipment, 'name', selectValue);
+    document.getElementById('biddableInitialAmount').value = selectedEq.price;
+
 }
 export function distributeProductionCards(){
     console.log('welcome to distributeProductionCards()...');
     
     main.state.players.map(player => {
-        console.log('player:', player)
+        // console.log('player:', player)
         player.factories.map(factory => {
             if (factory.isManned){
                 let newCard = main.drawCard(factory.type);
@@ -207,13 +219,13 @@ export function distributeProductionCards(){
                     break;
                 }
             }
-            console.log('shiftCount:', shiftCount)
+            // console.log('shiftCount:', shiftCount)
             // remove shiftCount items from the start of the array
             for (let i=0; i<shiftCount; i++){
                 player.cards.shift(); 
             }
             
-            console.log('cards: ', player.cards)
+            // console.log('cards: ', player.cards)
         }
     })
     main.render();
@@ -348,4 +360,69 @@ export function buyFactory(player, buyNumber, factoryType){
         purchaseErrorEl.innerHTML = purchaseErrorReasons;
     }
 
+}
+export function startBid(){
+    console.log('welcome to startBid()...')
+    console.log('main.state.players:', main.state.players)// this should be in vp order already...
+    // bidstate: {
+    //     isActive
+    //     players: [],
+    //     eq: null,
+    //     round: 0,
+    //     currentLeaderId: null
+
+    // this should be disabled if a bid is already active....so...
+    if (!main.state.bidstate.isActive){  // if there isn't already an active bid (just to be safe)
+        main.state.bidstate.isActive = true;
+        bidInit();
+    }
+
+
+}
+function bidInit(){
+    let me = util.getPlayerMe();
+    let bid = main.state.bidstate;
+    main.state.players.map(player => {
+        bid.players.push(player);
+    })
+
+    // sort groups highest vp first
+    bid.players.sort(util.compareValues('seat'));
+    console.log('bid:', bid)
+
+    let biddingPlayerBoxesCode = '';
+    bid.players.map(player => {
+        biddingPlayerBoxesCode += getBoxCode(player);
+    })
+    document.getElementById('biddingPlayerListArea').innerHTML = biddingPlayerBoxesCode;
+
+    function getBoxCode(player){
+        let code = `
+        <div class="biddingPlayerBox">
+            <div class="biddingPlayerBox--statusHeader">${player.isYou ? '<strong>active</strong>' : 'waiting...'}</div>
+            <div class="biddingPlayerBox--nameLabel">${player.name}</div>
+            <div class="biddingPlayerBox--flag"></div>
+        </div>`;
+        return code;
+    }
+
+    // biddingEqUpForBidDesc--desc
+    let biddableSelect = document.getElementById('biddableSelect').value;
+    let targetEq = util.getObjInHereWithValue(main.state.equipment, 'name', biddableSelect); 
+    document.getElementById('biddingEqUpForBidDesc--desc').innerHTML = targetEq.desc;
+
+    //biddingEqUpForBidDesc--currentBid
+    let biddableInitialAmount = document.getElementById('biddableInitialAmount').value;
+    let message = `Current bid ${biddableInitialAmount}c by ${me.name}`;
+    document.getElementById('biddingEqUpForBidDesc--currentBid').innerHTML = message;
+
+    // update bid
+    bid.currentValue = biddableInitialAmount;
+    bid.currentLeaderId = me.id;
+
+    // update upcoming bid data
+    document.getElementById('newBidAmountInput').value = biddableInitialAmount*1 + 1;
+    
+
+    
 }

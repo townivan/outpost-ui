@@ -19,14 +19,13 @@ export function initialize() {
     // initial draws
     main.state.players.map(player => {
         initialdraw(player);
+        main.state.playerIdsBySeatArray.push(player.seat); // save the inital player seat order
     })
 
     main.state.eqMax = main.state.players.length - 1
     main.state.equipment.map(eq => {
         eq.amount = main.state.eqMax;
     })
-
-    // turn.replaceEquipment();
 
        
     util.logit('Replace purchased colony upgrade cards (complete)');
