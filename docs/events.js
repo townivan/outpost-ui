@@ -1,6 +1,7 @@
 import * as main from './main.js';
 import * as util from './util.js';
 import * as turn from './turn.js';
+import * as bid from './bid.js';
 
 export function firstInit() {
 
@@ -93,7 +94,12 @@ export function firstInit() {
     // turn buttons END
 
     document.getElementById('biddableStartBid').addEventListener('click', function (e) {
-        turn.startBid();
+        // turn.startBid();
+        let me = util.getPlayerMe();
+        let bidAmt = document.getElementById('biddableInitialAmount').value * 1;
+        let biddableSelect = document.getElementById('biddableSelect').value;
+        let targetEq = util.getObjInHereWithValue(main.state.equipment, 'name', biddableSelect);
+        bid.startBid(me, bidAmt, targetEq);
     })
     
 

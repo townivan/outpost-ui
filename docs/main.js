@@ -34,14 +34,20 @@ export const state = {
     ], // seed this during init  {name:"Data Library", price:15, era:1, vp:1, available:3, id=0}, {}
     eqUpForBidArray: [],
     playerIdsBySeatArray: [],
-    bidstate: {
-        isActive: false,
-        players: [],
-        eq: null,
-        round: 0,
-        currentLeaderId: null,
-        currentValue: 0,
-    },
+    // bidstate: {
+    //     isActive: false,
+    //     players: [],
+    //     eq: null,
+    //     round: 0,
+    //     currentLeaderId: null,
+    //     currentValue: 0,
+    // },
+    bid_isBiddingActive: false,
+    bid_players: [],
+    bid_currentBid: null,
+    bid_leader: null,
+    bid_round: 1,
+    bid_equipment: null,
 };
 
 init.initialize();
@@ -109,6 +115,8 @@ export function addPlayer(name = 'Larry') {
     p.noduleCount = 0;
 
     p.robotsEqCount = 0;
+    p.playerSeatedAfterMe = null;
+    p.bidStatus = null;
 
     //init.initialdraw(p);
     return p;

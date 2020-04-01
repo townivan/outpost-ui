@@ -4,6 +4,7 @@ import * as ai from './ai.js';
 
 
 
+
 export function startRound() {
     // 1. determine player order
     determinePlayerOrder();
@@ -362,6 +363,7 @@ export function buyFactory(player, buyNumber, factoryType){
     }
 
 }
+/*
 export function startBid(){
     console.log('welcome to startBid()...')
     console.log('main.state.players:', main.state.players)// this should be in vp order already...
@@ -378,9 +380,6 @@ export function startBid(){
         bidInit();
         ai.startAiBidding();
     }
-
-
-
 }
 function bidInit(){
     let me = util.getPlayerMe();
@@ -429,3 +428,4 @@ function bidInit(){
 
     
 }
+*/

@@ -20,9 +20,17 @@ export function initialize() {
     main.state.currentPlayerNumber = main.state.players[0].turnOrder;
 
     // initial draws
-    main.state.players.map(player => {
+    main.state.players.map((player,i) => {
         initialdraw(player);
         main.state.playerIdsBySeatArray.push(player.seat); // save the inital player seat order
+        // set playerSeatedAfterMe for bidding
+        if (i < main.state.players.length-1){
+            player.playerSeatedAfterMe = main.state.players[i+1]
+        }
+        else{
+            // last one, next = first
+            player.playerSeatedAfterMe = main.state.players[0]
+        }
     })
 
     main.state.eqMax = main.state.players.length - 1
@@ -35,7 +43,6 @@ export function initialize() {
     util.logit('Distribute production cards (complete)');
     util.logit('Discard excess production cards (n/a)');
     util.logit(`Perform player actions...awaiting player(${util.getPlayerByTurnOrder(main.state.currentPlayerNumber).name})`);
-
 }
 
 

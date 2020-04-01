@@ -205,6 +205,9 @@ body {
 #purchaseError {
   color: red; }
 
+#bidError {
+  color: red; }
+
 .biddingPlayerListArea {
   display: flex; }
 
