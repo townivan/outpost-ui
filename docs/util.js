@@ -179,10 +179,23 @@ export function randomBool(){ // https://stackoverflow.com/a/36756561
 }
 export function stupidSelectCardsToPay(player, targetValue){ // sums lowest value cards until target value achieved
     console.log('welcome to stupidSelectCardsToPay()...')
-    var clonedCards = JSON.parse(JSON.stringify(player.cards))
-    clonedCards.sort(compareValues('value'));
-    console.log('clonedCards:', clonedCards)
+    // var clonedCards = JSON.parse(JSON.stringify(player.cards))
+    // clonedCards.sort(compareValues('value'));
+    player.cards.sort(compareValues('value'));
+    // console.log('clonedCards:', clonedCards)
     // clonedCards.sort(util.compareValues('value', 'desc'));
+    let selectedCards = [];
+    let selectedSum = 0;
+    // for (let x=0; x<clonedCards.length; x++){
+    for (let x=0; x<player.cards.length; x++){
+        selectedCards.push(player.cards[x]);
+        selectedSum += player.cards[x].value;
+        if (selectedSum >= targetValue*1){
+            break;
+        }
+    }
+    // console.log('selectedCards:', selectedCards)
+    return selectedCards;
 }
 export function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -194,4 +207,11 @@ export function printEqUpForBid(){
     })
     str = str.replace(/,\s*$/, "");
     return str;
+}
+export function printSeatOrder(){
+    let seatOrderReminder = '';
+    main.state.playerIdsBySeatArray.map(id => {
+        seatOrderReminder += getPlayerById(id).name + ' '
+    })
+    console.log('seatOrder:', seatOrderReminder)
 }

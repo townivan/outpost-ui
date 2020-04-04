@@ -44,11 +44,12 @@ export const state = {
     //     currentLeaderId: null,
     //     currentValue: 0,
     // },
-    bid_isBiddingActive: false,
-    bid_players: [],
+
+    // bid_isBiddingActive: false,
+    // bid_players: [],
     bid_currentBid: null,
     bid_leader: null,
-    bid_round: 1,
+    // bid_round: 1,
     bid_equipment: null,
 };
 
@@ -340,7 +341,13 @@ export function render() {
     rowCode = `<div class="rowOverview">`;
     rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Warehouse (${warehouseCount} left)</div>`;
     state.players.map(player => {
-        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.warehouseCount}</div>`;
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Warehouse"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${playerEqCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
@@ -350,7 +357,13 @@ export function render() {
     rowCode = `<div class="rowOverview">`;
     rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Heavy Equipment (${heavyequipmentCount} left)</div>`;
     state.players.map(player => {
-        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.heavyEquipmentCount}</div>`;
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Heavy Equipment"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${playerEqCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
@@ -360,7 +373,13 @@ export function render() {
     rowCode = `<div class="rowOverview">`;
     rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Nodule (${noduleCount} left)</div>`;
     state.players.map(player => {
-        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.noduleCount}</div>`;
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Nodule"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${playerEqCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;

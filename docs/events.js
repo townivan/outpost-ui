@@ -2,6 +2,7 @@ import * as main from './main.js';
 import * as util from './util.js';
 import * as turn from './turn.js';
 import * as bid from './bid.js';
+import * as auction from './auction.js';
 
 export function firstInit() {
 
@@ -95,14 +96,58 @@ export function firstInit() {
     })
     // turn buttons END
 
+    // auction stuff BEGIN
+    document.getElementById('auctionPassBtn').addEventListener('click', function (e) {
+        let me = util.getPlayerMe();
+        auction.passBid(me, 'pass');
+    })
+    document.getElementById('auctionCounterBidBtn').addEventListener('click', function (e) {
+        let me = util.getPlayerMe();
+        let counterBidAmt = document.getElementById('newBidAmountInput').value*1;
+        let selectedAmount = util.getSelectedAmountFromCards();
+
+        let isValidBid = false;
+        if (selectedAmount >= counterBidAmt){
+            if (counterBidAmt > main.state.bid_currentBid){
+                isValidBid = true;
+            }
+        }
+
+        if (!isValidBid){
+            document.getElementById('counterBidError').innerHTML = `Invalid bid. Selected card(s) < currentBid`;
+            return;
+        }
+
+        auction.counterBid(me, counterBidAmt); // counterBid(player, realBidAmt)
+    })
+
     document.getElementById('biddableStartBid').addEventListener('click', function (e) {
         // turn.startBid();
         let me = util.getPlayerMe();
         let bidAmt = document.getElementById('biddableInitialAmount').value * 1;
         let biddableSelect = document.getElementById('biddableSelect').value;
         let targetEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', biddableSelect*1);
-        bid.startBid(me, bidAmt, targetEq);
+        // bid.startBid(me, bidAmt, targetEq);
+
+
+
+        let selectedAmount = util.getSelectedAmountFromCards();
+
+        let isValidBid = false;
+        if (selectedAmount >= targetEq.price){
+            isValidBid = true;
+        }
+
+        if (!isValidBid){
+            document.getElementById('bidError').innerHTML = `Invalid bid. Selected card(s) < price`;
+            return;
+        }
+        auction.startAuction(me, selectedAmount, targetEq)
     })
+    // auction stuff END
+
+
+
     
 
 

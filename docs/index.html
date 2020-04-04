@@ -77,7 +77,7 @@
             Equipment:
             <select id="biddableSelect"></select><!-- updated in turn.replaceEquipment()-->
             <input id="biddableInitialAmount" type="number" />
-            <button type="button" id="biddableStartBid">Bid</button>
+            <button type="button" id="biddableStartBid">Bid (start auction)</button>
             <div id="bidError"></div>
         </div>
     </section>
@@ -114,10 +114,11 @@
                 <div id="biddingEqUpForBidDesc--currentBid">Current bid 25c by Player A</div>
                 <div id="biddingEqUpForBidDesc--actionsArea">
                     <input type="number" id="newBidAmountInput" value="26" /> 
-                    <button type="button">bid</button> or 
-                    <button type="button">pass</button> or 
+                    <button type="button" id="auctionCounterBidBtn">counter bid</button> or 
+                    <button type="button" id="auctionPassBtn">pass</button> or 
                     <button type="button">pass all</button>
                 </div>
+                <div id="counterBidError"></div>
             </div>
         </div>
     </section>

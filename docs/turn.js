@@ -197,7 +197,7 @@ export function replaceEquipment() {
     let biddableSelectEl = document.getElementById('biddableSelect');
     let biddableSelectCode = ''
     main.state.eqUpForBidArray.map(eq => {
-        biddableSelectCode += `<option value="${eq.id}">${eq.name}</option>`;
+        biddableSelectCode += `<option value="${eq.id}">${eq.name} (${eq.price})</option>`;
     })
     biddableSelectEl.innerHTML = biddableSelectCode;
 

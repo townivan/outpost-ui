@@ -208,6 +208,9 @@ body {
 #bidError {
   color: red; }
 
+#counterBidError {
+  color: red; }
+
 .biddingPlayerListArea {
   display: flex; }
 

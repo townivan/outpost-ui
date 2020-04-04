@@ -10,7 +10,7 @@ export function startBid(player, bidAmt, targetEq){
     document.getElementById('bidError').innerHTML = ''; // clear any prevous bid errors
 
     let selectedAmount = util.getSelectedAmountFromCards();
-    console.log('selectedAmount:', selectedAmount)
+    // console.log('selectedAmount:', selectedAmount)
 
     let isValidBid = false;
     if (selectedAmount >= targetEq.price){
@@ -29,14 +29,13 @@ export function startBid(player, bidAmt, targetEq){
     })
     main.state.bid_players.sort(util.compareValues('seat'));
     main.state.bid_round = 1;
-    main.state.bid_currentBid = bidAmt;
+    main.state.bid_currentBid = selectedAmount;
     main.state.bid_leader = player;
     main.state.bid_equipment = targetEq;
     player.bidStatus = "leader"
 
-    // bidStatus: null, awaiting, leader, passed
-    console.log('main.state:', main.state)
-    console.log('bidding seat order:', main.state.bid_players)
+    util.logit(`${player.name} starts a bid for ${targetEq.name} at ${selectedAmount}.`);
+
     considerBid(player.playerSeatedAfterMe)
 }
 export function endBidding(){
@@ -51,10 +50,33 @@ export function endBidding(){
     main.state.bid_equipment = null;
 }
 export function considerBid(player){
-    console.log('welcome to considerBid(player):', player)
+    // console.log('welcome to considerBid(player):', player)
     if (!isBiddingOver()){
         if (player.isYou){
             console.log('display UI for considering a bid...')
+            // back to me to decide if I counter bid
+            
+            // update UI
+            let biddingPlayerListAreaCode = '';
+            main.state.bid_players.map(player => {
+                biddingPlayerListAreaCode += buildBidderBoxDisplay(player)
+            })
+            document.getElementById('biddingPlayerListArea').innerHTML = biddingPlayerListAreaCode;
+
+            function buildBidderBoxDisplay(player){
+                const code = `
+                <div class="biddingPlayerBox">
+                    <div class="biddingPlayerBox--statusHeader">${player.bidStatus}...</div>
+                    <div class="biddingPlayerBox--nameLabel">${player.name}</div>
+                    <div class="biddingPlayerBox--flag"></div>
+                </div>
+                `;
+                return code;
+            }
+
+            document.getElementById('biddingEqUpForBidDesc--desc').innerHTML = main.state.bid_equipment.desc;
+            document.getElementById('biddingEqUpForBidDesc--currentBid').innerHTML = `Current bid ${main.state.bid_currentBid}c by ${main.state.bid_leader.name}`;
+            document.getElementById('newBidAmountInput').value = main.state.bid_currentBid;
         }
         else{
             // let ai decide if he should bid or not
@@ -112,14 +134,14 @@ export function findPlayerWithWinningBid(){
 
 export function processWinningBid(player){
 
-    console.log('%cprocessWinningBid for ', 'background-color:deeppink;', player)
+    // console.log('%cprocessWinningBid for ', 'background-color:deeppink;', player)
 
     // calc price of order
     let eq = main.state.bid_equipment;
 
     // apply discounts here later (todo)
     let totalCost = main.state.bid_currentBid;
-    console.log('totalCost:', totalCost)
+    // console.log('totalCost:', totalCost)
 
     let validPurchase = false;
     let check1 = false;
@@ -153,7 +175,7 @@ export function processWinningBid(player){
         // TODO: remove from equipment up for bid
         var eqToRemoveIndex = main.state.eqUpForBidArray.indexOf(eq.name);
         // main.state.eqUpForBidArray.splice(eqToRemoveIndex, 1);
-        console.log('main.state.eqUpForBidArray:', main.state.eqUpForBidArray)
+        // console.log('main.state.eqUpForBidArray:', main.state.eqUpForBidArray)
 
         // TODO: update render (2 left) data
         // console.log('%ceq:', 'color:red', eq)
@@ -168,14 +190,14 @@ export function processWinningBid(player){
 
         // clone it...
         let clonedEq = JSON.parse(JSON.stringify(main.state.eqUpForBidArray[locatedEqFromUpForBidArrayIndex]))
-        console.log('clonedEq:', clonedEq)
+        // console.log('clonedEq:', clonedEq)
 
         // remove it from the slot
         main.state.eqUpForBidArray.splice(locatedEqFromUpForBidArrayIndex, 1);
 
         player.ownedEquipment.push(clonedEq);
-        console.log('%cmain.state.eqUpForBidArray', 'color:orange', main.state.eqUpForBidArray);
-        console.log('player:', player)
+        // console.log('%cmain.state.eqUpForBidArray', 'color:orange', main.state.eqUpForBidArray);
+        // console.log('player:', player)
 
 
         // TODO: update bid select to no longer have that option
