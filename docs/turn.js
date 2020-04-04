@@ -24,14 +24,20 @@ export function startRound() {
 
     // loop through players and do AI actions if needed.  Wait for real player actions.
     console.log('main.state.players:', main.state.players)
-    for (let i = 0; i < main.state.players.length; i++) {
-        if (main.state.players[i].isYou) {
-            break; // stop for your turn
-        }
-        else {
-            endTurn(main.state.players[i]);
-        }
-    }
+    // for (let i = 0; i < main.state.players.length; i++) {
+    //     if (main.state.players[i].isYou) {
+    //         break; // stop for your turn
+    //     }
+    //     else{
+    //         startTurn(main.state.players[i]);
+    //     }
+    //     // else {
+    //     //     endTurn(main.state.players[i]);
+    //     // }
+    // }
+        let nextPlayer = util.getPlayerByTurnOrder(main.state.players[0].turnOrder + 1);
+        // console.log('nextPlayer:', nextPlayer)
+        startTurn(main.state.players[0]);
 }
 export function endRound() {
     console.log('this round should now end.');
@@ -42,17 +48,13 @@ export function endRound() {
     startRound();
 }
 export function startTurn(player) {
+    // for me, await btn click event to endTurn.  otherwise...
     if (!player.isYou) {
         endTurn(player);
     }
 }
 
-export function endTurnBtn() {
-    console.log('welcome to endTurnBtn()...');
-    let me = util.getPlayerMe();
-    // console.log('me:', me)
-    endTurn(me);
-}
+
 export function endTurn(player) {
     // console.log('this player is ending their turn...', player);
     util.logit(`${player.name} ends their turn.`);
@@ -70,6 +72,11 @@ export function endTurn(player) {
         startTurn(nextPlayer);
     }
     main.render();
+}
+export function endTurnBtn() {
+    // console.log('welcome to endTurnBtn()...');
+    let me = util.getPlayerMe();
+    endTurn(me);
 }
 
 export function determinePlayerOrder() {
