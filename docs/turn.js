@@ -6,6 +6,7 @@ import * as ai from './ai.js';
 
 
 export function startRound() {
+    util.logit(`Round ${main.state.round} begins.`);
     // 1. determine player order
     determinePlayerOrder();
 
@@ -22,17 +23,19 @@ export function startRound() {
 
 
     // loop through players and do AI actions if needed.  Wait for real player actions.
+    console.log('main.state.players:', main.state.players)
     for (let i = 0; i < main.state.players.length; i++) {
-        if (!main.state.players[i].isYou) {
-            endTurn(main.state.players[i]);
+        if (main.state.players[i].isYou) {
+            break; // stop for your turn
         }
         else {
-            break; // stop for your turn
+            endTurn(main.state.players[i]);
         }
     }
 }
 export function endRound() {
     console.log('this round should now end.');
+    util.logit(`Round ${main.state.round} ends.`);
     main.state.round++;
     main.state.players.map(p => p.isAwaitingTurn = true);
     main.render();
@@ -48,7 +51,7 @@ export function endTurnBtn() {
     console.log('welcome to endTurnBtn()...');
     let me = util.getPlayerMe();
     // console.log('me:', me)
-    endTurn(me)
+    endTurn(me);
 }
 export function endTurn(player) {
     // console.log('this player is ending their turn...', player);
@@ -135,7 +138,7 @@ export function determinePlayerOrder() {
 }
 
 export function replaceEquipment() {
-    console.log('welcome to replaceEquipment()...')
+    // console.log('welcome to replaceEquipment()...')
     // check the eqUpForBidArray to see how many are needed...
     // console.log('main.state.eqUpForBidArray.length', main.state.eqUpForBidArray.length)
     let currentItemsUpForBid = main.state.eqUpForBidArray.length;

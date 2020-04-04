@@ -47,13 +47,14 @@ export function initialize() {
         }
         main.state.equipment.push(arr);
     })
-    console.log('initial seed for equipment complete:', main.state.equipment)
+    // console.log('initial seed for equipment complete:', main.state.equipment)
 
        
     util.logit('Replace purchased colony upgrade cards (complete)');
     util.logit('Distribute production cards (complete)');
     util.logit('Discard excess production cards (n/a)');
-    util.logit(`Perform player actions...awaiting player(${util.getPlayerByTurnOrder(main.state.currentPlayerNumber).name})`);
+    // util.logit(`Perform player actions...awaiting player(${util.getPlayerByTurnOrder(main.state.currentPlayerNumber).name})`);
+    // util.logit(`Perform player actions...awaiting player(${main.state.players[0].name})`);
 }
 
 

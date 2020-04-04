@@ -54,7 +54,7 @@ export const state = {
 
 init.initialize();
 events.firstInit();
-console.log(state)
+console.log('state:', state)
 turn.startRound();
 render();
 
@@ -283,8 +283,8 @@ export function render() {
     let heavyequipmentCount = 0;
     let noduleCount = 0;
 
-    console.log('%cstate.equipment:', 'background-color:orange', state.equipment)
-    console.log('%cstate.eqUpForBidArray:', 'background-color:lightgreen', state.eqUpForBidArray)
+    // console.log('%cstate.equipment:', 'background-color:orange', state.equipment)
+    // console.log('%cstate.eqUpForBidArray:', 'background-color:lightgreen', state.eqUpForBidArray)
 
     state.equipment.map(eqSlotArray => {
         eqSlotArray.map(eq => {
@@ -574,6 +574,9 @@ export function calcVp(){
             if (factory.type === "Ti") {
                 if (factory.isManned) { playerTotalVp = playerTotalVp + 2; }
             }
+        })
+        player.ownedEquipment.map(eq => {
+            playerTotalVp = playerTotalVp + eq.vp
         })
         player.vp = playerTotalVp;
     })
