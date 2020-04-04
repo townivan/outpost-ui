@@ -34,9 +34,20 @@ export function initialize() {
     })
 
     main.state.eqMax = main.state.players.length - 1
-    main.state.equipment.map(eq => {
-        eq.amount = main.state.eqMax;
+    // main.state.equipment.map(eq => {
+    //     eq.amount = main.state.eqMax;
+    // })
+    main.state.equipmentSeed.map(eqObj => {
+        let arr = []
+        for (let x=0; x<main.state.eqMax; x++){
+            let eqFromTemplateSeed = JSON.parse(JSON.stringify(eqObj))
+            eqFromTemplateSeed.id = main.state.equipmentIdSeed;
+            main.state.equipmentIdSeed++;
+            arr.push(eqFromTemplateSeed)
+        }
+        main.state.equipment.push(arr);
     })
+    console.log('initial seed for equipment complete:', main.state.equipment)
 
        
     util.logit('Replace purchased colony upgrade cards (complete)');

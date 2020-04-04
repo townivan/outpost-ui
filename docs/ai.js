@@ -4,11 +4,15 @@ import * as bid from './bid.js';
 
 
 export function considerBidAi(player){
-    console.log('welcome to considerBidAi()...')
+    console.log('welcome to considerBidAi(player)...', player)
     // let's start by assuming they will always pass
     player.bidStatus = "passed";
     if (bid.isBiddingOver()){
         console.log('bidding is over...there is a winner')
+        let winningPlayer = bid.findPlayerWithWinningBid();
+        bid.processWinningBid(winningPlayer);
+        console.log('winningPlayer:', winningPlayer)
+        console.log('main.state', main.state)
     }
     else{
         console.log('bidding is NOT over, check next player...')

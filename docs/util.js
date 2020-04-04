@@ -184,3 +184,14 @@ export function stupidSelectCardsToPay(player, targetValue){ // sums lowest valu
     console.log('clonedCards:', clonedCards)
     // clonedCards.sort(util.compareValues('value', 'desc'));
 }
+export function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+export function printEqUpForBid(){
+    let str = ''
+    main.state.eqUpForBidArray.map(eq => {
+        str += eq.name + ', '
+    })
+    str = str.replace(/,\s*$/, "");
+    return str;
+}

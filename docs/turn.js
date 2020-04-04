@@ -135,54 +135,67 @@ export function determinePlayerOrder() {
 }
 
 export function replaceEquipment() {
-    // create array of candidates from equipment array
-    // must be 1) in proper era; 2) amount > 0; 3) limited to eqMax candidates 
+    console.log('welcome to replaceEquipment()...')
+    // check the eqUpForBidArray to see how many are needed...
+    // console.log('main.state.eqUpForBidArray.length', main.state.eqUpForBidArray.length)
+    let currentItemsUpForBid = main.state.eqUpForBidArray.length;
+    let numberOfItemsNeeded = (main.state.players.length) - currentItemsUpForBid;
+    // console.log('numberOfItemsNeeded:', numberOfItemsNeeded)
 
-    // filter by 1 and 2...
-    var possibleEq = main.state.equipment.filter(function (eq) {
-        return (eq.era <= main.state.currentEra && eq.amount > 0 && eq.isUpForBid == false);
-    });
+    for (let x = 0; x < numberOfItemsNeeded; x++){
 
-    // determine how many new ones we need...
-    let countOfEqAlreadyAvailableForBidding = 0;
-    main.state.equipment.map(eq => {
-        if (eq.isUpForBid) {
-            countOfEqAlreadyAvailableForBidding++;
-        }
-    })
+        // create array of candidates from equipment array
+        // equipment is an array of arrays.  each sub-array is a slot
+        let arrOfPossibleSlots = [];
 
-    let amountNeeded = main.state.eqMax - countOfEqAlreadyAvailableForBidding;
+        main.state.equipment.map((slot,i) => {
+            let isSlotActive = false;
+            slot.map(eq => {
+                if (eq.era <= main.state.currentEra){
+                    isSlotActive = true;
+                }
+            })
+            if (isSlotActive){
+                arrOfPossibleSlots.push(slot)
+            }
+        })
+        // console.log('arrOfPossibleSlots:', arrOfPossibleSlots)
+        // pick one...
+        let randomSlotIndex = util.randomIntFromInterval(0, arrOfPossibleSlots.length-1);
+        // console.log('randomSlotIndex:', randomSlotIndex)
+        let randomSlot = arrOfPossibleSlots[randomSlotIndex];
+        // console.log('randomSlot:', randomSlot);
 
-    // shuffle the possible and pick the amountNeeded...
-    util.shuffleArray(possibleEq);
-    for (let i = 0; i < amountNeeded; i++) {
-        possibleEq[i].isUpForBid = true;
+        let randomIndexInsideSlot = util.randomIntFromInterval(0, randomSlot.length-1);
+        let randomEqInSlot = randomSlot[randomIndexInsideSlot]
+        
+        // clone it...
+        let clonedEq = JSON.parse(JSON.stringify(randomEqInSlot))
+
+        // remove it from the slot
+        randomSlot.splice(randomIndexInsideSlot, 1);
+
+        main.state.eqUpForBidArray.push(clonedEq);
+
+        // console.log('randomSlot:', randomSlot);
+        // console.log('main.state.eqUpForBidArray:', main.state.eqUpForBidArray);
+
     }
 
-    console.log('main.state.equipment:', main.state.equipment)
-
-    // empty eqUpForBidArray
-    main.state.eqUpForBidArray.splice(0, main.state.eqUpForBidArray.length)
-
-    // update our eqUpForBidArray array
-    main.state.equipment.map(eq => {
-        if (eq.isUpForBid) {
-            main.state.eqUpForBidArray.push(eq.name);
-        }
-    });
-
-    console.log('main.state.eqUpForBidArray:', main.state.eqUpForBidArray)
 
     // update biddableSelect select
     let biddableSelectEl = document.getElementById('biddableSelect');
     let biddableSelectCode = ''
     main.state.eqUpForBidArray.map(eq => {
-        biddableSelectCode += `<option value="${eq}">${eq}</option>`;
+        biddableSelectCode += `<option value="${eq.id}">${eq.name}</option>`;
     })
     biddableSelectEl.innerHTML = biddableSelectCode;
 
     let selectValue = biddableSelectEl.options[biddableSelectEl.selectedIndex].value;
-    let selectedEq = util.getObjInHereWithValue(main.state.equipment, 'name', selectValue);
+    
+    // TODO: finish equipment.  Display overview, etc.
+
+    let selectedEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', selectValue*1);
     document.getElementById('biddableInitialAmount').value = selectedEq.price;
 
 }

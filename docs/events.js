@@ -88,7 +88,9 @@ export function firstInit() {
     })
     document.getElementById('biddableSelect').addEventListener('change', function (e) {
         let selectValue = this.options[this.selectedIndex].value;
-        let selectedEq = util.getObjInHereWithValue(main.state.equipment, 'name', selectValue);
+        console.log('selectValue:', selectValue)
+        let selectedEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', selectValue*1);
+        console.log('selectedEq:', selectedEq)
         document.getElementById('biddableInitialAmount').value = selectedEq.price;
     })
     // turn buttons END
@@ -98,7 +100,7 @@ export function firstInit() {
         let me = util.getPlayerMe();
         let bidAmt = document.getElementById('biddableInitialAmount').value * 1;
         let biddableSelect = document.getElementById('biddableSelect').value;
-        let targetEq = util.getObjInHereWithValue(main.state.equipment, 'name', biddableSelect);
+        let targetEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', biddableSelect*1);
         bid.startBid(me, bidAmt, targetEq);
     })
     

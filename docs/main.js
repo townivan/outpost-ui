@@ -17,20 +17,22 @@ export const state = {
     currentPlayerNumber: null,
     currentEra: 1,
     eqMax: null,
-    equipment: [
-        { id: 0, name: "Data Library", price: 15, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul>`, },
-        { id: 1, name: "Warehouse", price: 25, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Warehouse [c25] (1vp) era1</div><ul><li>+5 Hand Limit.</li></ul>`, },
-        { id: 3, name: "Heavy Equipment", price: 30, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Heavy Equipment [c30] (1vp) era1</div><ul><li>Required to purchase Titanium Factories</li><li>c5 discount on <strong>Nodule</strong> cards.</li><li>c5 discount on <strong>Warehouse</strong> cards.</li><li>c15 discount on <strong>Outpost</strong> cards.</li></ul>`, },
-        { id: 4, name: "Nodule", price: 25, era: 1, vp: 2, amount: 0, isUpForBid: false, desc: `<div>Nodule [c25] (2vp) era1</div><ul><li>+3 Colony Support Limit.</li></ul>`, },
-        { id: 5, name: "Scientists", price: 40, era: 2, vp: 2, amount: 0, isUpForBid: false, },
-        { id: 6, name: "Orbital Lab", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, },
-        { id: 7, name: "Robots", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, },
-        { id: 8, name: "Laboratory", price: 80, era: 2, vp: 5, amount: 0, isUpForBid: false, },
-        { id: 9, name: "Ecoplants", price: 30, era: 2, vp: 5, amount: 0, isUpForBid: false, },
-        { id: 10, name: "Outpost", price: 100, era: 2, vp: 5, amount: 0, isUpForBid: false, },
-        { id: 11, name: "Space Station", price: 120, era: 3, vp: 10, amount: 0, isUpForBid: false, },
-        { id: 12, name: "Planetary Cruiser", price: 160, era: 3, vp: 15, amount: 0, isUpForBid: false, },
-        { id: 13, name: "Moonbase", price: 200, era: 3, vp: 20, amount: 0, isUpForBid: false, },
+    equipment: [],
+    equipmentIdSeed: 0,
+    equipmentSeed: [
+        { id: null, name: "Data Library", price: 15, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul>`, },
+        { id: null, name: "Warehouse", price: 25, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Warehouse [c25] (1vp) era1</div><ul><li>+5 Hand Limit.</li></ul>`, },
+        { id: null, name: "Heavy Equipment", price: 30, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Heavy Equipment [c30] (1vp) era1</div><ul><li>Required to purchase Titanium Factories</li><li>c5 discount on <strong>Nodule</strong> cards.</li><li>c5 discount on <strong>Warehouse</strong> cards.</li><li>c15 discount on <strong>Outpost</strong> cards.</li></ul>`, },
+        { id: null, name: "Nodule", price: 25, era: 1, vp: 2, amount: 0, isUpForBid: false, desc: `<div>Nodule [c25] (2vp) era1</div><ul><li>+3 Colony Support Limit.</li></ul>`, },
+        { id: null, name: "Scientists", price: 40, era: 2, vp: 2, amount: 0, isUpForBid: false, },
+        { id: null, name: "Orbital Lab", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, },
+        { id: null, name: "Robots", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, },
+        { id: null, name: "Laboratory", price: 80, era: 2, vp: 5, amount: 0, isUpForBid: false, },
+        { id: null, name: "Ecoplants", price: 30, era: 2, vp: 5, amount: 0, isUpForBid: false, },
+        { id: null, name: "Outpost", price: 100, era: 2, vp: 5, amount: 0, isUpForBid: false, },
+        { id: null, name: "Space Station", price: 120, era: 3, vp: 10, amount: 0, isUpForBid: false, },
+        { id: null, name: "Planetary Cruiser", price: 160, era: 3, vp: 15, amount: 0, isUpForBid: false, },
+        { id: null, name: "Moonbase", price: 200, era: 3, vp: 20, amount: 0, isUpForBid: false, },
     ], // seed this during init  {name:"Data Library", price:15, era:1, vp:1, available:3, id=0}, {}
     eqUpForBidArray: [],
     playerIdsBySeatArray: [],
@@ -113,10 +115,12 @@ export function addPlayer(name = 'Larry') {
     p.warehouseCount = 0;
     p.heavyEquipmentCount = 0;
     p.noduleCount = 0;
+    p.ownedEquipment = [];
 
     p.robotsEqCount = 0;
     p.playerSeatedAfterMe = null;
     p.bidStatus = null;
+
 
     //init.initialdraw(p);
     return p;
@@ -177,7 +181,7 @@ export function render() {
     events.calcProductionCardSelection();
 
     // render overviewPanel
-    let allOverViewCode = `<div id="availableEq">Eq up for bid: ${state.eqUpForBidArray.toString()}</div>`;
+    let allOverViewCode = `<div id="availableEq">Eq up for bid: ${util.printEqUpForBid()}</div>`;
     let rowCode = ``;
 
     rowCode = `<div class="rowOverview">`;
@@ -273,12 +277,60 @@ export function render() {
 
     //state.eqUpForBidArray
     let gotEq = false;
+
+    let dataLibraryCount = 0;
+    let warehouseCount = 0;
+    let heavyequipmentCount = 0;
+    let noduleCount = 0;
+
+    console.log('%cstate.equipment:', 'background-color:orange', state.equipment)
+    console.log('%cstate.eqUpForBidArray:', 'background-color:lightgreen', state.eqUpForBidArray)
+
+    state.equipment.map(eqSlotArray => {
+        eqSlotArray.map(eq => {
+            // console.log('%crender...eq(state.equipment):', 'background-color:pink;', eq)
+            if (eq.name == "Data Library"){
+                dataLibraryCount++;
+            }
+            if (eq.name == "Warehouse"){
+                warehouseCount++;
+            }
+            if (eq.name == "Heavy Equipment"){
+                heavyequipmentCount++;
+            }
+            if (eq.name == "Nodule"){
+                noduleCount++;
+            }
+        })
+    })
+    state.eqUpForBidArray.map(eq => {
+        // console.log('render...eq(state.eqUpForBidArray):', eq)
+        if (eq.name == "Data Library"){
+            dataLibraryCount++;
+        }
+        if (eq.name == "Warehouse"){
+            warehouseCount++;
+        }
+        if (eq.name == "Heavy Equipment"){
+            heavyequipmentCount++;
+        }
+        if (eq.name == "Nodule"){
+            noduleCount++;
+        }
+    })
+
     
     gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Data Library');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Data Library (2 left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Data Library (${dataLibraryCount} left)</div>`;
     state.players.map(player => {
-        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.dataLibraryCount}</div>`;
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Data Library"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${playerEqCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
@@ -286,7 +338,7 @@ export function render() {
 
     gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Warehouse');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Warehouse (2 left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Warehouse (${warehouseCount} left)</div>`;
     state.players.map(player => {
         rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.warehouseCount}</div>`;
     });
@@ -296,7 +348,7 @@ export function render() {
 
     gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Heavy Equipment');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Heavy Equipment (2 left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Heavy Equipment (${heavyequipmentCount} left)</div>`;
     state.players.map(player => {
         rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.heavyEquipmentCount}</div>`;
     });
@@ -306,7 +358,7 @@ export function render() {
 
     gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Nodule');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Nodule (2 left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Nodule (${noduleCount} left)</div>`;
     state.players.map(player => {
         rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${player.noduleCount}</div>`;
     });
