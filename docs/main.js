@@ -189,7 +189,7 @@ export function render() {
     rowCode += `<div class="overviewCol1">Player(TurnOrder)</div>`;
     state.players.map(player => {
         player.updateFactoryCounts();
-        rowCode += `<div class="overviewColx ${player.isYou ? 'highlightme' : ''}">${player.name} (${player.isAwaitingTurn ? player.turnOrder : 'X'})</div>`;
+        rowCode += `<div class="overviewColx ${player.isYou ? 'highlightme2' : ''}">${player.name} (${player.isAwaitingTurn ? player.turnOrder : 'X'})</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
@@ -321,7 +321,7 @@ export function render() {
     })
 
     
-    gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Data Library');
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Data Library');
     rowCode = `<div class="rowOverview">`;
     rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Data Library (${dataLibraryCount} left)</div>`;
     state.players.map(player => {
@@ -331,13 +331,13 @@ export function render() {
                 playerEqCount++;
             }
         })
-        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${playerEqCount}</div>`;
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Data Library">${playerEqCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
 
 
-    gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Warehouse');
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Warehouse');
     rowCode = `<div class="rowOverview">`;
     rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Warehouse (${warehouseCount} left)</div>`;
     state.players.map(player => {
@@ -347,13 +347,13 @@ export function render() {
                 playerEqCount++;
             }
         })
-        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${playerEqCount}</div>`;
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Warehouse">${playerEqCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
 
 
-    gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Heavy Equipment');
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Heavy Equipment');
     rowCode = `<div class="rowOverview">`;
     rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Heavy Equipment (${heavyequipmentCount} left)</div>`;
     state.players.map(player => {
@@ -363,13 +363,13 @@ export function render() {
                 playerEqCount++;
             }
         })
-        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${playerEqCount}</div>`;
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Heavy Equipment">${playerEqCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
 
 
-    gotEq = util.simpleArrayContains(state.eqUpForBidArray, 'Nodule');
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Nodule');
     rowCode = `<div class="rowOverview">`;
     rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Nodule (${noduleCount} left)</div>`;
     state.players.map(player => {
@@ -379,7 +379,7 @@ export function render() {
                 playerEqCount++;
             }
         })
-        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''}">${playerEqCount}</div>`;
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Nodule">${playerEqCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;

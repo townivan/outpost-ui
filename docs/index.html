@@ -45,92 +45,98 @@
 
     <section id="productionCardArea">
         <div class="pcardRow">
-            <button type="button" id="pcardsort_or" class="pcard-sort"><i
-                    class="fas fa-sort-amount-down-alt"></i></button>
+            <!-- <button type="button" id="pcardsort_or" class="pcard-sort"><i
+                    class="fas fa-sort-amount-down-alt"></i></button> -->
             <button type="button" id="pcardmaster_or" class="pcard-master">all or</button>
             <div id="pCardRenderInsertionPoint_or" class="pcardInsertionDiv"></div>
         </div>
         <div class="pcardRow">
-            <button type="button" id="pcardsort_wa" class="pcard-sort"><i
-                    class="fas fa-sort-amount-down-alt"></i></button>
+            <!-- <button type="button" id="pcardsort_wa" class="pcard-sort"><i
+                    class="fas fa-sort-amount-down-alt"></i></button> -->
             <button type="button" id="pcardmaster_wa" class="pcard-master">all wa</button>
             <div id="pCardRenderInsertionPoint_wa" class="pcardInsertionDiv"></div>
         </div>
     </section>
 
     <section id="turnActionsArea">
-        <button type="button" id="endTurnBtn">End Turn</button>
-        --
-        <div>
-            <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
-            <select id="buySelect">
-                <option value="colonist">colonist</option>
-                <option value="robot">robot</option>
-                <option value="factoryOr">factoryOr</option>
-                <option value="factoryWa">factoryWa</option>
-            </select>
-            <button type="button" id="buyButton">Buy</button>
-            <div id="purchaseError"></div>
-        </div>
-        --
-        <div>
-            Equipment:
-            <select id="biddableSelect"></select><!-- updated in turn.replaceEquipment()-->
-            <input id="biddableInitialAmount" type="number" />
-            <button type="button" id="biddableStartBid">Bid (start auction)</button>
-            <div id="bidError"></div>
+        <div class="turnActionsContainer">
+            <button type="button" id="endTurnBtn">End Turn</button>
+            --
+            <div>
+                <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
+                <select id="buySelect">
+                    <option value="colonist">colonist</option>
+                    <option value="robot">robot</option>
+                    <option value="factoryOr">factoryOr</option>
+                    <option value="factoryWa">factoryWa</option>
+                </select>
+                <button type="button" id="buyButton">Buy</button>
+                <div id="purchaseError"></div>
+            </div>
+            --
+            <div>
+                Equipment:
+                <select id="biddableSelect"></select><!-- updated in turn.replaceEquipment()-->
+                <input id="biddableInitialAmount" type="number" />
+                <button type="button" id="biddableStartBid">Bid (start auction)</button>
+                <div id="bidError"></div>
+            </div>
         </div>
     </section>
     <br>
 
-    <section id="biddingArea">
-        <div id="biddingClosedArea">There are currently no active bids.</div>
-        <div id="biddingOpenArea">
-            <div id="biddingPlayerListArea" class="biddingPlayerListArea">
-                <div class="biddingPlayerBox">
-                    <div class="biddingPlayerBox--statusHeader">waiting...</div>
-                    <div class="biddingPlayerBox--nameLabel">Player B</div>
-                    <div class="biddingPlayerBox--flag"></div>
-                </div>
-
-                <div class="biddingPlayerBox">
-                    <div class="biddingPlayerBox--statusHeader">waiting...</div>
-                    <div class="biddingPlayerBox--nameLabel">Player A</div>
-                    <div class="biddingPlayerBox--flag"></div>
-                </div>
-
-                <div class="biddingPlayerBox">
-                    <div class="biddingPlayerBox--statusHeader">active</div>
-                    <div class="biddingPlayerBox--nameLabel">Player C</div>
-                    <div class="biddingPlayerBox--flag"></div>
-                </div>
-            </div>
-
-            <div id="biddingEqUpForBidDesc">
-                <!-- <div id="biddingEqUpForBidDesc--name">Data Library</div> -->
-                <div id="biddingEqUpForBidDesc--desc">
-                    <div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul>
-                </div>
+    <div id="biddingClosedArea"><span id="lastBidSummary"></span>  There are currently no active bids.</div>
+    <section id="biddingArea" class="hideme">
+        <div class="biddingAreaContainer">
+            <div id="biddingOpenArea">
                 <div id="biddingEqUpForBidDesc--currentBid">Current bid 25c by Player A</div>
                 <div id="biddingEqUpForBidDesc--actionsArea">
                     <input type="number" id="newBidAmountInput" value="26" /> 
                     <button type="button" id="auctionCounterBidBtn">counter bid</button> or 
                     <button type="button" id="auctionPassBtn">pass</button> or 
-                    <button type="button">pass all</button>
+                    <button type="button" id="auctionPassAllBtn">pass all</button>
                 </div>
                 <div id="counterBidError"></div>
+
+                <div id="biddingPlayerListArea" class="biddingPlayerListArea">
+                    <!-- <div class="biddingPlayerBox">
+                        <div class="biddingPlayerBox--statusHeader">waiting...</div>
+                        <div class="biddingPlayerBox--nameLabel">Player B</div>
+                        <div class="biddingPlayerBox--flag"></div>
+                    </div>
+
+                    <div class="biddingPlayerBox">
+                        <div class="biddingPlayerBox--statusHeader">waiting...</div>
+                        <div class="biddingPlayerBox--nameLabel">Player A</div>
+                        <div class="biddingPlayerBox--flag"></div>
+                    </div>
+
+                    <div class="biddingPlayerBox">
+                        <div class="biddingPlayerBox--statusHeader">active</div>
+                        <div class="biddingPlayerBox--nameLabel">Player C</div>
+                        <div class="biddingPlayerBox--flag"></div>
+                    </div> -->
+                </div>
+
+                <div id="biddingEqUpForBidDesc">
+                    <!-- <div id="biddingEqUpForBidDesc--name">Data Library</div> -->
+                    <div id="biddingEqUpForBidDesc--desc">
+                        <div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul>
+                    </div>
+                    
+                </div>
             </div>
         </div>
     </section>
 
     <section id="turnManageFactoriesArea">
-
-        <div>
-            <div>Available colonists: <span id="factoriesMyAvailableColonists">0</span></div>
-            <div>Available robots: <span id="factoriesMyAvailableRobots">0</span></div>
+        <div class="turnManageFactoriesContainer">
+            <div>
+                <div>Available colonists: <span id="factoriesMyAvailableColonists">0</span></div>
+                <div>Available robots: <span id="factoriesMyAvailableRobots">0</span></div>
+            </div>
+            <div id="turnManageFactoriesInsert"></div>
         </div>
-        <div id="turnManageFactoriesInsert"></div>
-
     </section>
 
     <section id="purchaseArea"></section>

@@ -1,7 +1,7 @@
 import * as main from './main.js';
 import * as util from './util.js';
 import * as turn from './turn.js';
-import * as bid from './bid.js';
+// import * as bid from './bid.js';
 import * as auction from './auction.js';
 
 export function firstInit() {
@@ -100,6 +100,10 @@ export function firstInit() {
     document.getElementById('auctionPassBtn').addEventListener('click', function (e) {
         let me = util.getPlayerMe();
         auction.passBid(me, 'pass');
+    })
+    document.getElementById('auctionPassAllBtn').addEventListener('click', function (e) {
+        let me = util.getPlayerMe();
+        auction.passBid(me, 'passall');
     })
     document.getElementById('auctionCounterBidBtn').addEventListener('click', function (e) {
         let me = util.getPlayerMe();

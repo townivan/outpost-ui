@@ -82,19 +82,10 @@ body {
   font-size: 30px; }
 
 .pcard-master {
-  background-color: transparent;
-  color: blue;
-  cursor: pointer;
-  text-decoration: underline;
-  border: 2px solid transparent;
+  width: 80px;
+  height: 44px;
   border-radius: 4px;
-  font-size: 1rem;
-  width: 3rem; }
-  .pcard-master:focus {
-    outline: none; }
-  .pcard-master--selected {
-    border-color: blue;
-    text-decoration: none; }
+  margin-right: 1rem; }
 
 .pcard {
   font-size: 37px;
@@ -170,6 +161,9 @@ body {
 .highlightme {
   background-color: lightyellow; }
 
+.highlightme2 {
+  background-color: lightgreen; }
+
 #cardSelectionPanel {
   display: flex;
   justify-content: space-between;
@@ -190,7 +184,7 @@ body {
   .numberSpacerRight {
     text-align: left; }
 
-#turnActionsArea {
+.turnActionsContainer {
   display: flex; }
 
 .selectArea1 {
@@ -225,6 +219,12 @@ body {
   display: inline-block;
   padding: 1rem;
   border-radius: 10px; }
+
+#biddingEqUpForBidDesc--actionsArea {
+  margin-bottom: 1rem; }
+
+#lastBidSummary {
+  color: green; }
 
 .hideme {
   display: none; }
