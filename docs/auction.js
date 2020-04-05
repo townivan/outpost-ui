@@ -120,8 +120,15 @@ function processAuctionWinner(){
     let selectedEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', selectValue*1);
     document.getElementById('biddableInitialAmount').value = selectedEq.price;
 
-
-    util.spendCards();// ?? only applies to me
+    if (player.isYou){
+        util.spendCards();// ?? only applies to me
+    }
+    else{
+        //getMaxHandValue(player)
+        let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid);
+        util.spendCards(selectedCards);
+    }
+    
 
     // endBidding();
     // update VP and render

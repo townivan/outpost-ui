@@ -143,16 +143,20 @@ export function getSelectedAmountFromCards(){
     })
     return selectedAmount;
 }
-export function spendCards(){
-    let thecards = getSelectedCards();
+export function spendCards(arrayOfCards = null){
+    let thecards = null;
+    if (arrayOfCards){
+        thecards = arrayOfCards; // for ai
+    }
+    else{
+        thecards = getSelectedCards(); // for me
+    }
     thecards.map(card => {
         // console.log('I want to spend this card: ', card)
         // find which array in which player has this card...
         for (let j = 0; j < main.state.players.length; j++) {
             for (let i = 0; i < main.state.players[j].cards.length; i++) {
-                // console.log(`checking: ${main.state.players[j].name} ${main.state.players[j].cards[i].id}`)
                 if (main.state.players[j].cards[i].id === card.id*1) { // convert to number with *1
-                    //return main.state.players[j].cards[i];
                     main.state.players[j].cards.splice(i, 1); // remove it
                     return;
                 }
