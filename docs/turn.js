@@ -169,23 +169,26 @@ export function replaceEquipment() {
                 arrOfPossibleSlots.push(slot)
             }
         })
-        // console.log('arrOfPossibleSlots:', arrOfPossibleSlots)
+        console.log('arrOfPossibleSlots:', arrOfPossibleSlots)
         // pick one...
         let randomSlotIndex = util.randomIntFromInterval(0, arrOfPossibleSlots.length-1);
-        // console.log('randomSlotIndex:', randomSlotIndex)
+        console.log('randomSlotIndex:', randomSlotIndex)
         let randomSlot = arrOfPossibleSlots[randomSlotIndex];
-        // console.log('randomSlot:', randomSlot);
+        console.log('randomSlot:', randomSlot);
 
-        let randomIndexInsideSlot = util.randomIntFromInterval(0, randomSlot.length-1);
-        let randomEqInSlot = randomSlot[randomIndexInsideSlot]
-        
-        // clone it...
-        let clonedEq = JSON.parse(JSON.stringify(randomEqInSlot))
+        // TODO: deal with randomSlot no eq left...randomSlot will be undefined causing length to error
+        if (randomSlot){
+            let randomIndexInsideSlot = util.randomIntFromInterval(0, randomSlot.length-1);
+            let randomEqInSlot = randomSlot[randomIndexInsideSlot]
+            
+            // clone it...
+            let clonedEq = JSON.parse(JSON.stringify(randomEqInSlot))
 
-        // remove it from the slot
-        randomSlot.splice(randomIndexInsideSlot, 1);
+            // remove it from the slot
+            randomSlot.splice(randomIndexInsideSlot, 1);
 
-        main.state.eqUpForBidArray.push(clonedEq);
+            main.state.eqUpForBidArray.push(clonedEq);
+        }
 
         // console.log('randomSlot:', randomSlot);
         // console.log('main.state.eqUpForBidArray:', main.state.eqUpForBidArray);
@@ -201,12 +204,14 @@ export function replaceEquipment() {
     })
     biddableSelectEl.innerHTML = biddableSelectCode;
 
-    let selectValue = biddableSelectEl.options[biddableSelectEl.selectedIndex].value;
-    
-    // TODO: finish equipment.  Display overview, etc.
+    if (main.state.eqUpForBidArray.length > 0){
+        let selectValue = biddableSelectEl.options[biddableSelectEl.selectedIndex].value;
+        
+        // TODO: finish equipment.  Display overview, etc.
 
-    let selectedEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', selectValue*1);
-    document.getElementById('biddableInitialAmount').value = selectedEq.price;
+        let selectedEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', selectValue*1);
+        document.getElementById('biddableInitialAmount').value = selectedEq.price;
+    }
 
 }
 export function distributeProductionCards(){

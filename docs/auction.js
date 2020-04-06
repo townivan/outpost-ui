@@ -138,9 +138,12 @@ function processAuctionWinner(){
     })
     biddableSelectEl.innerHTML = biddableSelectCode;
 
-    let selectValue = biddableSelectEl.options[biddableSelectEl.selectedIndex].value;
-    let selectedEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', selectValue*1);
-    document.getElementById('biddableInitialAmount').value = selectedEq.price;
+    // let selectValue = biddableSelectEl.options[biddableSelectEl.selectedIndex].value;
+    if (main.state.eqUpForBidArray.length > 0){
+        let selectValue = biddableSelectEl.options[0].value;
+        let selectedEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', selectValue*1);
+        document.getElementById('biddableInitialAmount').value = selectedEq.price;
+    }
 
     if (player.isYou){
         util.spendCards();// ?? only applies to me
