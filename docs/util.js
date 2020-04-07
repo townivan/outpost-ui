@@ -39,6 +39,12 @@ export function logit(msg) {
     let targetEl = document.getElementById('log');
     targetEl.innerHTML = targetEl.innerHTML + `<div>${stamp} > Round ${main.state.round}: ${msg}</div>`;
 }
+export function auctionlogit(msg) {
+    let stamp = displayTime();
+    let targetEl = document.getElementById('auctionLog');
+    targetEl.innerHTML = `<div>${main.state.bid_actionCount}: ${msg}</div>` + targetEl.innerHTML;
+    main.state.bid_actionCount++;
+}
 
 function displayTime() {
     var str = "";

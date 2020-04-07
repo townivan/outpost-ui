@@ -4,17 +4,22 @@ import * as ai from './ai.js';
 
 export function startAuction(player, realBidAmt, targetEq){
     console.log(`welcome to startAuction(${player.name}, ${realBidAmt}, ${targetEq.name})...`)
-    document.getElementById('turnActionsArea').classList.toggle('hideme');
-    document.getElementById('biddingArea').classList.toggle('hideme');
-    document.getElementById('biddingClosedArea').classList.toggle('hideme');
-    document.getElementById('turnManageFactoriesArea').classList.toggle('hideme');
+    // document.getElementById('turnActionsArea').classList.toggle('hideme');
+    // document.getElementById('biddingArea').classList.toggle('hideme');
+    // document.getElementById('biddingClosedArea').classList.toggle('hideme');
+    // document.getElementById('turnManageFactoriesArea').classList.toggle('hideme');
+    document.getElementById('auctionViewBtn').click();
+
     main.state.bid_leader = player;
     main.state.bid_currentBid = realBidAmt;
     main.state.bid_equipment = targetEq;
     main.state.players.map(player => player.bidStatus = "waiting")
     player.bidStatus = "leading";
+    main.state.bid_actionCount = 1;
+    document.getElementById('auctionLog').innerHTML = '';
 
     util.printSeatOrder();
+    util.auctionlogit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
     util.logit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
     considerBid(player.playerSeatedAfterMe);
 }
@@ -31,6 +36,7 @@ function considerBid(player){
         if (player.isYou){
             updateUI();
             console.log('%cshow and await bid UI for you', 'color:green;')
+            util.auctionlogit(`Waiting for ${player.name} to act...`);
         }
         else { // ai player
             ai.makeAuctionDecision(player);
@@ -51,7 +57,8 @@ export function counterBid(player, realBidAmt){
     )
     player.bidStatus = "leading";
     // console.log(`${player.name} counterbids ${realBidAmt}.`)
-    util.logit(`${player.name} counterbids ${realBidAmt} on ${main.state.bid_equipment.name}.`);
+    // util.logit(`${player.name} counterbids ${realBidAmt} on ${main.state.bid_equipment.name}.`);
+    util.auctionlogit(`${player.name} counterbids ${realBidAmt} on ${main.state.bid_equipment.name}.`);
     
     considerBid(player.playerSeatedAfterMe);
 }
@@ -60,11 +67,13 @@ export function passBid(player, passType="pass"){
     // console.log(`welcome to passBid(${player.name})...`)
     if (passType == 'passall'){ 
         player.bidStatus = "passall";
-        util.logit(`${player.name} decides to pass on all bidding for this auction.`);
+        // util.logit(`${player.name} decides to pass on all bidding for this auction.`);
+        util.auctionlogit(`${player.name} decides to pass on all bidding for this auction.`);
     }
     else { 
         player.bidStatus = "pass"; 
-        util.logit(`${player.name} decides to pass on bidding for ${main.state.bid_equipment.name} this time.`);
+        // util.logit(`${player.name} decides to pass on bidding for ${main.state.bid_equipment.name} this time.`);
+        util.auctionlogit(`${player.name} decides to pass on bidding for ${main.state.bid_equipment.name} this time.`);
     }
     
     if (isAuctionDone()){
@@ -90,13 +99,20 @@ function isAuctionDone(){
 
 function processAuctionWinner(){
     console.log('welcome to processAuctionWinner()...')
-    document.getElementById('turnActionsArea').classList.toggle('hideme');
-    document.getElementById('biddingArea').classList.toggle('hideme');
-    document.getElementById('biddingClosedArea').classList.toggle('hideme');
-    document.getElementById('turnManageFactoriesArea').classList.toggle('hideme');
+    // document.getElementById('turnActionsArea').classList.toggle('hideme');
+    // document.getElementById('biddingArea').classList.toggle('hideme');
+    // document.getElementById('biddingClosedArea').classList.toggle('hideme');
+    // document.getElementById('turnManageFactoriesArea').classList.toggle('hideme');
+    // document.getElementById('overviewViewBtn').click();
+
+    // update states for display:
+    main.state.players.map(player => player.bidStatus = "pass");
+    main.state.bid_leader.bidStatus = 'Winner!';
+    updateUI();
 
     document.getElementById('lastBidSummary').innerHTML = `${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c.`;
     util.logit(`${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c`);
+    util.auctionlogit(`${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c`);
     // console.log(`${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c`)
 
     let player = main.state.bid_leader; // the winner
@@ -160,6 +176,7 @@ function processAuctionWinner(){
     main.calcVp();
     main.render();
     util.logit(`${player.name} spends ${main.state.bid_currentBid}c to purchase ${eq.name}.`);
+    // util.auctionlogit(`${player.name} spends ${main.state.bid_currentBid}c to purchase ${eq.name}.`);
 
     console.log('player:', player)
 
@@ -179,10 +196,10 @@ function updateUI(){
     function buildBidderBoxDisplay(player){
         const code = `
         <div class="biddingPlayerBox">
-            <div class="biddingPlayerBox--nameLabel">${player.name}</div>
+            <div class="biddingPlayerBox--nameLabel">${player.name}<sup>${player.seat+1}</sup></div>
             <div class="biddingPlayerBox--statusHeader">${player.bidStatus}${player.bidStatus == 'leading' ? ' <i class="far fa-flag"></i>' : ''}...</div>
             <div class="biddingPlayerBox--flag">
-                ${player.isYou ? '<strong>decide now!</strong>' : ''}
+                ${(player.isYou && !isAuctionDone()) ? '<strong>decide now!</strong>' : ''}
                 ${player.bidStatus == 'leading' ? main.state.bid_currentBid+'c' : ''}
             </div>
         </div>

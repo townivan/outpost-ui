@@ -71,6 +71,26 @@ export function firstInit() {
         }
     });
 
+    // nav events
+    document.getElementById('overviewViewBtn').addEventListener('click', function (e) {
+        // console.log('overviewViewBtn was clicked')
+        document.getElementById('overviewPanel').classList.remove('hideme');
+        document.getElementById('turnManageFactoriesArea').classList.remove('hideme');
+        document.getElementById('turnActionsArea').classList.remove('hideme');
+        document.getElementById('logArea').classList.remove('hideme');
+
+        document.getElementById('biddingArea').classList.add('hideme');
+    })
+    document.getElementById('auctionViewBtn').addEventListener('click', function (e) {
+        // console.log('auctionViewBtn was clicked')
+        document.getElementById('overviewPanel').classList.add('hideme');
+        document.getElementById('turnManageFactoriesArea').classList.add('hideme');
+        document.getElementById('turnActionsArea').classList.add('hideme');
+        document.getElementById('logArea').classList.add('hideme');
+
+        document.getElementById('biddingArea').classList.remove('hideme');
+    })
+
 
     // turn buttons BEGIN
     document.getElementById('endTurnBtn').addEventListener('click', function (e) {

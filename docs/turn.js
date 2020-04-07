@@ -169,12 +169,12 @@ export function replaceEquipment() {
                 arrOfPossibleSlots.push(slot)
             }
         })
-        console.log('arrOfPossibleSlots:', arrOfPossibleSlots)
+        // console.log('arrOfPossibleSlots:', arrOfPossibleSlots)
         // pick one...
         let randomSlotIndex = util.randomIntFromInterval(0, arrOfPossibleSlots.length-1);
-        console.log('randomSlotIndex:', randomSlotIndex)
+        // console.log('randomSlotIndex:', randomSlotIndex)
         let randomSlot = arrOfPossibleSlots[randomSlotIndex];
-        console.log('randomSlot:', randomSlot);
+        // console.log('randomSlot:', randomSlot);
 
         // TODO: deal with randomSlot no eq left...randomSlot will be undefined causing length to error
         if (randomSlot){

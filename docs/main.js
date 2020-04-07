@@ -51,6 +51,7 @@ export const state = {
     bid_leader: null,
     // bid_round: 1,
     bid_equipment: null,
+    bid_actionCount: 1,
 };
 
 init.initialize();
