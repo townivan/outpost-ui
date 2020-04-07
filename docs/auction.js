@@ -17,6 +17,8 @@ export function startAuction(player, realBidAmt, targetEq){
     player.bidStatus = "leading";
     main.state.bid_actionCount = 1;
     document.getElementById('auctionLog').innerHTML = '';
+    let auctionInputs = [...document.querySelectorAll('.auctionInputToggle')]
+    auctionInputs.map(el => el.disabled = false);
 
     util.printSeatOrder();
     util.auctionlogit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
@@ -106,11 +108,13 @@ function processAuctionWinner(){
     // document.getElementById('overviewViewBtn').click();
 
     // update states for display:
+    let auctionInputs = [...document.querySelectorAll('.auctionInputToggle')]
+    auctionInputs.map(el => el.disabled = true);
     main.state.players.map(player => player.bidStatus = "pass");
     main.state.bid_leader.bidStatus = 'Winner!';
     updateUI();
 
-    document.getElementById('lastBidSummary').innerHTML = `${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c.`;
+    // document.getElementById('lastBidSummary').innerHTML = `${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c.`;
     util.logit(`${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c`);
     util.auctionlogit(`${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c`);
     // console.log(`${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c`)
@@ -177,6 +181,7 @@ function processAuctionWinner(){
     main.render();
     util.logit(`${player.name} spends ${main.state.bid_currentBid}c to purchase ${eq.name}.`);
     // util.auctionlogit(`${player.name} spends ${main.state.bid_currentBid}c to purchase ${eq.name}.`);
+    document.getElementById('biddingEqUpForBidDesc--currentBid').innerHTML = `<span class="greenspan">${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c!</span>`;
 
     console.log('player:', player)
 

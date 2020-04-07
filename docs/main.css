@@ -223,7 +223,7 @@ body {
 #biddingEqUpForBidDesc--actionsArea {
   margin-bottom: 1rem; }
 
-#lastBidSummary {
+.greenspan {
   color: green; }
 
 .hideme {

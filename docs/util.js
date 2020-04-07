@@ -37,7 +37,8 @@ export function shuffleArray(array) {
 export function logit(msg) {
     let stamp = displayTime();
     let targetEl = document.getElementById('log');
-    targetEl.innerHTML = targetEl.innerHTML + `<div>${stamp} > Round ${main.state.round}: ${msg}</div>`;
+    // targetEl.innerHTML = targetEl.innerHTML + `<div>${stamp} > Round ${main.state.round}: ${msg}</div>`;
+    targetEl.innerHTML = `<div>${stamp} > Round ${main.state.round}: ${msg}</div>` + targetEl.innerHTML;
 }
 export function auctionlogit(msg) {
     let stamp = displayTime();
