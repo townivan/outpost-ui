@@ -24,15 +24,40 @@ export const state = {
         { id: null, name: "Warehouse", price: 25, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Warehouse [c25] (1vp) era1</div><ul><li>+5 Hand Limit.</li></ul>`, },
         { id: null, name: "Heavy Equipment", price: 30, era: 1, vp: 1, amount: 0, isUpForBid: false, desc: `<div>Heavy Equipment [c30] (1vp) era1</div><ul><li>Required to purchase Titanium Factories</li><li>c5 discount on <strong>Nodule</strong> cards.</li><li>c5 discount on <strong>Warehouse</strong> cards.</li><li>c15 discount on <strong>Outpost</strong> cards.</li></ul>`, },
         { id: null, name: "Nodule", price: 25, era: 1, vp: 2, amount: 0, isUpForBid: false, desc: `<div>Nodule [c25] (2vp) era1</div><ul><li>+3 Colony Support Limit.</li></ul>`, },
-        { id: null, name: "Scientists", price: 40, era: 2, vp: 2, amount: 0, isUpForBid: false, },
-        { id: null, name: "Orbital Lab", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, },
-        { id: null, name: "Robots", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, },
-        { id: null, name: "Laboratory", price: 80, era: 2, vp: 5, amount: 0, isUpForBid: false, },
-        { id: null, name: "Ecoplants", price: 30, era: 2, vp: 5, amount: 0, isUpForBid: false, },
-        { id: null, name: "Outpost", price: 100, era: 2, vp: 5, amount: 0, isUpForBid: false, },
-        { id: null, name: "Space Station", price: 120, era: 3, vp: 10, amount: 0, isUpForBid: false, },
-        { id: null, name: "Planetary Cruiser", price: 160, era: 3, vp: 15, amount: 0, isUpForBid: false, },
-        { id: null, name: "Moonbase", price: 200, era: 3, vp: 20, amount: 0, isUpForBid: false, },
+        { id: null, name: "Scientists", price: 40, era: 2, vp: 2, amount: 0, isUpForBid: false, desc: `<div>Scientists [c40] (2vp) era2</div><ul><li>After purchasing, replace this card with the <strong>Scientist</strong> Special Factory counter.</li><li>This special factory produces one Research Production card per turn (no operator required)</li></ul>`},
+        { id: null, name: "Orbital Lab", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, desc: `<div>Orbital Lab [c50] (3vp) era2</div><ul><li>After purchasing, replace this card with the <strong>Orbital Lab</strong> Special Factory counter.</li><li>This special factory produces one <strong>Microbiotics</strong> Production card per turn (no operator required)</li></ul>`},
+        { id: null, name: "Robots", price: 50, era: 2, vp: 3, amount: 0, isUpForBid: false, desc: `<div>Robots [c50] (3vp) era2</div><ul>
+        <li>Required to purchase <strong>Robot</strong> counters.</li>
+        <li>Provides <strong>one</strong> free <strong>Robot</strong> counter.</li>
+    </ul>`},
+        { id: null, name: "Laboratory", price: 80, era: 2, vp: 5, amount: 0, isUpForBid: false, desc: `<div>Laboratory [c80] (5vp) era2</div><ul>
+        <li>Required to purchase <strong>Research</strong> Factories.</li>
+        <li>Provides <strong>one</strong> free <strong>Research</strong> Factory counter (not operated initally).</li>
+    </ul>`},
+        { id: null, name: "Ecoplants", price: 30, era: 2, vp: 5, amount: 0, isUpForBid: false, desc: `<div>Ecoplants [c30] (5vp) era2</div><ul>
+        <li><strong>Colonists</strong> now cost <strong>5c</strong> to purchase [not cumulative with multiple Ecoplants].</li>
+        <li><strong>10c</strong> discount on <strong>Outpost</strong> cards.</li>
+    </ul>`},
+        { id: null, name: "Outpost", price: 100, era: 2, vp: 5, amount: 0, isUpForBid: false, desc: `<div>Outpost [c100] (5vp) era2</div><ul>
+        <li><strong>+5</strong> Colony Support Limit.</li>
+        <li><strong>+5</strong> Hand Limit.</li>
+        <li>Provides <strong>one</strong> free <strong>Titanium</strong> Factory counter (not operated initally).</li>
+    </ul>`},
+        { id: null, name: "Space Station", price: 120, era: 3, vp: 10, amount: 0, isUpForBid: false, desc: `<div>Space Station [c120] (10vp) era3</div><ul>
+        <li>After purchasing, replace this card with the <strong>Orbital Medicine</strong> Special Factory counter.</li>
+        <li>This special factory produces one <strong>Orbital Medicine</strong> Production card per turn, <strong>if operated.</strong></li>
+        <li>+1 Colony Support Limit, <strong>if operated.</strong></li>
+    </ul>`},
+        { id: null, name: "Planetary Cruiser", price: 160, era: 3, vp: 15, amount: 0, isUpForBid: false, desc: `<div>Planetary Cruiser [c160] (15vp) era3</div><ul>
+        <li>After purchasing, replace this card with the <strong>Ring Ore</strong> Special Factory counter.</li>
+        <li>This special factory produces one <strong>Ring Ore</strong> Production card per turn, <strong>if operated.</strong></li>
+        <li>+1 Colony Support Limit, <strong>if operated.</strong></li>
+    </ul>`},
+        { id: null, name: "Moonbase", price: 200, era: 3, vp: 20, amount: 0, isUpForBid: false, desc: `<div>Moonbase [c200] (20vp) era3</div><ul>
+        <li>After purchasing, replace this card with the <strong>Moon Ore</strong> Special Factory counter.</li>
+        <li>This special factory produces one <strong>Moon Ore</strong> Production card per turn, <strong>if operated.</strong></li>
+        <li>+1 Colony Support Limit, <strong>if operated.</strong></li>
+    </ul>`},
     ], // seed this during init  {name:"Data Library", price:15, era:1, vp:1, available:3, id=0}, {}
     eqUpForBidArray: [],
     playerIdsBySeatArray: [],
