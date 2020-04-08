@@ -11,9 +11,13 @@ $indicator-active: #84c6ff;
 $red-dark: #b33535;
 $error-bg: rgba(231,86,86,.15);
 
+// or=Ore wa=Water ti=Titanium re=Research mi=Microbiotics nc=New_Chemicals om=Orbital_Medicine ro=Ring_Ore mo=Moon_Ore
 $Or: #d59667;
 $Wa: #7789A9;
 $Ti: lightgrey;
+$Re: #ecd018;
+$Mi: #d1228b;
+$Nc: #009747;
 
 .bgOr{
     background-color: $Or;
@@ -24,6 +28,15 @@ $Ti: lightgrey;
 .bgTi{
     background-color: $Ti;
 }
+.bgRe{
+    background-color: $Re;
+}
+.bgMi{
+    background-color: $Mi;
+}
+.bgNc{
+    background-color: $Nc;
+}
 
 .bgOrBorder{
     border: 2px $Or solid;
@@ -33,6 +46,15 @@ $Ti: lightgrey;
 }
 .bgTiBorder{
     border: 2px $Ti solid;
+}
+.bgReBorder{
+    border: 2px $Re solid;
+}
+.bgMiBorder{
+    border: 2px $Mi solid;
+}
+.bgNcBorder{
+    border: 2px $Nc solid;
 }
 
 $mobile-width: 375px;

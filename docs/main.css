@@ -10,6 +10,15 @@
 .bgTi {
   background-color: lightgrey; }
 
+.bgRe {
+  background-color: #ecd018; }
+
+.bgMi {
+  background-color: #d1228b; }
+
+.bgNc {
+  background-color: #009747; }
+
 .bgOrBorder {
   border: 2px #d59667 solid; }
 
@@ -18,6 +27,15 @@
 
 .bgTiBorder {
   border: 2px lightgrey solid; }
+
+.bgReBorder {
+  border: 2px #ecd018 solid; }
+
+.bgMiBorder {
+  border: 2px #d1228b solid; }
+
+.bgNcBorder {
+  border: 2px #009747 solid; }
 
 body {
   font-size: 17px;

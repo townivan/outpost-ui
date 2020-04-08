@@ -61,20 +61,8 @@ export const state = {
     ], // seed this during init  {name:"Data Library", price:15, era:1, vp:1, available:3, id=0}, {}
     eqUpForBidArray: [],
     playerIdsBySeatArray: [],
-    // bidstate: {
-    //     isActive: false,
-    //     players: [],
-    //     eq: null,
-    //     round: 0,
-    //     currentLeaderId: null,
-    //     currentValue: 0,
-    // },
-
-    // bid_isBiddingActive: false,
-    // bid_players: [],
     bid_currentBid: null,
     bid_leader: null,
-    // bid_round: 1,
     bid_equipment: null,
     bid_actionCount: 1,
 };
@@ -115,6 +103,15 @@ export function addPlayer(name = 'Larry') {
         let TiCount = 0;
         let TiManned = 0;
 
+        let ReCount = 0;
+        let ReManned = 0;
+
+        let MiCount = 0;
+        let MiManned = 0;
+
+        let NcCount = 0;
+        let NcManned = 0;
+
         this.factories.map(factory => {
             if (factory.type === "Or") {
                 OrCount++;
@@ -128,6 +125,18 @@ export function addPlayer(name = 'Larry') {
                 TiCount++;
                 if (factory.isManned) { TiManned++; }
             }
+            if (factory.type === "Re") {
+                ReCount++;
+                if (factory.isManned) { ReManned++; }
+            }
+            if (factory.type === "Mi") {
+                MiCount++;
+                if (factory.isManned) { MiManned++; }
+            }
+            if (factory.type === "Nc") {
+                NcCount++;
+                if (factory.isManned) { NcManned++; }
+            }
         })
         this.OrCount = OrCount;
         this.OrManned = OrManned;
@@ -137,6 +146,15 @@ export function addPlayer(name = 'Larry') {
 
         this.TiCount = TiCount;
         this.TiManned = TiManned;
+
+        this.ReCount = ReCount;
+        this.ReManned = ReManned;
+
+        this.MiCount = MiCount;
+        this.MiManned = MiManned;
+
+        this.NcCount = NcCount;
+        this.NcManned = NcManned;
     }
     p.dataLibraryCount = 0;
     p.warehouseCount = 0;
@@ -148,8 +166,6 @@ export function addPlayer(name = 'Larry') {
     p.playerSeatedAfterMe = null;
     p.bidStatus = null;
 
-
-    //init.initialdraw(p);
     return p;
 }
 
@@ -171,8 +187,16 @@ export function render() {
     let cardsMax = 0;
     let onlyCards_or = [];
     let onlyCards_wa = [];
+    let onlyCards_ti = [];
+    let onlyCards_re = [];
+    let onlyCards_mi = [];
+    let onlyCards_nc = [];
     let allCardCode_or = '';
     let allCardCode_wa = '';
+    let allCardCode_ti = '';
+    let allCardCode_re = '';
+    let allCardCode_mi = '';
+    let allCardCode_nc = '';
     let me = util.getPlayerMe();
     me.cards.map(card => {
         cardsMax += card.value;
@@ -182,6 +206,18 @@ export function render() {
         }
         if (card.cardType === 'Wa') {
             onlyCards_wa.push(card);
+        }
+        if (card.cardType === 'Ti') {
+            onlyCards_ti.push(card);
+        }
+        if (card.cardType === 'Re') {
+            onlyCards_re.push(card);
+        }
+        if (card.cardType === 'Mi') {
+            onlyCards_mi.push(card);
+        }
+        if (card.cardType === 'Nc') {
+            onlyCards_nc.push(card);
         }
     })
 
@@ -199,8 +235,40 @@ export function render() {
         allCardCode_wa += code;
     })
 
+    onlyCards_ti.sort(util.compareValues('value'));
+    onlyCards_ti.map(card => {
+        // const code = `<button type="button" class="pcard pcard_ti" value="${card.value}">${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_ti" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        allCardCode_ti += code;
+    })
+
+    onlyCards_re.sort(util.compareValues('value'));
+    onlyCards_re.map(card => {
+        // const code = `<button type="button" class="pcard pcard_re" value="${card.value}">${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_re" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        allCardCode_re += code;
+    })
+
+    onlyCards_mi.sort(util.compareValues('value'));
+    onlyCards_mi.map(card => {
+        // const code = `<button type="button" class="pcard pcard_mi" value="${card.value}">${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_mi" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        allCardCode_mi += code;
+    })
+
+    onlyCards_nc.sort(util.compareValues('value'));
+    onlyCards_nc.map(card => {
+        // const code = `<button type="button" class="pcard pcard_nc" value="${card.value}">${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_nc" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        allCardCode_nc += code;
+    })
+
     document.getElementById('pCardRenderInsertionPoint_or').innerHTML = allCardCode_or;
     document.getElementById('pCardRenderInsertionPoint_wa').innerHTML = allCardCode_wa;
+    document.getElementById('pCardRenderInsertionPoint_ti').innerHTML = allCardCode_ti;
+    document.getElementById('pCardRenderInsertionPoint_re').innerHTML = allCardCode_re;
+    document.getElementById('pCardRenderInsertionPoint_mi').innerHTML = allCardCode_mi;
+    document.getElementById('pCardRenderInsertionPoint_nc').innerHTML = allCardCode_nc;
 
     document.getElementById('cardsMax').innerHTML = cardsMax.toString();
 
@@ -242,15 +310,24 @@ export function render() {
         let countOr = 0;
         let countWa = 0;
         let countTi = 0;
+        let countRe = 0;
+        let countMi = 0;
+        let countNc = 0;
         player.cards.map(card => {
             if (card.cardType === 'Or') { countOr++; }
             if (card.cardType === 'Wa') { countWa++; }
             if (card.cardType === 'Ti') { countTi++; }
+            if (card.cardType === 'Re') { countRe++; }
+            if (card.cardType === 'Mi') { countRe++; }
+            if (card.cardType === 'Nc') { countRe++; }
         })
         rowCode += `<div class="overviewColx">
         ${countOr > 0 ? `<span class="bgOrBorder">${countOr}</span>` + '<span class="bgOr bgOrBorder">Or</span>' : ''} 
         ${countWa > 0 ? `<span class="bgWaBorder">${countWa}</span>` + '<span class="bgWa bgWaBorder">Wa</span>' : ''}
-        ${countWa > 0 ? `<span class="bgTiBorder">${countTi}</span>` + '<span class="bgTi bgTiBorder">Ti</span>' : ''}
+        ${countTi > 0 ? `<span class="bgTiBorder">${countTi}</span>` + '<span class="bgTi bgTiBorder">Ti</span>' : ''}
+        ${countRe > 0 ? `<span class="bgReBorder">${countRe}</span>` + '<span class="bgRe bgReBorder">Re</span>' : ''}
+        ${countMi > 0 ? `<span class="bgMiBorder">${countMi}</span>` + '<span class="bgMi bgMiBorder">Mi</span>' : ''}
+        ${countNc > 0 ? `<span class="bgNcBorder">${countNc}</span>` + '<span class="bgNc bgNcBorder">Nc</span>' : ''}
         </div>`;
     });
     rowCode += `</div>`
@@ -291,10 +368,34 @@ export function render() {
     allOverViewCode += rowCode;
 
 
-    rowCode = `<div class="rowOverview">`;
+    rowCode = `<div id="overview_Ti" class="rowOverview hideme">`;
     rowCode += `<div class="overviewCol1">Factories - <span class="bgTiBorder">Ti</span></div>`;
     state.players.map(player => {
         rowCode += `<div class="overviewColx bgTiBorder">${player.TiManned} of ${player.TiCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+    
+    rowCode = `<div class="rowOverview">`;
+    rowCode += `<div class="overviewCol1">Factories - <span class="bgReBorder">Re</span></div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx bgReBorder">${player.ReManned} of ${player.ReCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+    
+    rowCode = `<div class="rowOverview">`;
+    rowCode += `<div class="overviewCol1">Factories - <span class="bgMiBorder">Mi</span></div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx bgMiBorder">${player.MiManned} of ${player.MiCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+    
+    rowCode = `<div class="rowOverview">`;
+    rowCode += `<div class="overviewCol1">Factories - <span class="bgNcBorder">Nc</span></div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx bgNcBorder">${player.NcManned} of ${player.NcCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
