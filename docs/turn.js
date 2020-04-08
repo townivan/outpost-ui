@@ -22,22 +22,10 @@ export function startRound() {
     // 6. check for victory
 
 
-    // loop through players and do AI actions if needed.  Wait for real player actions.
+    // loop(ish) through players and do AI actions if needed.  Wait for real player actions.
     console.log('main.state.players:', main.state.players)
-    // for (let i = 0; i < main.state.players.length; i++) {
-    //     if (main.state.players[i].isYou) {
-    //         break; // stop for your turn
-    //     }
-    //     else{
-    //         startTurn(main.state.players[i]);
-    //     }
-    //     // else {
-    //     //     endTurn(main.state.players[i]);
-    //     // }
-    // }
-        let nextPlayer = util.getPlayerByTurnOrder(main.state.players[0].turnOrder + 1);
-        // console.log('nextPlayer:', nextPlayer)
-        startTurn(main.state.players[0]);
+    let nextPlayer = util.getPlayerByTurnOrder(main.state.players[0].turnOrder + 1);
+    startTurn(main.state.players[0]);
 }
 export function endRound() {
     console.log('this round should now end.');
@@ -346,6 +334,7 @@ export function buyFactory(player, buyNumber, factoryType){
     let unitPrice = null;
     if (factoryType == 'factoryOr'){ unitPrice = 10; }
     if (factoryType == 'factoryWa'){ unitPrice = 20; }
+    if (factoryType == 'factoryTi'){ unitPrice = 30; }
     // apply discounts here later (todo)
     let totalCost = buyNumber * unitPrice;
     console.log('totalCost:', totalCost)
@@ -378,6 +367,7 @@ export function buyFactory(player, buyNumber, factoryType){
         // purchase successful!  process...
         if (factoryType == 'factoryOr'){ player.factories.push(main.addFactory(player, 'Or')); }
         if (factoryType == 'factoryWa'){ player.factories.push(main.addFactory(player, 'Wa')); }
+        if (factoryType == 'factoryTi'){ player.factories.push(main.addFactory(player, 'Ti')); }
         util.spendCards();
         // update VP and render
         main.calcVp();
@@ -391,69 +381,3 @@ export function buyFactory(player, buyNumber, factoryType){
     }
 
 }
-/*
-export function startBid(){
-    console.log('welcome to startBid()...')
-    console.log('main.state.players:', main.state.players)// this should be in vp order already...
-    // bidstate: {
-    //     isActive
-    //     players: [],
-    //     eq: null,
-    //     round: 0,
-    //     currentLeaderId: null
-
-    // this should be disabled if a bid is already active....so...
-    if (!main.state.bidstate.isActive){  // if there isn't already an active bid (just to be safe)
-        main.state.bidstate.isActive = true;
-        bidInit();
-        ai.startAiBidding();
-    }
-}
-function bidInit(){
-    let me = util.getPlayerMe();
-    let bid = main.state.bidstate;
-    main.state.players.map(player => {
-        bid.players.push(player);
-    })
-
-    // sort groups highest vp first
-    bid.players.sort(util.compareValues('seat'));
-    console.log('bid:', bid)
-
-    let biddingPlayerBoxesCode = '';
-    bid.players.map(player => {
-        biddingPlayerBoxesCode += getBoxCode(player);
-    })
-    document.getElementById('biddingPlayerListArea').innerHTML = biddingPlayerBoxesCode;
-
-    function getBoxCode(player){
-        let code = `
-        <div class="biddingPlayerBox">
-            <div class="biddingPlayerBox--statusHeader">${player.isYou ? '<strong>active</strong>' : 'waiting...'}</div>
-            <div class="biddingPlayerBox--nameLabel">${player.name}</div>
-            <div class="biddingPlayerBox--flag"></div>
-        </div>`;
-        return code;
-    }
-
-    // biddingEqUpForBidDesc--desc
-    let biddableSelect = document.getElementById('biddableSelect').value;
-    let targetEq = util.getObjInHereWithValue(main.state.equipment, 'name', biddableSelect); 
-    document.getElementById('biddingEqUpForBidDesc--desc').innerHTML = targetEq.desc;
-
-    //biddingEqUpForBidDesc--currentBid
-    let biddableInitialAmount = document.getElementById('biddableInitialAmount').value;
-    let message = `Current bid ${biddableInitialAmount}c by ${me.name}`;
-    document.getElementById('biddingEqUpForBidDesc--currentBid').innerHTML = message;
-
-    // update bid
-    bid.currentValue = biddableInitialAmount;
-    bid.currentLeaderId = me.id;
-
-    // update upcoming bid data
-    document.getElementById('newBidAmountInput').value = biddableInitialAmount*1 + 1;
-
-
-    
-}
-*/

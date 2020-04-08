@@ -114,6 +114,9 @@ function processAuctionWinner(){
     main.state.bid_leader.bidStatus = 'Winner!';
     updateUI();
 
+    
+
+
     // document.getElementById('lastBidSummary').innerHTML = `${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c.`;
     util.logit(`${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c`);
     util.auctionlogit(`${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c`);
@@ -121,6 +124,25 @@ function processAuctionWinner(){
 
     let player = main.state.bid_leader; // the winner
     let eq = main.state.bid_equipment;
+
+    // process factoryUnlocks for player
+    if (eq.name == 'Heavy Equipment'){
+        player.isUnlocked_Ti = true;
+        document.getElementById('pcardRow_Ti').classList.remove('hideme');
+    }
+
+    // rebuild buySelect
+    let buySelect = document.getElementById('buySelect')
+    let buySelectCode = `<select id="buySelect">
+    <option value="colonist">colonist</option>
+    <option value="robot">robot</option>
+    <option value="factoryOr">factoryOr</option>
+    <option value="factoryWa">factoryWa</option>`
+    if (player.isYou && player.isUnlocked_Ti){
+        buySelectCode += `<option value="factoryTi">factoryTi</option>`
+    }
+    buySelectCode += `</select>`
+    buySelect.innerHTML = buySelectCode;
 
     // var eqToRemoveIndex = main.state.eqUpForBidArray.indexOf(eq.name);
     // main.state.eqUpForBidArray.splice(eqToRemoveIndex, 1);

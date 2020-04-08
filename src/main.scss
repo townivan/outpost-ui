@@ -148,22 +148,6 @@ body{
     font-size: 30px;
 }
 .pcard-master{ // production card
-    // background-color: transparent;
-    // color: blue;
-    // cursor: pointer;
-    // text-decoration: underline;
-    // border: 2px solid transparent;
-    // border-radius: 4px;
-    // font-size: 1rem;
-    // width: 3rem;
-    // &:focus{
-    //     outline: none; 
-    //     // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    // }
-    // &--selected{
-    //     border-color:blue;
-    //     text-decoration: none;
-    // }
     width: 80px;
     height: 44px;
     border-radius: 4px;
@@ -205,6 +189,30 @@ body{
         background-color: lighten($Wa, 30%);
         &.pcard--selected{
             background-color: $Wa;
+        }
+    }
+    &_ti{
+        background-color: lighten($Ti, 30%);
+        &.pcard--selected{
+            background-color: $Ti;
+        }
+    }
+    &_re{
+        background-color: lighten($Re, 30%);
+        &.pcard--selected{
+            background-color: $Re;
+        }
+    }
+    &_mi{
+        background-color: lighten($Mi, 30%);
+        &.pcard--selected{
+            background-color: $Mi;
+        }
+    }
+    &_nc{
+        background-color: lighten($Nc, 30%);
+        &.pcard--selected{
+            background-color: $Nc;
         }
     }
 }

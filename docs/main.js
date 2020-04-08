@@ -166,6 +166,8 @@ export function addPlayer(name = 'Larry') {
     p.playerSeatedAfterMe = null;
     p.bidStatus = null;
 
+    p.isUnlocked_Ti = false;
+
     return p;
 }
 
@@ -223,42 +225,36 @@ export function render() {
 
     onlyCards_or.sort(util.compareValues('value'));
     onlyCards_or.map(card => {
-        // const code = `<button type="button" class="pcard pcard_or" value="${card.value}">${card.value}</button>`;
         const code = `<button type="button" class="pcard pcard_or" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_or += code;
     })
 
     onlyCards_wa.sort(util.compareValues('value'));
     onlyCards_wa.map(card => {
-        // const code = `<button type="button" class="pcard pcard_wa" value="${card.value}">${card.value}</button>`;
         const code = `<button type="button" class="pcard pcard_wa" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_wa += code;
     })
 
     onlyCards_ti.sort(util.compareValues('value'));
     onlyCards_ti.map(card => {
-        // const code = `<button type="button" class="pcard pcard_ti" value="${card.value}">${card.value}</button>`;
         const code = `<button type="button" class="pcard pcard_ti" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_ti += code;
     })
 
     onlyCards_re.sort(util.compareValues('value'));
     onlyCards_re.map(card => {
-        // const code = `<button type="button" class="pcard pcard_re" value="${card.value}">${card.value}</button>`;
         const code = `<button type="button" class="pcard pcard_re" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_re += code;
     })
 
     onlyCards_mi.sort(util.compareValues('value'));
     onlyCards_mi.map(card => {
-        // const code = `<button type="button" class="pcard pcard_mi" value="${card.value}">${card.value}</button>`;
         const code = `<button type="button" class="pcard pcard_mi" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_mi += code;
     })
 
     onlyCards_nc.sort(util.compareValues('value'));
     onlyCards_nc.map(card => {
-        // const code = `<button type="button" class="pcard pcard_nc" value="${card.value}">${card.value}</button>`;
         const code = `<button type="button" class="pcard pcard_nc" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
         allCardCode_nc += code;
     })
@@ -368,7 +364,7 @@ export function render() {
     allOverViewCode += rowCode;
 
 
-    rowCode = `<div id="overview_Ti" class="rowOverview hideme">`;
+    rowCode = `<div id="overview_Ti" class="rowOverview ${util.getPlayerMe().isUnlocked_Ti ? '' :'hideme'}">`;
     rowCode += `<div class="overviewCol1">Factories - <span class="bgTiBorder">Ti</span></div>`;
     state.players.map(player => {
         rowCode += `<div class="overviewColx bgTiBorder">${player.TiManned} of ${player.TiCount}</div>`;
@@ -376,7 +372,7 @@ export function render() {
     rowCode += `</div>`
     allOverViewCode += rowCode;
     
-    rowCode = `<div class="rowOverview">`;
+    rowCode = `<div class="rowOverview ${util.getPlayerMe().isUnlocked_Re ? '' :'hideme'}">`;
     rowCode += `<div class="overviewCol1">Factories - <span class="bgReBorder">Re</span></div>`;
     state.players.map(player => {
         rowCode += `<div class="overviewColx bgReBorder">${player.ReManned} of ${player.ReCount}</div>`;
@@ -384,7 +380,7 @@ export function render() {
     rowCode += `</div>`
     allOverViewCode += rowCode;
     
-    rowCode = `<div class="rowOverview">`;
+    rowCode = `<div class="rowOverview ${util.getPlayerMe().isUnlocked_Mi ? '' :'hideme'}">`;
     rowCode += `<div class="overviewCol1">Factories - <span class="bgMiBorder">Mi</span></div>`;
     state.players.map(player => {
         rowCode += `<div class="overviewColx bgMiBorder">${player.MiManned} of ${player.MiCount}</div>`;
@@ -392,7 +388,7 @@ export function render() {
     rowCode += `</div>`
     allOverViewCode += rowCode;
     
-    rowCode = `<div class="rowOverview">`;
+    rowCode = `<div class="rowOverview ${util.getPlayerMe().isUnlocked_Nc ? '' :'hideme'}">`;
     rowCode += `<div class="overviewCol1">Factories - <span class="bgNcBorder">Nc</span></div>`;
     state.players.map(player => {
         rowCode += `<div class="overviewColx bgNcBorder">${player.NcManned} of ${player.NcCount}</div>`;
@@ -646,6 +642,9 @@ export function addFactory(player, reqType = 'Or') {
     if (reqType === 'Or') { f.type = reqType; f.ownerId = player.id; }
     if (reqType === 'Wa') { f.type = reqType; f.ownerId = player.id; }
     if (reqType === 'Ti') { f.type = reqType; f.ownerId = player.id; }
+    if (reqType === 'Re') { f.type = reqType; f.ownerId = player.id; }
+    if (reqType === 'Mi') { f.type = reqType; f.ownerId = player.id; }
+    if (reqType === 'Nc') { f.type = reqType; f.ownerId = player.id; }
     f.isManned = false;
     // auto-man logic attempt
     f.mannedBy = 'unmanned';
@@ -719,6 +718,15 @@ export function calcVp(){
             }
             if (factory.type === "Ti") {
                 if (factory.isManned) { playerTotalVp = playerTotalVp + 2; }
+            }
+            if (factory.type === "Re") {
+                if (factory.isManned) { playerTotalVp = playerTotalVp + 2; }
+            }
+            if (factory.type === "Mi") {
+                if (factory.isManned) { playerTotalVp = playerTotalVp + 3; }
+            }
+            if (factory.type === "Nc") {
+                if (factory.isManned) { playerTotalVp = playerTotalVp + 3; }
             }
         })
         player.ownedEquipment.map(eq => {

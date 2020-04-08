@@ -137,6 +137,22 @@ body {
     background-color: #d5dae4; }
     .pcard_wa.pcard--selected {
       background-color: #7789A9; }
+  .pcard_ti {
+    background-color: white; }
+    .pcard_ti.pcard--selected {
+      background-color: lightgrey; }
+  .pcard_re {
+    background-color: #f8eda5; }
+    .pcard_re.pcard--selected {
+      background-color: #ecd018; }
+  .pcard_mi {
+    background-color: #ef9dce; }
+    .pcard_mi.pcard--selected {
+      background-color: #d1228b; }
+  .pcard_nc {
+    background-color: #31ff92; }
+    .pcard_nc.pcard--selected {
+      background-color: #009747; }
 
 .cb1 {
   position: absolute;
