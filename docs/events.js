@@ -166,6 +166,9 @@ export function firstInit() {
             document.getElementById('bidError').innerHTML = `Invalid bid. Selected card(s) < price`;
             return;
         }
+        else{
+            document.getElementById('bidError').innerHTML = ``;
+        }
         auction.startAuction(me, selectedAmount, targetEq)
     })
     // auction stuff END

@@ -15,6 +15,17 @@ export function initialize() {
     main.state.players.push(main.addPlayer('Ivan'));
     main.state.players[2].isYou = true;
     main.state.players.push(main.addPlayer('Gabriel'));
+
+    // set era3 trigger based on number of players
+    if (main.state.players.length == 5 || main.state.players.length == 8){
+        main.state.era3Trigger = 30;
+    }
+    if (main.state.players.length == 3 || main.state.players.length == 6 || main.state.players.length == 9){
+        main.state.era3Trigger = 35;
+    }
+    if (main.state.players.length == 2 || main.state.players.length == 4 || main.state.players.length == 7){
+        main.state.era3Trigger = 40;
+    }
     
 
     main.state.currentPlayerNumber = main.state.players[0].turnOrder;

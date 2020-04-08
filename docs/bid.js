@@ -21,6 +21,9 @@ export function startBid(player, bidAmt, targetEq){
         document.getElementById('bidError').innerHTML = `Invalid bid. Selected card(s) < price`;
         return;
     }
+    else{
+        document.getElementById('bidError').innerHTML = ``;
+    }
     
     main.state.bid_isBiddingActive = true;
     main.state.players.map(player => {

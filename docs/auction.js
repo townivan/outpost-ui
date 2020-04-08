@@ -130,6 +130,16 @@ function processAuctionWinner(){
         player.isUnlocked_Ti = true;
         document.getElementById('pcardRow_Ti').classList.remove('hideme');
     }
+    if (eq.name == 'Laboratory' || eq.name == 'Scientists'){
+        player.isUnlocked_Re = true;
+        document.getElementById('pcardRow_Re').classList.remove('hideme');
+        player.isUnlocked_Nc = true;
+        document.getElementById('pcardRow_Nc').classList.remove('hideme');
+    }
+    if (eq.name == 'Orbital Lab'){
+        player.isUnlocked_Mi = true;
+        document.getElementById('pcardRow_Mi').classList.remove('hideme');
+    }
 
     // rebuild buySelect
     let buySelect = document.getElementById('buySelect')
@@ -140,6 +150,15 @@ function processAuctionWinner(){
     <option value="factoryWa">factoryWa</option>`
     if (player.isYou && player.isUnlocked_Ti){
         buySelectCode += `<option value="factoryTi">factoryTi</option>`
+    }
+    if (player.isYou && player.isUnlocked_Re){
+        buySelectCode += `<option value="factoryRe">factoryRe</option>`
+    }
+    if (player.isYou && player.isUnlocked_Mi){
+        buySelectCode += `<option value="factoryMi">factoryMi</option>`
+    }
+    if (player.isYou && player.isUnlocked_Nc){
+        buySelectCode += `<option value="factoryNc">factoryNc</option>`
     }
     buySelectCode += `</select>`
     buySelect.innerHTML = buySelectCode;

@@ -167,6 +167,9 @@ export function addPlayer(name = 'Larry') {
     p.bidStatus = null;
 
     p.isUnlocked_Ti = false;
+    p.isUnlocked_Re = false;
+    p.isUnlocked_Mi = false;
+    p.isUnlocked_Nc = false;
 
     return p;
 }
@@ -406,6 +409,15 @@ export function render() {
     let warehouseCount = 0;
     let heavyequipmentCount = 0;
     let noduleCount = 0;
+    let scientistsCount = 0;
+    let orbitalLabCount = 0;
+    let robotsCount = 0;
+    let laboratoryCount = 0;
+    let ecoplantsCount = 0;
+    let outpostCount = 0;
+    let spaceStationCount = 0;
+    let planetaryCruiserCount = 0;
+    let moonbaseCount = 0;
 
     // console.log('%cstate.equipment:', 'background-color:orange', state.equipment)
     // console.log('%cstate.eqUpForBidArray:', 'background-color:lightgreen', state.eqUpForBidArray)
@@ -425,6 +437,33 @@ export function render() {
             if (eq.name == "Nodule"){
                 noduleCount++;
             }
+            if (eq.name == "Scientists"){
+                scientistsCount++;
+            }
+            if (eq.name == "Orbital Lab"){
+                orbitalLabCount++;
+            }
+            if (eq.name == "Robots"){
+                robotsCount++;
+            }
+            if (eq.name == "Laboratory"){
+                laboratoryCount++;
+            }
+            if (eq.name == "Ecoplants"){
+                ecoplantsCount++;
+            }
+            if (eq.name == "Outpost"){
+                outpostCount++;
+            }
+            if (eq.name == "Space Station"){
+                spaceStationCount++;
+            }
+            if (eq.name == "Planetary Cruiser"){
+                planetaryCruiserCount++;
+            }
+            if (eq.name == "Moonbase"){
+                moonbaseCount++;
+            }
         })
     })
     state.eqUpForBidArray.map(eq => {
@@ -440,6 +479,33 @@ export function render() {
         }
         if (eq.name == "Nodule"){
             noduleCount++;
+        }
+        if (eq.name == "Scientists"){
+            scientistsCount++;
+        }
+        if (eq.name == "Orbital Lab"){
+            orbitalLabCount++;
+        }
+        if (eq.name == "Robots"){
+            robotsCount++;
+        }
+        if (eq.name == "Laboratory"){
+            laboratoryCount++;
+        }
+        if (eq.name == "Ecoplants"){
+            ecoplantsCount++;
+        }
+        if (eq.name == "Outpost"){
+            outpostCount++;
+        }
+        if (eq.name == "Space Station"){
+            spaceStationCount++;
+        }
+        if (eq.name == "Planetary Cruiser"){
+            planetaryCruiserCount++;
+        }
+        if (eq.name == "Moonbase"){
+            moonbaseCount++;
         }
     })
 
@@ -503,6 +569,38 @@ export function render() {
             }
         })
         rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Nodule">${playerEqCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+    
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Scientists');
+    rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Scientists (${scientistsCount} left)</div>`;
+    state.players.map(player => {
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Scientists"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Scientists">${playerEqCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Orbital Lab');
+    rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Orbital Lab (${orbitalLabCount} left)</div>`;
+    state.players.map(player => {
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Orbital Lab"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Orbital Lab">${playerEqCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
@@ -733,5 +831,17 @@ export function calcVp(){
             playerTotalVp = playerTotalVp + eq.vp
         })
         player.vp = playerTotalVp;
+
+        // trigger era change if needed
+        if (playerTotalVp >= 10 && state.currentEra == 1){
+            state.currentEra = 2;
+        }
+        if (playerTotalVp >= state.era3Trigger && state.currentEra == 2){
+            state.currentEra = 3;
+        }
+        // era2Trigger
+        // era3Trigger
+        // currentEra
+        // players
     })
 }
