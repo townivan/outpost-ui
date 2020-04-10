@@ -28,10 +28,11 @@ export function startAuction(player, realBidAmt, targetEq){
 
 function considerBid(player){
     // console.log(`welcome to considerBid(${player.name})...`)
+    // console.log('player.bidStatus:', player.bidStatus)
     // util.printSeatOrder();
     // results in: 1.counterBid 2.Pass 3.PassAll
-    if (player.bidStatus == 'passall'){
-        passBid(player, 'pass');
+    if (player.bidStatus === 'passall'){
+        passBid(player, 'passall');
     }
     else{
 
@@ -67,10 +68,11 @@ export function counterBid(player, realBidAmt){
 
 export function passBid(player, passType="pass"){
     // console.log(`welcome to passBid(${player.name})...`)
-    if (passType == 'passall'){ 
+    // console.log('passType:', passType)
+    if (passType === 'passall'){ 
         player.bidStatus = "passall";
         // util.logit(`${player.name} decides to pass on all bidding for this auction.`);
-        util.auctionlogit(`${player.name} decides to pass on all bidding for this auction.`);
+        util.auctionlogit(`${player.name} is passing on all bidding for this auction.`);
     }
     else { 
         player.bidStatus = "pass"; 
