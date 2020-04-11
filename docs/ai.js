@@ -15,15 +15,15 @@ export function makeAuctionDecision(player){
             let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1);
 
             // since the logic to select cards is not optimized, see how much is really in the selected cards..(it's likely higher)
-            let realBidAmt = 0;
-            selectedCards.map(card => {
-                realBidAmt += card.value;
-            })
-            auction.counterBid(player, realBidAmt) // if possible, will always bid
+            // let realBidAmt = 0;
+            // selectedCards.map(card => {
+            //     realBidAmt += card.value;
+            // })
+            // auction.counterBid(player, realBidAmt) // if possible, will always bid
         // }
         // else{
-        //     // randomly decided to pass
-        //     auction.passBid(player, 'pass');
+            // randomly decided to pass
+            auction.passBid(player, 'pass');
         // }
     }
     else{ 

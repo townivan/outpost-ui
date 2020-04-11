@@ -6,7 +6,7 @@ import * as auction from './auction.js';
 
 export function firstInit() {
 
-    // document-level event handler
+    // document-level event handler (Factory management)
     document.addEventListener('click',function(e){
 
         if(e.target && e.target.classList.contains('factoryBtn')){
@@ -66,12 +66,13 @@ export function firstInit() {
             }
 
             me.updateFactoryCounts();
+            main.calcVp();
             // console.log('me:', me)
             main.render();
         }
     });
 
-    // nav events
+    // top nav events
     document.getElementById('overviewViewBtn').addEventListener('click', function (e) {
         // console.log('overviewViewBtn was clicked')
         document.getElementById('overviewPanel').classList.remove('hideme');
@@ -153,8 +154,6 @@ export function firstInit() {
         let targetEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', biddableSelect*1);
         // bid.startBid(me, bidAmt, targetEq);
 
-
-
         let selectedAmount = util.getSelectedAmountFromCards();
 
         let isValidBid = false;
@@ -177,116 +176,117 @@ export function firstInit() {
 
     
 
-
+    // Mega selectors: None
     document.getElementById('pcardmaster_none').addEventListener('click', function (e) {
-        let allPCardMasters = [...document.querySelectorAll('.pcard-master')];
-        allPCardMasters.map(master => {
-            master.classList.add('pcard-master--selected');
-            master.click();
+        let allpcards = [...document.querySelectorAll('.pcard')];
+        allpcards.map(pcard => {
+            pcard.classList.remove('pcard--selected');
+            const cb = pcard.querySelector('input');
+            cb.checked = false; // the inner checkbox
+            const cardObj = util.getCardById(pcard.dataset.id*1);
+            cardObj.isSelected = false;
         })
     })
-
+    // Mega selectors: All
     document.getElementById('pcardmaster_all').addEventListener('click', function (e) {
-        let allPCardMasters = [...document.querySelectorAll('.pcard-master')];
-        allPCardMasters.map(master => {
-            master.classList.remove('pcard-master--selected');
-            master.click();
+        let allpcards = [...document.querySelectorAll('.pcard')];
+        allpcards.map(pcard => {
+            pcard.classList.add('pcard--selected');
+            const cb = pcard.querySelector('input');
+            cb.checked = true; // the inner checkbox
+            const cardObj = util.getCardById(pcard.dataset.id*1);
+            cardObj.isSelected = true;
         })
     })
 
-    // toggle select all/none of the Or cards in your hand...
-    document.getElementById('pcardmaster_or').addEventListener('click', function (e) {
-        if (this.classList.contains('pcard-master--selected')) {
-            this.classList.remove('pcard-master--selected');
-        }
-        else {
-            this.classList.add('pcard-master--selected');
-        }
 
-        let allpcards_or = [...document.querySelectorAll(".pcard_or")];
-        allpcards_or.map(pcard => { // arrow function preserves 'this' binding to orig
-            if (this.classList.contains('pcard-master--selected')) {
-                pcard.classList.add('pcard--selected')
-                let innerCB = pcard.querySelector('input');
-                innerCB.checked = true;
+    // Mass select for each type.
+    let allMasterSelectButtons = [...document.querySelectorAll('.pcard-master')];
+    allMasterSelectButtons.map(button => {
+        // console.log('masterSelectButton:', button)
+
+        button.addEventListener('click', function (e) {
+            let massSelectDom = e.target;
+            let cardTypeIndicator = massSelectDom.dataset.type;
+    
+            let areAllAlreadySelected = true; // assume all are selected
+            let allpcardsOfThisType = [...document.querySelectorAll(`.${cardTypeIndicator}`)];
+            allpcardsOfThisType.map(pcard => {
+                if (!pcard.classList.contains('pcard--selected')){ // found one not selected
+                    areAllAlreadySelected = false;
+                }
+            });
+            if (areAllAlreadySelected){ // unselect them all
+                allpcardsOfThisType.map(pcard => {
+                    pcard.classList.remove('pcard--selected');
+                    const cb = pcard.querySelector('input');
+                    cb.checked = false; // the inner checkbox
+                    const cardObj = util.getCardById(pcard.dataset.id*1);
+                    cardObj.isSelected = false;
+                });
             }
-            else {
-                pcard.classList.remove('pcard--selected')
-                let innerCB = pcard.querySelector('input');
-                innerCB.checked = false;
+            else{ // not all are already selected...so select them all
+                allpcardsOfThisType.map(pcard => {
+                    pcard.classList.add('pcard--selected');
+                    const cb = pcard.querySelector('input');
+                    cb.checked = true; // the inner checkbox
+                    const cardObj = util.getCardById(pcard.dataset.id*1);
+                    cardObj.isSelected = true;
+                });
             }
-        })
-        calcProductionCardSelection();
+            calcProductionCardSelection();
+        });
     })
 
+} // end firstInit()
 
-    document.getElementById('pcardmaster_wa').addEventListener('click', function (e) {
-        if (this.classList.contains('pcard-master--selected')) {
-            this.classList.remove('pcard-master--selected');
-        }
-        else {
-            this.classList.add('pcard-master--selected');
-        }
 
-        let allpcards_wa = [...document.querySelectorAll(".pcard_wa")];
-        allpcards_wa.map(pcard => { // arrow function preserves 'this' binding to orig
-            if (this.classList.contains('pcard-master--selected')) {
-                pcard.classList.add('pcard--selected')
-                let innerCB = pcard.querySelector('input');
-                innerCB.checked = true;
-            }
-            else {
-                pcard.classList.remove('pcard--selected')
-                let innerCB = pcard.querySelector('input');
-                innerCB.checked = false;
-            }
-        })
-        calcProductionCardSelection();
-    })
-}
-
+// Happens each render() so newly generated DOM cards have event listeners
 export function initCardListeners() {
     const allProductionCardElements = [...document.querySelectorAll('#productionCardArea .pcard')];
 
     allProductionCardElements.map(pcard => {
         pcard.addEventListener('click', function (e) {
 
+            let cardDom = e.target;
+            let cardObj = util.getCardById(cardDom.dataset.id*1)
+            // console.log('this cardDom was clicked:', cardDom)
+            // console.log('this cardObj was clicked:', cardObj)
 
-            e.target.classList.toggle('pcard--selected');
-            let cb = e.target.querySelector('input');
-            // console.log('cb:', cb)
-            cb.checked = !cb.checked;
+            // a normal click on a pcard should toggle it.  checked -> unchecked; unchecked -> checked
+            cardDom.classList.toggle('pcard--selected');
+            let cb = cardDom.querySelector('input');
+            cb.checked = !cb.checked; // toggle the inner checkbox to match
+            cardObj.isSelected = !cardObj.isSelected; 
 
 
-            // e.target.classList.toggle('pcard--selected');
+            // let areAllSelected_or = true;
+            // let allPCards_or = [...document.querySelectorAll('.pcard_or')]
+            // allPCards_or.map(pcard => {
+            //     if (!pcard.classList.contains('pcard--selected')) { // a non-selected card
+            //         areAllSelected_or = false;
+            //     }
+            // })
+            // if (areAllSelected_or) {
+            //     document.getElementById('pcardmaster_or').classList.add('pcard-master--selected');
+            // }
+            // else {
+            //     document.getElementById('pcardmaster_or').classList.remove('pcard-master--selected');
+            // }
 
-            let areAllSelected_or = true;
-            let allPCards_or = [...document.querySelectorAll('.pcard_or')]
-            allPCards_or.map(pcard => {
-                if (!pcard.classList.contains('pcard--selected')) { // a non-selected card
-                    areAllSelected_or = false;
-                }
-            })
-            if (areAllSelected_or) {
-                document.getElementById('pcardmaster_or').classList.add('pcard-master--selected');
-            }
-            else {
-                document.getElementById('pcardmaster_or').classList.remove('pcard-master--selected');
-            }
-
-            let areAllSelected_wa = true;
-            let allPCards_wa = [...document.querySelectorAll('.pcard_wa')]
-            allPCards_wa.map(pcard => {
-                if (!pcard.classList.contains('pcard--selected')) { // a non-selected card
-                    areAllSelected_wa = false;
-                }
-            })
-            if (areAllSelected_wa) {
-                document.getElementById('pcardmaster_wa').classList.add('pcard-master--selected');
-            }
-            else {
-                document.getElementById('pcardmaster_wa').classList.remove('pcard-master--selected');
-            }
+            // let areAllSelected_wa = true;
+            // let allPCards_wa = [...document.querySelectorAll('.pcard_wa')]
+            // allPCards_wa.map(pcard => {
+            //     if (!pcard.classList.contains('pcard--selected')) { // a non-selected card
+            //         areAllSelected_wa = false;
+            //     }
+            // })
+            // if (areAllSelected_wa) {
+            //     document.getElementById('pcardmaster_wa').classList.add('pcard-master--selected');
+            // }
+            // else {
+            //     document.getElementById('pcardmaster_wa').classList.remove('pcard-master--selected');
+            // }
             calcProductionCardSelection();
         });
     })
@@ -301,40 +301,3 @@ export function calcProductionCardSelection() {
     })
     document.getElementById('cardsSelected').innerHTML = selectedValueSum.toString();
 }
-
-/*
-export function initFactoryListeners() {
-    // console.log('welcome to initFactoryListeners()...')
-    const allFactoryButtons = [...document.querySelectorAll('#turnManageFactoriesArea .factoryBtn')];
-    console.log('allFactoryButtons:', allFactoryButtons)
-    
-
-    allFactoryButtons.map(factory => {
-        
-        if (factory.getAttribute('listener') !== 'true') {
-            factory.addEventListener('click', function (e) {
-
-                console.log('this factory was clicked: ', e.target);
-
-                let cbColonist = e.target.querySelector('.factoryOperatedByColonistCB');
-                let cbRobot = e.target.querySelector('.factoryOperatedByRobotCB');
-                // console.log('cbColonist:', cbColonist)
-                // console.log('cbRobot:', cbRobot)
-
-                console.log('e.target.dataset.state:', e.target.dataset.state)
-                if (e.target.dataset.state === 'manned'){
-                    // increment to...
-                    e.target.dataset.state = "colonist";
-                    cbColonist.checked = true;
-                }
-
-                const elementClicked = e.target;
-                elementClicked.setAttribute('listener', 'true');
-                //console.log('event has been attached');
-            });
-        }
-
-
-    })
-
-}*/

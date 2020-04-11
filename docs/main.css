@@ -8,7 +8,7 @@
   background-color: #7789A9; }
 
 .bgTi {
-  background-color: lightgrey; }
+  background-color: grey; }
 
 .bgRe {
   background-color: #ecd018; }
@@ -26,7 +26,7 @@
   border: 2px #7789A9 solid; }
 
 .bgTiBorder {
-  border: 2px lightgrey solid; }
+  border: 2px grey solid; }
 
 .bgReBorder {
   border: 2px #ecd018 solid; }
@@ -138,9 +138,9 @@ body {
     .pcard_wa.pcard--selected {
       background-color: #7789A9; }
   .pcard_ti {
-    background-color: white; }
+    background-color: #cdcdcd; }
     .pcard_ti.pcard--selected {
-      background-color: lightgrey; }
+      background-color: grey; }
   .pcard_re {
     background-color: #f8eda5; }
     .pcard_re.pcard--selected {
@@ -188,6 +188,14 @@ body {
     background-color: #d59667; }
   .factoryBtn_Wa {
     background-color: #7789A9; }
+  .factoryBtn_Ti {
+    background-color: grey; }
+  .factoryBtn_Re {
+    background-color: #ecd018; }
+  .factoryBtn_Mi {
+    background-color: #d1228b; }
+  .factoryBtn_Nc {
+    background-color: #009747; }
 
 .factoryBtn * {
   pointer-events: none; }

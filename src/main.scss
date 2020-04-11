@@ -14,7 +14,7 @@ $error-bg: rgba(231,86,86,.15);
 // or=Ore wa=Water ti=Titanium re=Research mi=Microbiotics nc=New_Chemicals om=Orbital_Medicine ro=Ring_Ore mo=Moon_Ore
 $Or: #d59667;
 $Wa: #7789A9;
-$Ti: lightgrey;
+$Ti: grey;
 $Re: #ecd018;
 $Mi: #d1228b;
 $Nc: #009747;
@@ -253,6 +253,18 @@ body{
     }
     &_Wa{
         background-color: $Wa;
+    }
+    &_Ti{
+        background-color: $Ti;
+    }
+    &_Re{
+        background-color: $Re;
+    }
+    &_Mi{
+        background-color: $Mi;
+    }
+    &_Nc{
+        background-color: $Nc;
     }
 }
 .factoryBtn *{

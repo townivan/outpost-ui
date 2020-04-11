@@ -228,7 +228,7 @@ export function render() {
 
     onlyCards_or.sort(util.compareValues('value'));
     onlyCards_or.map(card => {
-        const code = `<button type="button" class="pcard pcard_or" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_or ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked:' : ''} />${card.value}</button>`;
         allCardCode_or += code;
     })
 
@@ -722,6 +722,7 @@ export function drawCard(cardType, playerId) {
         weight: cardWeight,
         id: state.cardIdSeed,
         ownerId: playerId,
+        isSelected: false,
     }
     state.cardIdSeed++;
     return cardObj;
@@ -808,6 +809,7 @@ export function calcVp(){
         let playerTotalVp = 0;
         // calc vp from factories
         player.factories.map(factory => {
+            console.log('factory:', factory)
             if (factory.type === "Or") {
                 if (factory.isManned) { playerTotalVp++; }
             }
@@ -827,7 +829,9 @@ export function calcVp(){
                 if (factory.isManned) { playerTotalVp = playerTotalVp + 3; }
             }
         })
+        console.log('playerTotalVp (before eq):', playerTotalVp)
         player.ownedEquipment.map(eq => {
+            console.log('eq.vp:', eq.vp)
             playerTotalVp = playerTotalVp + eq.vp
         })
         player.vp = playerTotalVp;
