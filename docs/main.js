@@ -226,39 +226,47 @@ export function render() {
         }
     })
 
+    // console.log('prepare to render, onlyCards_or:', onlyCards_or)
+    
+    // the next two are a simple version for hiding these if you have no cards...hide or not is more complex for other types...
+    if (onlyCards_or.length === 0) { document.querySelector('.pcardRow_Or').classList.add('hideme') }
+    else{                            document.querySelector('.pcardRow_Or').classList.remove('hideme') }
     onlyCards_or.sort(util.compareValues('value'));
     onlyCards_or.map(card => {
-        const code = `<button type="button" class="pcard pcard_or ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked:' : ''} />${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_or ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
         allCardCode_or += code;
     })
 
+    // the next two are a simple version for hiding these if you have no cards...hide or not is more complex for other types...
+    if (onlyCards_wa.length === 0) { document.querySelector('.pcardRow_Wa').classList.add('hideme') }
+    else{                            document.querySelector('.pcardRow_Wa').classList.remove('hideme') }
     onlyCards_wa.sort(util.compareValues('value'));
     onlyCards_wa.map(card => {
-        const code = `<button type="button" class="pcard pcard_wa" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_wa ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
         allCardCode_wa += code;
     })
 
     onlyCards_ti.sort(util.compareValues('value'));
     onlyCards_ti.map(card => {
-        const code = `<button type="button" class="pcard pcard_ti" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_ti ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
         allCardCode_ti += code;
     })
 
     onlyCards_re.sort(util.compareValues('value'));
     onlyCards_re.map(card => {
-        const code = `<button type="button" class="pcard pcard_re" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_re ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
         allCardCode_re += code;
     })
 
     onlyCards_mi.sort(util.compareValues('value'));
     onlyCards_mi.map(card => {
-        const code = `<button type="button" class="pcard pcard_mi" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_mi ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
         allCardCode_mi += code;
     })
 
     onlyCards_nc.sort(util.compareValues('value'));
     onlyCards_nc.map(card => {
-        const code = `<button type="button" class="pcard pcard_nc" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" />${card.value}</button>`;
+        const code = `<button type="button" class="pcard pcard_nc ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
         allCardCode_nc += code;
     })
 
@@ -809,7 +817,7 @@ export function calcVp(){
         let playerTotalVp = 0;
         // calc vp from factories
         player.factories.map(factory => {
-            console.log('factory:', factory)
+            // console.log('factory:', factory)
             if (factory.type === "Or") {
                 if (factory.isManned) { playerTotalVp++; }
             }
@@ -829,9 +837,9 @@ export function calcVp(){
                 if (factory.isManned) { playerTotalVp = playerTotalVp + 3; }
             }
         })
-        console.log('playerTotalVp (before eq):', playerTotalVp)
+        // console.log('playerTotalVp (before eq):', playerTotalVp)
         player.ownedEquipment.map(eq => {
-            console.log('eq.vp:', eq.vp)
+            // console.log('eq.vp:', eq.vp)
             playerTotalVp = playerTotalVp + eq.vp
         })
         player.vp = playerTotalVp;

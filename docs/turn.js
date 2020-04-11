@@ -207,9 +207,16 @@ export function distributeProductionCards(){
     
     main.state.players.map(player => {
         // console.log('player:', player)
+        // if (player.isYou){
+        //     console.log('your cards:', player.cards)
+        // }
+
         player.factories.map(factory => {
             if (factory.isManned){
-                let newCard = main.drawCard(factory.type);
+                let newCard = main.drawCard(factory.type, player.id);
+                // if (player.isYou){
+                //     console.log('drawing a new card...newCard:', newCard)
+                // }
                 player.cards.push(newCard);
                 if (player.isYou){
                     util.logit(`You draw ${newCard.cardType}:${newCard.value}`);

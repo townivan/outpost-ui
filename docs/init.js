@@ -78,6 +78,10 @@ export function initialdraw(player) {
     privateDrawFunction(player, 'Wa');
     privateDrawFunction(player, 'Wa');
 
+    // if (player.isYou) {
+    //     console.table(player.cards)
+    // }
+
     player.factories.push(main.addFactory(player, 'Or'));
     player.factories.push(main.addFactory(player, 'Or'));
     player.factories.push(main.addFactory(player, 'Wa'));

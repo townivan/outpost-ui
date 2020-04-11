@@ -247,7 +247,6 @@ export function initCardListeners() {
 
     allProductionCardElements.map(pcard => {
         pcard.addEventListener('click', function (e) {
-
             let cardDom = e.target;
             let cardObj = util.getCardById(cardDom.dataset.id*1)
             // console.log('this cardDom was clicked:', cardDom)
@@ -259,34 +258,9 @@ export function initCardListeners() {
             cb.checked = !cb.checked; // toggle the inner checkbox to match
             cardObj.isSelected = !cardObj.isSelected; 
 
+            // console.log('this cardDom was clicked:', cardDom)
+            // console.log('this cardObj was clicked:', cardObj)
 
-            // let areAllSelected_or = true;
-            // let allPCards_or = [...document.querySelectorAll('.pcard_or')]
-            // allPCards_or.map(pcard => {
-            //     if (!pcard.classList.contains('pcard--selected')) { // a non-selected card
-            //         areAllSelected_or = false;
-            //     }
-            // })
-            // if (areAllSelected_or) {
-            //     document.getElementById('pcardmaster_or').classList.add('pcard-master--selected');
-            // }
-            // else {
-            //     document.getElementById('pcardmaster_or').classList.remove('pcard-master--selected');
-            // }
-
-            // let areAllSelected_wa = true;
-            // let allPCards_wa = [...document.querySelectorAll('.pcard_wa')]
-            // allPCards_wa.map(pcard => {
-            //     if (!pcard.classList.contains('pcard--selected')) { // a non-selected card
-            //         areAllSelected_wa = false;
-            //     }
-            // })
-            // if (areAllSelected_wa) {
-            //     document.getElementById('pcardmaster_wa').classList.add('pcard-master--selected');
-            // }
-            // else {
-            //     document.getElementById('pcardmaster_wa').classList.remove('pcard-master--selected');
-            // }
             calcProductionCardSelection();
         });
     })
