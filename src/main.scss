@@ -266,6 +266,15 @@ body{
     &_Nc{
         background-color: $Nc;
     }
+    &_ScientistsFactory{
+        background-color: $Re;
+        padding: 1rem 1rem;
+    }
+    &_OrbitalLabFactory{
+        background-color: $Mi;
+        padding: 1rem 1rem;
+    }
+
 }
 .factoryBtn *{
     pointer-events: none;

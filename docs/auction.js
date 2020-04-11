@@ -194,6 +194,12 @@ function processAuctionWinner(){
         }
         player.discountOnOutpost += 5;
     }
+    if (eq.name == 'Scientists'){
+        player.factories.push(main.addFactory(player, 'ScientistsFactory'));
+    }
+    if (eq.name == 'Orbital Lab'){
+        player.factories.push(main.addFactory(player, 'OrbitalLabFactory'));
+    }
 
 
     // rebuild buySelect

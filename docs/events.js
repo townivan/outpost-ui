@@ -24,6 +24,7 @@ export function firstInit() {
             let indicator1 = e.target.querySelector('.indicator1');
             let indicator2 = e.target.querySelector('.indicator2');
             let indicator3 = e.target.querySelector('.indicator3');
+            let indicator4 = e.target.querySelector('.indicator4'); // unmanned special factories
 
             if (e.target.dataset.state === 'unmanned'){
                 // increment to...
@@ -152,7 +153,6 @@ export function firstInit() {
 
         auction.counterBid(me, counterBidAmt); // counterBid(player, realBidAmt)
     })
-
     document.getElementById('biddableStartBid').addEventListener('click', function (e) {
         // turn.startBid();
         let me = util.getPlayerMe();

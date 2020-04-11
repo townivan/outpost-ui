@@ -250,6 +250,14 @@ export function distributeProductionCards(){
                     util.logit(`You draw ${newCard.cardType}:${newCard.value}`);
                 }
             }
+            if (factory.type === 'ScientistsFactory'){
+                let newCard = main.drawCard('Re', player.id);
+                player.cards.push(newCard);
+            }
+            if (factory.type === 'OrbitalLabFactory'){
+                let newCard = main.drawCard('Mi', player.id);
+                player.cards.push(newCard);
+            }
         })
         // check if need to discard...
         let handWeight = 0;
@@ -363,7 +371,7 @@ export function buyFactory(player, buyNumber, factoryType){
     buyNumber = buyNumber*1;
 
     let selectedAmount = util.getSelectedAmountFromCards();
-    console.log('selectedAmount:', selectedAmount)
+    // console.log('selectedAmount:', selectedAmount)
 
     // calc price of order
     let unitPrice = null;
@@ -372,10 +380,10 @@ export function buyFactory(player, buyNumber, factoryType){
     if (factoryType == 'factoryTi'){ unitPrice = 30; }
     if (factoryType == 'factoryRe'){ unitPrice = 30; }
     if (factoryType == 'factoryNc'){ unitPrice = 60; }
-    if (factoryType == 'factoryReSpecial'){ unitPrice = 0; }
-    if (factoryType == 'factoryMiSpecial'){ unitPrice = 0; }
-    if (factoryType == 'factoryRoSpecial'){ unitPrice = 0; }
-    if (factoryType == 'factoryMoSpecial'){ unitPrice = 0; }
+    // if (factoryType == 'factoryReSpecial'){ unitPrice = 0; }
+    // if (factoryType == 'factoryMiSpecial'){ unitPrice = 0; }
+    // if (factoryType == 'factoryRoSpecial'){ unitPrice = 0; }
+    // if (factoryType == 'factoryMoSpecial'){ unitPrice = 0; }
     // apply discounts here later (todo)
     let totalCost = buyNumber * unitPrice;
     console.log('totalCost:', totalCost)
@@ -412,10 +420,6 @@ export function buyFactory(player, buyNumber, factoryType){
             if (factoryType == 'factoryTi'){ player.factories.push(main.addFactory(player, 'Ti')); }
             if (factoryType == 'factoryRe'){ player.factories.push(main.addFactory(player, 'Re')); }
             if (factoryType == 'factoryNc'){ player.factories.push(main.addFactory(player, 'Nc')); }
-            if (factoryType == 'factoryReSpecial'){ player.factories.push(main.addFactory(player, 'factoryReSpecial')); }
-            if (factoryType == 'factoryMiSpecial'){ player.factories.push(main.addFactory(player, 'factoryMiSpecial')); }
-            if (factoryType == 'factoryRoSpecial'){ player.factories.push(main.addFactory(player, 'factoryRoSpecial')); }
-            if (factoryType == 'factoryMoSpecial'){ player.factories.push(main.addFactory(player, 'factoryMoSpecial')); }
         }
         
 

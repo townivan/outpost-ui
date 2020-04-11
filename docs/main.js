@@ -118,6 +118,9 @@ export function addPlayer(name = 'Larry') {
         let NcCount = 0;
         let NcManned = 0;
 
+        let ScientistsFactoryCount = 0;
+        let ScientistsFactoryManned = 0;
+
         this.factories.map(factory => {
             if (factory.type === "Or") {
                 OrCount++;
@@ -143,6 +146,10 @@ export function addPlayer(name = 'Larry') {
                 NcCount++;
                 if (factory.isManned) { NcManned++; }
             }
+            if (factory.type === "ScientistsFactory") {
+                ScientistsFactoryCount++;
+                ScientistsFactoryManned++;
+            }
         })
         this.OrCount = OrCount;
         this.OrManned = OrManned;
@@ -161,6 +168,9 @@ export function addPlayer(name = 'Larry') {
 
         this.NcCount = NcCount;
         this.NcManned = NcManned;
+
+        this.ScientistsFactoryCount = ScientistsFactoryCount;
+        this.ScientistsFactoryManned = ScientistsFactoryManned;
     }
     p.dataLibraryCount = 0;
     p.warehouseCount = 0;
@@ -792,18 +802,22 @@ export function render() {
 
     function renderFactory(player, factory){
 
+        if (factory.type === 'ScientistsFactory'){
+            factory.mannedBy = 'na';
+        }
         let factoryTemplate = `
         <button type="button" class="factoryBtn factoryBtn_${factory.type}" data-state="${factory.mannedBy}" data-ownerId="${player.id}" data-guid="${factory.id}">
             <i class="fas fa-industry"></i>
             <i class="fas fa-ban indicator1 ${factory.mannedBy=='unmanned' ? '' : 'hideme'}"></i>
             <i class="fas fa-user indicator2 ${factory.mannedBy=='colonist' ? '' : 'hideme'}"></i>
             <i class="fas fa-robot indicator3 ${factory.mannedBy=='robot' ? '' : 'hideme'}"></i>
+            <i class="far fa-times-circle indicator4 ${factory.mannedBy=='na' ? '' : 'hideme'}"></i>
         </button>`;
         return factoryTemplate;
     }
 
     // turnManageFactoriesArea
-
+    console.log('state:', state)
 
 
     let overviewPanel = document.getElementById('overviewPanel');
@@ -826,10 +840,12 @@ export function drawCard(cardType, playerId) {
     if (cardType === 'Ti') {
         possibleCards = [7, 8, 9, 10, 11, 12, 13];
     }
-    if (cardType === 'Re') {
+    if (cardType === 'Re' || cardType === 'ScientistsFactory') {
+        cardType === 'Re'; // override incoming cardType ScientistsFactory
         possibleCards = [9, 10, 11, 12, 13, 14, 15, 16, 17];
     }
-    if (cardType === 'Mi') {
+    if (cardType === 'Mi' || cardType === 'OrbitalLabFactory') {
+        cardType === 'Mi'; // override incoming cardType OrbitalLabFactory
         possibleCards = [14, 15, 16, 17, 18, 19, 20];
     }
     if (cardType === 'Nc') {
@@ -877,6 +893,8 @@ export function addFactory(player, reqType = 'Or') {
     if (reqType === 'Re') { f.type = reqType; f.ownerId = player.id; }
     if (reqType === 'Mi') { f.type = reqType; f.ownerId = player.id; }
     if (reqType === 'Nc') { f.type = reqType; f.ownerId = player.id; }
+    if (reqType === 'ScientistsFactory') { f.type = reqType; f.ownerId = player.id; }
+    if (reqType === 'OrbitalLabFactory') { f.type = reqType; f.ownerId = player.id; }
     f.isManned = false;
     // auto-man logic attempt
     f.mannedBy = 'unmanned';
@@ -920,11 +938,13 @@ export function addFactory(player, reqType = 'Or') {
     
     if (availableOperators > 0){
         f.isManned = true;
-        if (availableColonistCount > 0 ){
-            f.mannedBy = 'colonist'
-        }
-        else{
-            f.mannedBy = 'robot'
+        if (f.mannedBy !== 'na'){ // don't auto-man for special factory types that don't get manned
+            if (availableColonistCount > 0 ){
+                f.mannedBy = 'colonist'
+            }
+            else{
+                f.mannedBy = 'robot'
+            }
         }
     }
     // console.log(`${player.name} has ${player.colonist} colonists.`);

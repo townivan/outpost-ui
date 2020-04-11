@@ -196,6 +196,12 @@ body {
     background-color: #d1228b; }
   .factoryBtn_Nc {
     background-color: #009747; }
+  .factoryBtn_ScientistsFactory {
+    background-color: #ecd018;
+    padding: 1rem 1rem; }
+  .factoryBtn_OrbitalLabFactory {
+    background-color: #d1228b;
+    padding: 1rem 1rem; }
 
 .factoryBtn * {
   pointer-events: none; }
