@@ -138,6 +138,7 @@ export function replaceEquipment() {
     // console.log('main.state.eqUpForBidArray.length', main.state.eqUpForBidArray.length)
     let currentItemsUpForBid = main.state.eqUpForBidArray.length;
     let numberOfItemsNeeded = (main.state.players.length) - currentItemsUpForBid;
+    let me = util.getPlayerMe();
     // console.log('numberOfItemsNeeded:', numberOfItemsNeeded)
 
     for (let x = 0; x < numberOfItemsNeeded; x++){
@@ -188,7 +189,34 @@ export function replaceEquipment() {
     let biddableSelectEl = document.getElementById('biddableSelect');
     let biddableSelectCode = ''
     main.state.eqUpForBidArray.map(eq => {
-        biddableSelectCode += `<option value="${eq.id}">${eq.name} (${eq.price})</option>`;
+        let discountedPrice = null;
+        if (eq.name === 'Nodule'){
+            if (me.discountOnNodule > 0){
+                discountedPrice = eq.price*1 - me.discountOnNodule*1;
+            }
+        }
+        if (eq.name === 'Warehouse'){
+            if (me.discountOnWarehouse > 0){
+                discountedPrice = eq.price*1 - me.discountOnWarehouse*1;
+            }
+        }
+        if (eq.name === 'Scientists'){
+            if (me.discountOnScientist > 0){
+                discountedPrice = eq.price*1 - me.discountOnScientist*1;
+            }
+        }
+        if (eq.name === 'Laboratory'){
+            if (me.discountOnLaboratory > 0){
+                discountedPrice = eq.price*1 - me.discountOnLaboratory*1;
+            }
+        }
+        if (eq.name === 'Outpost'){
+            if (me.discountOnOutpost > 0){
+                discountedPrice = eq.price*1 - me.discountOnOutpost*1;
+            }
+        }
+        biddableSelectCode += `<option value="${eq.id}" data-discountedprice="${discountedPrice ? `${discountedPrice}` : `${eq.price}`}">${eq.name} (${eq.price}${discountedPrice ? `->${discountedPrice}` : ''})</option>`;
+        // biddableSelectCode += `<option value="${eq.id}">${eq.name} (${eq.price})</option>`;
     })
     biddableSelectEl.innerHTML = biddableSelectCode;
 
@@ -203,7 +231,7 @@ export function replaceEquipment() {
 
 }
 export function distributeProductionCards(){
-    console.log('welcome to distributeProductionCards()...');
+    // console.log('welcome to distributeProductionCards()...');
     
     main.state.players.map(player => {
         // console.log('player:', player)
@@ -342,6 +370,12 @@ export function buyFactory(player, buyNumber, factoryType){
     if (factoryType == 'factoryOr'){ unitPrice = 10; }
     if (factoryType == 'factoryWa'){ unitPrice = 20; }
     if (factoryType == 'factoryTi'){ unitPrice = 30; }
+    if (factoryType == 'factoryRe'){ unitPrice = 30; }
+    if (factoryType == 'factoryNc'){ unitPrice = 60; }
+    if (factoryType == 'factoryReSpecial'){ unitPrice = 0; }
+    if (factoryType == 'factoryMiSpecial'){ unitPrice = 0; }
+    if (factoryType == 'factoryRoSpecial'){ unitPrice = 0; }
+    if (factoryType == 'factoryMoSpecial'){ unitPrice = 0; }
     // apply discounts here later (todo)
     let totalCost = buyNumber * unitPrice;
     console.log('totalCost:', totalCost)
@@ -372,9 +406,19 @@ export function buyFactory(player, buyNumber, factoryType){
 
     if (validPurchase){
         // purchase successful!  process...
-        if (factoryType == 'factoryOr'){ player.factories.push(main.addFactory(player, 'Or')); }
-        if (factoryType == 'factoryWa'){ player.factories.push(main.addFactory(player, 'Wa')); }
-        if (factoryType == 'factoryTi'){ player.factories.push(main.addFactory(player, 'Ti')); }
+        for (let x=0; x<buyNumber; x++){
+            if (factoryType == 'factoryOr'){ player.factories.push(main.addFactory(player, 'Or')); }
+            if (factoryType == 'factoryWa'){ player.factories.push(main.addFactory(player, 'Wa')); }
+            if (factoryType == 'factoryTi'){ player.factories.push(main.addFactory(player, 'Ti')); }
+            if (factoryType == 'factoryRe'){ player.factories.push(main.addFactory(player, 'Re')); }
+            if (factoryType == 'factoryNc'){ player.factories.push(main.addFactory(player, 'Nc')); }
+            if (factoryType == 'factoryReSpecial'){ player.factories.push(main.addFactory(player, 'factoryReSpecial')); }
+            if (factoryType == 'factoryMiSpecial'){ player.factories.push(main.addFactory(player, 'factoryMiSpecial')); }
+            if (factoryType == 'factoryRoSpecial'){ player.factories.push(main.addFactory(player, 'factoryRoSpecial')); }
+            if (factoryType == 'factoryMoSpecial'){ player.factories.push(main.addFactory(player, 'factoryMoSpecial')); }
+        }
+        
+
         util.spendCards();
         // update VP and render
         main.calcVp();

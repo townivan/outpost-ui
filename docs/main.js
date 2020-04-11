@@ -92,6 +92,12 @@ export function addPlayer(name = 'Larry') {
     p.factories = [];
     p.turnOrder = 0;
     p.isAwaitingTurn = true;
+    p.discountOnNodule = 0;
+    p.discountOnWarehouse = 0;
+    p.discountOnScientist = 0;
+    p.discountOnLaboratory = 0;
+    p.discountOnOutpost = 0;
+    p.discountOnColonists = 0;
 
     p.updateFactoryCounts = function () {
         let OrCount = 0;
@@ -325,8 +331,8 @@ export function render() {
             if (card.cardType === 'Wa') { countWa++; }
             if (card.cardType === 'Ti') { countTi++; }
             if (card.cardType === 'Re') { countRe++; }
-            if (card.cardType === 'Mi') { countRe++; }
-            if (card.cardType === 'Nc') { countRe++; }
+            if (card.cardType === 'Mi') { countMi++; }
+            if (card.cardType === 'Nc') { countNc++; }
         })
         rowCode += `<div class="overviewColx">
         ${countOr > 0 ? `<span class="bgOrBorder">${countOr}</span>` + '<span class="bgOr bgOrBorder">Or</span>' : ''} 
@@ -612,6 +618,125 @@ export function render() {
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
+
+
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Robots');
+    rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Robots (${robotsCount} left)</div>`;
+    state.players.map(player => {
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Robots"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Robots">${playerEqCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Laboratory');
+    rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Laboratory (${laboratoryCount} left)</div>`;
+    state.players.map(player => {
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Laboratory"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Laboratory">${playerEqCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Ecoplants');
+    rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Ecoplants (${ecoplantsCount} left)</div>`;
+    state.players.map(player => {
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Ecoplants"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Ecoplants">${playerEqCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+
+
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Outpost');
+    rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Outpost (${outpostCount} left)</div>`;
+    state.players.map(player => {
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Outpost"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Outpost">${playerEqCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+
+
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Space Station');
+    rowCode = `<div class="rowOverview ${state.currentEra > 2 ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Space Station (${spaceStationCount} left)</div>`;
+    state.players.map(player => {
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Space Station"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Space Station">${playerEqCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+
+
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Planetary Cruiser');
+    rowCode = `<div class="rowOverview ${state.currentEra > 2 ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Planetary Cruiser (${planetaryCruiserCount} left)</div>`;
+    state.players.map(player => {
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Planetary Cruiser"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Planetary Cruiser">${playerEqCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+
+
+    gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Moonbase');
+    rowCode = `<div class="rowOverview ${state.currentEra > 2 ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Moonbase (${moonbaseCount} left)</div>`;
+    state.players.map(player => {
+        let playerEqCount = 0;
+        player.ownedEquipment.map(eq => {
+            if (eq.name == "Moonbase"){
+                playerEqCount++;
+            }
+        })
+        rowCode += `<div class="overviewColx ${gotEq ? 'highlightme' : ''} ${player.isYou ? 'highlightme2' : ''}" title="Moonbase">${playerEqCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+
+
+
 
 
     // now for general stats...

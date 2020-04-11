@@ -19,126 +19,224 @@
     <section id="navPanel">
         <button type="button" id="overviewViewBtn">Overview</button>
         <button type="button" id="auctionViewBtn">Auction</button>
+        <button type="button" id="referenceViewBtn">Reference</button>
     </section>
 
-    <section id="overviewPanel"></section>
+    <div id="nonReferenceBlock">
+        <section id="overviewPanel"></section>
 
-    <section id="cardSelectionPanel">
-        <div class="selectArea1">
-            <div class="selectedSummaryNumbersArea1">
-                Selected: 
-                <div class="selectedSummaryNumbersArea2">
-                    <span id="cardsSelected" class="numberSpacer numberSpacerLeft">-</span>&nbsp;of&nbsp;<span id="cardsMax" class="numberSpacer numberSpacerRight">-</span> max.
-                </div>
-            </div>
-
-            <div>
-                <button type="button" id="pcardmaster_none">None</button>
-                <button type="button" id="pcardmaster_all">All</button>
-            </div>
-        </div>
-
-        <div class="selectLockArea">
-            <div><i class="fas fa-lock-open"></i> Research</div>
-            <div><i class="fas fa-lock-open"></i> Microbiotics</div>
-        </div>
-    </section>
-
-    <section id="productionCardArea">
-        <div class="pcardRow pcardRow_Or">
-            <button type="button" id="pcardmaster_or" class="pcard-master" data-type="pcard_or">all Or</button>
-            <div id="pCardRenderInsertionPoint_or" class="pcardInsertionDiv"></div>
-        </div>
-        <div class="pcardRow pcardRow_Wa">
-            <button type="button" id="pcardmaster_wa" class="pcard-master" data-type="pcard_wa">all Wa</button>
-            <div id="pCardRenderInsertionPoint_wa" class="pcardInsertionDiv"></div>
-        </div>
-        <div id="pcardRow_Ti" class="pcardRow pcardRow_Ti hideme">
-            <button type="button" id="pcardmaster_ti" class="pcard-master" data-type="pcard_ti">all Ti</button>
-            <div id="pCardRenderInsertionPoint_ti" class="pcardInsertionDiv"></div>
-        </div>
-        <div id="pcardRow_Re" class="pcardRow pcardRow_Re hideme">
-            <button type="button" id="pcardmaster_re" class="pcard-master" data-type="pcard_re">all Re</button>
-            <div id="pCardRenderInsertionPoint_re" class="pcardInsertionDiv"></div>
-        </div>
-        <div id="pcardRow_Mi" class="pcardRow pcardRow_Mi hideme">
-            <button type="button" id="pcardmaster_mi" class="pcard-master" data-type="pcard_mi">all Mi</button>
-            <div id="pCardRenderInsertionPoint_mi" class="pcardInsertionDiv"></div>
-        </div>
-        <div id="pcardRow_Nc" class="pcardRow pcardRow_Nc hideme">
-            <button type="button" id="pcardmaster_nc" class="pcard-master" data-type="pcard_nc">all Nc</button>
-            <div id="pCardRenderInsertionPoint_nc" class="pcardInsertionDiv"></div>
-        </div>
-    </section>
-
-    <section id="turnActionsArea">
-        <div class="turnActionsContainer">
-            <button type="button" id="endTurnBtn">End Turn</button>
-            --
-            <div>
-                <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
-                <select id="buySelect">
-                    <option value="colonist">colonist</option>
-                    <option value="robot">robot</option>
-                    <option value="factoryOr">factoryOr</option>
-                    <option value="factoryWa">factoryWa</option>
-                </select>
-                <button type="button" id="buyButton">Buy</button>
-                <div id="purchaseError"></div>
-            </div>
-            --
-            <div>
-                Equipment:
-                <select id="biddableSelect"></select><!-- updated in turn.replaceEquipment()-->
-                <input id="biddableInitialAmount" type="number" />
-                <button type="button" id="biddableStartBid">Bid (start auction)</button>
-                <div id="bidError"></div>
-            </div>
-        </div>
-    </section>
-    <br>
-
-    <!-- <div id="biddingClosedArea"><span id="lastBidSummary"></span>  There are currently no active bids.</div> -->
-    <section id="biddingArea" class="hideme">
-        <div class="biddingAreaContainer">
-            <div id="biddingOpenArea">
-                <div id="biddingEqUpForBidDesc--currentBid">Current bid 25c by Player A</div>
-                <div id="biddingEqUpForBidDesc--actionsArea">
-                    <input type="number" id="newBidAmountInput" class="auctionInputToggle" disabled="disabled" value="26" /> 
-                    <button type="button" id="auctionCounterBidBtn" class="auctionInputToggle" disabled="disabled">counter bid</button> or 
-                    <button type="button" id="auctionPassBtn" class="auctionInputToggle" disabled="disabled">pass</button> or 
-                    <button type="button" id="auctionPassAllBtn" class="auctionInputToggle" disabled="disabled">pass all</button>
-                </div>
-                <div id="counterBidError"></div>
-
-                <div id="biddingPlayerListArea" class="biddingPlayerListArea"></div>
-
-                <div id="biddingEqUpForBidDesc">
-                    <div id="biddingEqUpForBidDesc--desc">
-                        <div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul>
+        <section id="cardSelectionPanel">
+            <div class="selectArea1">
+                <div class="selectedSummaryNumbersArea1">
+                    Selected: 
+                    <div class="selectedSummaryNumbersArea2">
+                        <span id="cardsSelected" class="numberSpacer numberSpacerLeft">-</span>&nbsp;of&nbsp;<span id="cardsMax" class="numberSpacer numberSpacerRight">-</span> max.
                     </div>
                 </div>
 
-                <div id="auctionLog"></div>
+                <div>
+                    <button type="button" id="pcardmaster_none">None</button>
+                    <button type="button" id="pcardmaster_all">All</button>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <section id="turnManageFactoriesArea">
-        <div class="turnManageFactoriesContainer">
-            <div>
-                <div>Available colonists: <span id="factoriesMyAvailableColonists">0</span></div>
-                <div>Available robots: <span id="factoriesMyAvailableRobots">0</span></div>
+            <div class="selectLockArea">
+                <div><i class="fas fa-lock-open"></i> Research</div>
+                <div><i class="fas fa-lock-open"></i> Microbiotics</div>
             </div>
-            <div id="turnManageFactoriesInsert"></div>
-        </div>
-    </section>
+        </section>
 
-    <section id="purchaseArea"></section>
+        <section id="productionCardArea">
+            <div class="pcardRow pcardRow_Or">
+                <button type="button" id="pcardmaster_or" class="pcard-master" data-type="pcard_or">all Or</button>
+                <div id="pCardRenderInsertionPoint_or" class="pcardInsertionDiv"></div>
+            </div>
+            <div class="pcardRow pcardRow_Wa">
+                <button type="button" id="pcardmaster_wa" class="pcard-master" data-type="pcard_wa">all Wa</button>
+                <div id="pCardRenderInsertionPoint_wa" class="pcardInsertionDiv"></div>
+            </div>
+            <div id="pcardRow_Ti" class="pcardRow pcardRow_Ti hideme">
+                <button type="button" id="pcardmaster_ti" class="pcard-master" data-type="pcard_ti">all Ti</button>
+                <div id="pCardRenderInsertionPoint_ti" class="pcardInsertionDiv"></div>
+            </div>
+            <div id="pcardRow_Re" class="pcardRow pcardRow_Re hideme">
+                <button type="button" id="pcardmaster_re" class="pcard-master" data-type="pcard_re">all Re</button>
+                <div id="pCardRenderInsertionPoint_re" class="pcardInsertionDiv"></div>
+            </div>
+            <div id="pcardRow_Mi" class="pcardRow pcardRow_Mi hideme">
+                <button type="button" id="pcardmaster_mi" class="pcard-master" data-type="pcard_mi">all Mi</button>
+                <div id="pCardRenderInsertionPoint_mi" class="pcardInsertionDiv"></div>
+            </div>
+            <div id="pcardRow_Nc" class="pcardRow pcardRow_Nc hideme">
+                <button type="button" id="pcardmaster_nc" class="pcard-master" data-type="pcard_nc">all Nc</button>
+                <div id="pCardRenderInsertionPoint_nc" class="pcardInsertionDiv"></div>
+            </div>
+        </section>
+
+        <section id="turnActionsArea">
+            <div class="turnActionsContainer">
+                <button type="button" id="endTurnBtn">End Turn</button>
+                --
+                <div>
+                    <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
+                    <select id="buySelect">
+                        <option value="colonist">colonist</option>
+                        <option value="robot">robot</option>
+                        <option value="factoryOr">factoryOr</option>
+                        <option value="factoryWa">factoryWa</option>
+                    </select>
+                    <button type="button" id="buyButton">Buy</button>
+                    <div id="purchaseError"></div>
+                </div>
+                --
+                <div>
+                    Equipment:
+                    <select id="biddableSelect"></select><!-- updated in turn.replaceEquipment()-->
+                    <input id="biddableInitialAmount" type="number" />
+                    <button type="button" id="biddableStartBid">Bid (start auction)</button>
+                    <div id="bidError"></div>
+                </div>
+            </div>
+        </section>
+        <br>
+
+        <!-- <div id="biddingClosedArea"><span id="lastBidSummary"></span>  There are currently no active bids.</div> -->
+        <section id="biddingArea" class="hideme">
+            <div class="biddingAreaContainer">
+                <div id="biddingOpenArea">
+                    <div id="biddingEqUpForBidDesc--currentBid">Current bid 25c by Player A</div>
+                    <div id="biddingEqUpForBidDesc--actionsArea">
+                        <input type="number" id="newBidAmountInput" class="auctionInputToggle" disabled="disabled" value="26" /> 
+                        <button type="button" id="auctionCounterBidBtn" class="auctionInputToggle" disabled="disabled">counter bid</button> or 
+                        <button type="button" id="auctionPassBtn" class="auctionInputToggle" disabled="disabled">pass</button> or 
+                        <button type="button" id="auctionPassAllBtn" class="auctionInputToggle" disabled="disabled">pass all</button>
+                    </div>
+                    <div id="counterBidError"></div>
+
+                    <div id="biddingPlayerListArea" class="biddingPlayerListArea"></div>
+
+                    <div class="eqUpForBidContainer">
+                        <div id="biddingEqUpForBidDesc">
+                            <div id="biddingEqUpForBidDesc--desc">
+                                <div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul>
+                            </div>
+                        </div>
+                        <div id="displayDiscountContainer">
+                            <p id="discountDisplay"></p>
+                        </div>
+                    </div>
+
+                    <div id="auctionLog"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="turnManageFactoriesArea">
+            <div class="turnManageFactoriesContainer">
+                <div>
+                    <div>Available colonists: <span id="factoriesMyAvailableColonists">0</span></div>
+                    <div>Available robots: <span id="factoriesMyAvailableRobots">0</span></div>
+                </div>
+                <div id="turnManageFactoriesInsert"></div>
+            </div>
+        </section>
+
+        <section id="purchaseArea"></section>
 
 
-    <section id="logArea">
-        <div id="log"></div>
+        <section id="logArea">
+            <div id="log"></div>
+        </section>
+
+    </div><!-- end nonReferenceBlock -->
+
+    <section id="reference" class="hideme">
+        <h4>Equipment Quick Reference</h4>
+        <p>
+        1. Data Library [c15] (1vp) era1
+            <ul>
+                <li>c10 discount on <strong>Scientist</strong> cards.</li>
+                <li>c10 discount on <strong>Laboratory</strong> cards.</li>
+            </ul>  
+        <br>
+        2. Warehouse [c25] (1vp) era1
+            <ul>
+                <li><strong>+5</strong> Hand Limit.</li>
+            </ul> 
+        <br>
+        3. Heavy Equipment [c30] (1vp) era1
+            <ul>
+                <li>Required to purchase Titanium Factories.</li>
+                <li>c5 discount on <strong>Nodule</strong> cards.</li>
+                <li>c5 discount on <strong>Warehouse</strong> cards.</li>
+                <li>c15 discount on <strong>Outpost</strong> cards.</li>
+            </ul>
+        <br>
+        4. Nodule [c25] (2vp) era1
+            <ul>
+                <li><strong>+3</strong> Colony Support Limit.</li>
+            </ul> 
+        <br>
+        5. Scientists [c40] (2vp) era2
+            <ul>
+                <li>After purchasing, replace this card with the <strong>Scientist</strong> Special Factory counter.</li>
+                <li>This special factory produces one <strong>Research</strong> Production card per turn (no operator required)</li>
+            </ul> 
+        <br>
+        6. Orbital Lab [c50] (3vp) era2
+            <ul>
+                <li>After purchasing, replace this card with the <strong>Orbital Lab</strong> Special Factory counter.</li>
+                <li>This special factory produces one <strong>Microbiotics</strong> Production card per turn (no operator required)</li>
+            </ul> 
+        <br>
+        7. Robots [c50] (3vp) era2
+            <ul>
+                <li>Required to purchase <strong>Robot</strong> counters.</li>
+                <li>Provides <strong>one</strong> free <strong>Robot</strong> counter.</li>
+            </ul> 
+        <br>
+        8. Laboratory [c80] (5vp) era2
+            <ul>
+                <li>Required to purchase <strong>Research</strong> Factories.</li>
+                <li>Provides <strong>one</strong> free <strong>Research</strong> Factory counter (not operated initally).</li>
+            </ul> 
+        <br>
+        9. Ecoplants [c30] (5vp) era2
+            <ul>
+                <li><strong>Colonists</strong> now cost <strong>5c</strong> to purchase [not cumulative with multiple Ecoplants].</li>
+                <li><strong>10c</strong> discount on <strong>Outpost</strong> cards.</li>
+            </ul> 
+        <br>
+        10. Outpost [c100] (5vp) era2
+            <ul>
+                <li><strong>+5</strong> Colony Support Limit.</li>
+                <li><strong>+5</strong> Hand Limit.</li>
+                <li>Provides <strong>one</strong> free <strong>Titanium</strong> Factory counter (not operated initally).</li>
+            </ul> 
+        <br>
+        11. Space Station [c120] (10vp) era3
+            <ul>
+                <li>After purchasing, replace this card with the <strong>Orbital Medicine</strong> Special Factory counter.</li>
+                <li>This special factory produces one <strong>Orbital Medicine</strong> Production card per turn, <strong>if operated.</strong></li>
+                <li>+1 Colony Support Limit, <strong>if operated.</strong></li>
+            </ul> 
+        <br>
+        12. Planetary Cruiser [c160] (15vp) era3
+            <ul>
+                <li>After purchasing, replace this card with the <strong>Ring Ore</strong> Special Factory counter.</li>
+                <li>This special factory produces one <strong>Ring Ore</strong> Production card per turn, <strong>if operated.</strong></li>
+                <li>+1 Colony Support Limit, <strong>if operated.</strong></li>
+            </ul> 
+        <br>
+        13. Moonbase [c200] (20vp) era3
+            <ul>
+                <li>After purchasing, replace this card with the <strong>Moon Ore</strong> Special Factory counter.</li>
+                <li>This special factory produces one <strong>Moon Ore</strong> Production card per turn, <strong>if operated.</strong></li>
+                <li>+1 Colony Support Limit, <strong>if operated.</strong></li>
+            </ul> 
+        <br>
+        </p>
+
     </section>
 
     <script src="main.js" type="module"></script>

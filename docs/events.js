@@ -74,22 +74,28 @@ export function firstInit() {
 
     // top nav events
     document.getElementById('overviewViewBtn').addEventListener('click', function (e) {
-        // console.log('overviewViewBtn was clicked')
         document.getElementById('overviewPanel').classList.remove('hideme');
         document.getElementById('turnManageFactoriesArea').classList.remove('hideme');
         document.getElementById('turnActionsArea').classList.remove('hideme');
         document.getElementById('logArea').classList.remove('hideme');
-
-        document.getElementById('biddingArea').classList.add('hideme');
+        document.getElementById('biddingArea').classList.add('hideme'); // add
+        if (document.getElementById('nonReferenceBlock').classList.contains('hideme')){
+            document.getElementById('referenceViewBtn').click();
+        }
     })
     document.getElementById('auctionViewBtn').addEventListener('click', function (e) {
-        // console.log('auctionViewBtn was clicked')
         document.getElementById('overviewPanel').classList.add('hideme');
         document.getElementById('turnManageFactoriesArea').classList.add('hideme');
         document.getElementById('turnActionsArea').classList.add('hideme');
         document.getElementById('logArea').classList.add('hideme');
-
-        document.getElementById('biddingArea').classList.remove('hideme');
+        document.getElementById('biddingArea').classList.remove('hideme'); // remove
+        if (document.getElementById('nonReferenceBlock').classList.contains('hideme')){
+            document.getElementById('referenceViewBtn').click();
+        }
+    })
+    document.getElementById('referenceViewBtn').addEventListener('click', function (e) {
+        document.getElementById('nonReferenceBlock').classList.toggle('hideme');
+        document.getElementById('reference').classList.toggle('hideme');
     })
 
 
@@ -107,6 +113,7 @@ export function firstInit() {
         if (buySelect.value.includes('factory')){
             turn.buyFactory(me, buyNumber, buySelect.value); // (player, buyNumber)
         }
+        document.getElementById('buyNumber').value = 1; // reset to most common value after purchase
     })
     document.getElementById('biddableSelect').addEventListener('change', function (e) {
         let selectValue = this.options[this.selectedIndex].value;
@@ -152,12 +159,17 @@ export function firstInit() {
         let bidAmt = document.getElementById('biddableInitialAmount').value * 1;
         let biddableSelect = document.getElementById('biddableSelect').value;
         let targetEq = util.getObjInHereWithValue(main.state.eqUpForBidArray, 'id', biddableSelect*1);
+
+        let selectEl = document.getElementById("biddableSelect");
+        let selectedOptionDiscountedPrice = selectEl.options[selectEl.selectedIndex].dataset.discountedprice*1;
+        // let discountedPrice = document.getElementById('biddableSelect').dataset.discountedprice*1;
         // bid.startBid(me, bidAmt, targetEq);
 
         let selectedAmount = util.getSelectedAmountFromCards();
 
         let isValidBid = false;
-        if (selectedAmount >= targetEq.price){
+        // if (selectedAmount >= targetEq.price){
+        if (selectedAmount >= selectedOptionDiscountedPrice){
             isValidBid = true;
         }
 

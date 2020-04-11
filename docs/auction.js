@@ -20,6 +20,33 @@ export function startAuction(player, realBidAmt, targetEq){
     let auctionInputs = [...document.querySelectorAll('.auctionInputToggle')]
     auctionInputs.map(el => el.disabled = false);
 
+    // display discounts if needed...
+    if (targetEq.name === 'Nodule'){
+        if (player.discountOnNodule > 0){
+            document.getElementById('discountDisplay').innerHTML = `You have a ${player.discountOnNodule}c discount from Heavy Equipment.`;
+        }
+    }
+    if (targetEq.name === 'Warehouse'){
+        if (player.discountOnWarehouse > 0){
+            document.getElementById('discountDisplay').innerHTML = `You have a ${player.discountOnWarehouse}c discount from Heavy Equipment.`;
+        }
+    }
+    if (targetEq.name === 'Scientists'){
+        if (player.discountOnScientist > 0){
+            document.getElementById('discountDisplay').innerHTML = `You have a ${player.discountOnScientist}c discount from Data Library.`;
+        }
+    }
+    if (targetEq.name === 'Laboratory'){
+        if (player.discountOnLaboratory > 0){
+            document.getElementById('discountDisplay').innerHTML = `You have a ${player.discountOnLaboratory}c discount from Data Library.`;
+        }
+    }
+    if (targetEq.name === 'Ecoplants'){
+        if (player.discountOnOutpost > 0){
+            document.getElementById('discountDisplay').innerHTML = `You have a ${player.discountOnOutpost}c discount from Ecoplants.`;
+        }
+    }
+
     util.printSeatOrder();
     util.auctionlogit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
     util.logit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
@@ -143,6 +170,32 @@ function processAuctionWinner(){
         document.getElementById('pcardRow_Mi').classList.remove('hideme');
     }
 
+    // process benefits of purchased eq
+    if (eq.name == 'Warehouse'){
+        player.handLimit += 5;
+    }
+    if (eq.name == 'Nodule'){
+        player.colonistMax += 3;
+    }
+    if (eq.name == 'Heavy Equipment'){
+        player.discountOnNodule += 5;
+        player.discountOnWarehouse += 5;
+    }
+    if (eq.name == 'Data Library'){
+        player.discountOnScientist += 5;
+        player.discountOnLaboratory += 5;
+    }
+    if (eq.name == 'Ecoplants'){
+        player.discountOnColonists += 5;
+    }
+    if (eq.name == 'Ecoplants'){
+        if (player.discountOnColonists < 5){
+            player.discountOnColonists += 5;
+        }
+        player.discountOnOutpost += 5;
+    }
+
+
     // rebuild buySelect
     let buySelect = document.getElementById('buySelect')
     let buySelectCode = `<select id="buySelect">
@@ -197,7 +250,33 @@ function processAuctionWinner(){
     let biddableSelectEl = document.getElementById('biddableSelect');
     let biddableSelectCode = ''
     main.state.eqUpForBidArray.map(eq => {
-        biddableSelectCode += `<option value="${eq.id}">${eq.name} (${eq.price})</option>`;
+        let discountedPrice = null;
+        if (eq.name === 'Nodule'){
+            if (player.discountOnNodule > 0){
+                discountedPrice = eq.price*1 - player.discountOnNodule*1;
+            }
+        }
+        if (eq.name === 'Warehouse'){
+            if (player.discountOnWarehouse > 0){
+                discountedPrice = eq.price*1 - player.discountOnWarehouse*1;
+            }
+        }
+        if (eq.name === 'Scientists'){
+            if (player.discountOnScientist > 0){
+                discountedPrice = eq.price*1 - player.discountOnScientist*1;
+            }
+        }
+        if (eq.name === 'Laboratory'){
+            if (player.discountOnLaboratory > 0){
+                discountedPrice = eq.price*1 - player.discountOnLaboratory*1;
+            }
+        }
+        if (eq.name === 'Outpost'){
+            if (player.discountOnOutpost > 0){
+                discountedPrice = eq.price*1 - player.discountOnOutpost*1;
+            }
+        }
+        biddableSelectCode += `<option value="${eq.id}" data-discountedprice="${discountedPrice ? `${discountedPrice}` : `${eq.price}`}">${eq.name} (${eq.price}${discountedPrice ? `->${discountedPrice}` : ''})</option>`;
     })
     biddableSelectEl.innerHTML = biddableSelectCode;
 

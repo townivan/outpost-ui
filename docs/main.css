@@ -265,6 +265,13 @@ body {
 #biddingEqUpForBidDesc--actionsArea {
   margin-bottom: 1rem; }
 
+.eqUpForBidContainer {
+  display: flex; }
+
+#displayDiscountContainer {
+  padding: 1rem;
+  padding-left: 3rem; }
+
 .greenspan {
   color: green; }
 
