@@ -139,6 +139,7 @@ export function replaceEquipment() {
     let currentItemsUpForBid = main.state.eqUpForBidArray.length;
     let numberOfItemsNeeded = (main.state.players.length) - currentItemsUpForBid;
     let me = util.getPlayerMe();
+    console.log('main.state.currentEra:', main.state.currentEra)
     // console.log('numberOfItemsNeeded:', numberOfItemsNeeded)
 
     for (let x = 0; x < numberOfItemsNeeded; x++){
@@ -348,6 +349,62 @@ export function buyColonists(player, buyNumber){
         main.calcVp();
         main.render();
         util.logit(`${player.name} spends ${selectedAmount}c to purchase ${buyNumber} colonist(s).`);
+    }
+    else {
+        // purchase failed! process...
+        console.log('purchase failed!!');
+        purchaseErrorEl.innerHTML = purchaseErrorReasons;
+    }
+
+
+
+}
+export function buyRobots(player, buyNumber){
+    console.log('welcome to buyRobots()...');
+    let purchaseErrorEl = document.getElementById('purchaseError');
+    purchaseErrorEl.innerHTML = ''; // reset any errors
+    let purchaseErrorReasons = '';
+
+    buyNumber = buyNumber*1;
+    console.log(`welcome to buyRobots(player=${player.name})`)
+
+    let selectedAmount = util.getSelectedAmountFromCards();
+    console.log('selectedAmount:', selectedAmount)
+
+    // calc price of order
+    let unitPrice = 10;
+    let totalCost = buyNumber * unitPrice;
+
+    let validPurchase = false;
+    let check1 = false;
+    let check2 = false;
+
+    if (selectedAmount >= totalCost){
+        check1 = true;
+    }
+    else{
+        purchaseErrorReasons += `purchase error: selected amount < total cost. `;
+    }
+
+    if ((player.robots + buyNumber) <= player.colonist){
+        check2 = true;
+    }
+    else{
+        purchaseErrorReasons += `purchase error: cannot purchase more robots than owned colonists*. `;
+    }
+    
+    if (check1 && check2){
+        validPurchase = true;
+    }
+
+    if (validPurchase){
+        // purchase successful!  process...
+        player.robots += buyNumber;
+        util.spendCards();
+        // update VP and render
+        main.calcVp();
+        main.render();
+        util.logit(`${player.name} spends ${selectedAmount}c to purchase ${buyNumber} robots(s).`);
     }
     else {
         // purchase failed! process...

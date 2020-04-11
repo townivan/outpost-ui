@@ -364,7 +364,15 @@ export function render() {
     rowCode += `</div>`
     allOverViewCode += rowCode;
 
-    rowCode = `<div class="rowOverview">`;
+
+
+    let doesAnyoneHaveRobots = false;
+    state.players.map(player => {
+        player.ownedEquipment.map(eq =>{
+            if (eq.name === 'Robots'){ doesAnyoneHaveRobots=true; }
+        })
+    })
+    rowCode = `<div class="rowOverview ${doesAnyoneHaveRobots ? '' : 'hideme'}">`;
     rowCode += `<div class="overviewCol1">Robots</div>`;
     state.players.map(player => {
         rowCode += `<div class="overviewColx">${player.robots} of ${player.colonistMax} <i class="fas fa-robot"></i></div>`;

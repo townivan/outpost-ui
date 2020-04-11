@@ -200,6 +200,9 @@ function processAuctionWinner(){
     if (eq.name == 'Orbital Lab'){
         player.factories.push(main.addFactory(player, 'OrbitalLabFactory'));
     }
+    if (eq.name == 'Robots'){
+        player.robots++;
+    }
 
 
     // rebuild buySelect

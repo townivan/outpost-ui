@@ -13,7 +13,9 @@ export function firstInit() {
             //do something
             let me = util.getPlayerMe();
             let hasRobots = false;
-            if (me.robotsEqCount > 0 ){ hasRobots = true; }
+            me.ownedEquipment.map(eq =>{
+                if (eq.name === 'Robots'){ hasRobots=true; }
+            })
             let thisFactory = util.getObjInHereWithValue(me.factories, 'id', e.target.dataset.guid*1)
 
             // console.log('me:', me)
@@ -21,36 +23,44 @@ export function firstInit() {
             // console.log('thisFactory:', thisFactory)
 
             //console.log('that is a factory');
-            let indicator1 = e.target.querySelector('.indicator1');
-            let indicator2 = e.target.querySelector('.indicator2');
-            let indicator3 = e.target.querySelector('.indicator3');
+            let indicator1 = e.target.querySelector('.indicator1'); // x unmanned
+            let indicator2 = e.target.querySelector('.indicator2'); // colonist 
+            let indicator3 = e.target.querySelector('.indicator3'); // robot
             let indicator4 = e.target.querySelector('.indicator4'); // unmanned special factories
 
             if (e.target.dataset.state === 'unmanned'){
                 // increment to...
-                if (me.availableColonistCount > 0 || me.availableRobotCount > 0){
-                    indicator1.classList.add('hideme');
-                    indicator2.classList.remove('hideme');
-                    indicator3.classList.add('hideme');
+                if (me.availableColonistCount > 0){ // available colonist
+                    indicator1.classList.add('hideme'); // x unmanned
+                    indicator2.classList.remove('hideme'); // colonist
+                    indicator3.classList.add('hideme'); // robot
                     e.target.dataset.state = "colonist";
                     thisFactory.mannedBy = 'colonist';
+                    thisFactory.isManned = true;
+                }
+                if (me.availableColonistCount < 1 && me.availableRobotCount > 0){ // no colonist but an available robot
+                    indicator1.classList.add('hideme'); // x unmanned
+                    indicator2.classList.add('hideme'); // colonist
+                    indicator3.classList.remove('hideme'); // robot
+                    e.target.dataset.state = "robot";
+                    thisFactory.mannedBy = 'robot';
                     thisFactory.isManned = true;
                 }
             }
             else if (e.target.dataset.state === 'colonist'){
                 // increment to...
-                if (hasRobots){
-                    indicator1.classList.add('hideme');
-                    indicator2.classList.add('hideme');
-                    indicator3.classList.remove('hideme');
+                if (hasRobots && me.availableRobotCount > 0){
+                    indicator1.classList.add('hideme'); // x unmanned
+                    indicator2.classList.add('hideme'); // colonist
+                    indicator3.classList.remove('hideme'); // robot
                     e.target.dataset.state = "robot";
                     thisFactory.mannedBy = 'robot';
                     thisFactory.isManned = true;
                 }
                 else{
-                    indicator1.classList.remove('hideme');
-                    indicator2.classList.add('hideme');
-                    indicator3.classList.add('hideme');
+                    indicator1.classList.remove('hideme'); // x unmanned
+                    indicator2.classList.add('hideme'); // colonist
+                    indicator3.classList.add('hideme'); // robot
                     e.target.dataset.state = "unmanned";
                     thisFactory.mannedBy = 'unmanned';
                     thisFactory.isManned = false;
@@ -58,12 +68,22 @@ export function firstInit() {
             }
             else if (e.target.dataset.state === 'robot'){
                 // increment to...
-                indicator1.classList.remove('hideme');
-                indicator2.classList.add('hideme');
-                indicator3.classList.add('hideme');
-                e.target.dataset.state = "unmanned";
-                thisFactory.mannedBy = 'unmanned';
-                thisFactory.isManned = false;
+                // if (me.availableColonistCount > 0){ // available colonist
+                //     indicator1.classList.add('hideme'); // x unmanned
+                //     indicator2.classList.remove('hideme'); // colonist
+                //     indicator3.classList.add('hideme'); // robot
+                //     e.target.dataset.state = "colonist";
+                //     thisFactory.mannedBy = 'colonist';
+                //     thisFactory.isManned = true;
+                // }
+                // else{
+                    indicator1.classList.remove('hideme'); // x unmanned
+                    indicator2.classList.add('hideme'); // colonist
+                    indicator3.classList.add('hideme'); // robot
+                    e.target.dataset.state = "unmanned";
+                    thisFactory.mannedBy = 'unmanned';
+                    thisFactory.isManned = false;
+                // }
             }
 
             me.updateFactoryCounts();
@@ -110,6 +130,9 @@ export function firstInit() {
         let buySelect = document.getElementById('buySelect');
         if (buySelect.value === 'colonist'){
             turn.buyColonists(me, buyNumber); // (player, buyNumber)
+        }
+        if (buySelect.value === 'robot'){
+            turn.buyRobots(me, buyNumber); // (player, buyNumber)
         }
         if (buySelect.value.includes('factory')){
             turn.buyFactory(me, buyNumber, buySelect.value); // (player, buyNumber)
