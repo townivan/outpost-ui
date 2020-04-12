@@ -18,6 +18,9 @@ $Ti: grey;
 $Re: #ecd018;
 $Mi: #d1228b;
 $Nc: #009747;
+$Om: #678f33;
+$Ro: #9b5dca;
+$Mo: #efb162;
 
 .bgOr{
     background-color: $Or;
@@ -37,6 +40,15 @@ $Nc: #009747;
 .bgNc{
     background-color: $Nc;
 }
+.bgOm{
+    background-color: $Om;
+}
+.bgRo{
+    background-color: $Ro;
+}
+.bgMo{
+    background-color: $Mo;
+}
 
 .bgOrBorder{
     border: 2px $Or solid;
@@ -55,6 +67,15 @@ $Nc: #009747;
 }
 .bgNcBorder{
     border: 2px $Nc solid;
+}
+.bgOmBorder{
+    border: 2px $Om solid;
+}
+.bgRoBorder{
+    border: 2px $Ro solid;
+}
+.bgMoBorder{
+    border: 2px $Mo solid;
 }
 
 $mobile-width: 375px;
@@ -215,6 +236,24 @@ body{
             background-color: $Nc;
         }
     }
+    &_om{
+        background-color: lighten($Om, 30%);
+        &.pcard--selected{
+            background-color: $Om;
+        }
+    }
+    &_ro{
+        background-color: lighten($Ro, 30%);
+        &.pcard--selected{
+            background-color: $Ro;
+        }
+    }
+    &_mo{
+        background-color: lighten($Mo, 30%);
+        &.pcard--selected{
+            background-color: $Mo;
+        }
+    }
 }
 
 .cb1{
@@ -272,6 +311,18 @@ body{
     }
     &_OrbitalLabFactory{
         background-color: $Mi;
+        padding: 1rem 1rem;
+    }
+    &_Om{
+        background-color: $Om;
+        padding: 1rem 1rem;
+    }
+    &_Ro{
+        background-color: $Ro;
+        padding: 1rem 1rem;
+    }
+    &_Mo{
+        background-color: $Mo;
         padding: 1rem 1rem;
     }
 

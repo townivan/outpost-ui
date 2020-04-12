@@ -139,7 +139,7 @@ export function replaceEquipment() {
     let currentItemsUpForBid = main.state.eqUpForBidArray.length;
     let numberOfItemsNeeded = (main.state.players.length) - currentItemsUpForBid;
     let me = util.getPlayerMe();
-    console.log('main.state.currentEra:', main.state.currentEra)
+    console.log('%c main.state.currentEra:', 'background-color:yellow;', main.state.currentEra)
     // console.log('numberOfItemsNeeded:', numberOfItemsNeeded)
 
     for (let x = 0; x < numberOfItemsNeeded; x++){

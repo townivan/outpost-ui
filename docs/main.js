@@ -121,6 +121,18 @@ export function addPlayer(name = 'Larry') {
         let ScientistsFactoryCount = 0;
         let ScientistsFactoryManned = 0;
 
+        let OrbitalLabFactoryCount = 0;
+        let OrbitalLabFactoryManned = 0;
+
+        let OmCount = 0;
+        let OmManned = 0;
+
+        let RoCount = 0;
+        let RoManned = 0;
+
+        let MoCount = 0;
+        let MoManned = 0;
+
         this.factories.map(factory => {
             if (factory.type === "Or") {
                 OrCount++;
@@ -150,6 +162,22 @@ export function addPlayer(name = 'Larry') {
                 ScientistsFactoryCount++;
                 ScientistsFactoryManned++;
             }
+            if (factory.type === "OrbitalLabFactory") {
+                OrbitalLabFactoryCount++;
+                OrbitalLabFactoryManned++;
+            }
+            if (factory.type === "Om") {
+                OmCount++;
+                if (factory.isManned) { OmManned++; }
+            }
+            if (factory.type === "Ro") {
+                RoCount++;
+                if (factory.isManned) { RoManned++; }
+            }
+            if (factory.type === "Mo") {
+                MoCount++;
+                if (factory.isManned) { MoManned++; }
+            }
         })
         this.OrCount = OrCount;
         this.OrManned = OrManned;
@@ -171,6 +199,18 @@ export function addPlayer(name = 'Larry') {
 
         this.ScientistsFactoryCount = ScientistsFactoryCount;
         this.ScientistsFactoryManned = ScientistsFactoryManned;
+
+        this.OrbitalLabFactoryCount = OrbitalLabFactoryCount;
+        this.OrbitalLabFactoryManned = OrbitalLabFactoryManned;
+
+        this.OmCount = OmCount;
+        this.OmManned = OmManned;
+
+        this.RoCount = RoCount;
+        this.RoManned = RoManned;
+
+        this.MoCount = MoCount;
+        this.MoManned = MoManned;
     }
     p.dataLibraryCount = 0;
     p.warehouseCount = 0;
@@ -212,12 +252,18 @@ export function render() {
     let onlyCards_re = [];
     let onlyCards_mi = [];
     let onlyCards_nc = [];
+    let onlyCards_om = [];
+    let onlyCards_ro = [];
+    let onlyCards_mo = [];
     let allCardCode_or = '';
     let allCardCode_wa = '';
     let allCardCode_ti = '';
     let allCardCode_re = '';
     let allCardCode_mi = '';
     let allCardCode_nc = '';
+    let allCardCode_om = '';
+    let allCardCode_ro = '';
+    let allCardCode_mo = '';
     let me = util.getPlayerMe();
     me.cards.map(card => {
         cardsMax += card.value;
@@ -239,6 +285,15 @@ export function render() {
         }
         if (card.cardType === 'Nc') {
             onlyCards_nc.push(card);
+        }
+        if (card.cardType === 'Om') {
+            onlyCards_om.push(card);
+        }
+        if (card.cardType === 'Ro') {
+            onlyCards_ro.push(card);
+        }
+        if (card.cardType === 'Mo') {
+            onlyCards_mo.push(card);
         }
     })
 
@@ -262,28 +317,67 @@ export function render() {
         allCardCode_wa += code;
     })
 
+    // the next two are a simple version for hiding these if you have no cards...hide or not is more complex for other types...
+    if (onlyCards_ti.length === 0) { document.querySelector('.pcardRow_Ti').classList.add('hideme') }
+    else{                            document.querySelector('.pcardRow_Ti').classList.remove('hideme') }
     onlyCards_ti.sort(util.compareValues('value'));
     onlyCards_ti.map(card => {
         const code = `<button type="button" class="pcard pcard_ti ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
         allCardCode_ti += code;
     })
 
+    // the next two are a simple version for hiding these if you have no cards...hide or not is more complex for other types...
+    if (onlyCards_re.length === 0) { document.querySelector('.pcardRow_Re').classList.add('hideme') }
+    else{                            document.querySelector('.pcardRow_Re').classList.remove('hideme') }
     onlyCards_re.sort(util.compareValues('value'));
     onlyCards_re.map(card => {
         const code = `<button type="button" class="pcard pcard_re ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
         allCardCode_re += code;
     })
 
+    // the next two are a simple version for hiding these if you have no cards...hide or not is more complex for other types...
+    if (onlyCards_mi.length === 0) { document.querySelector('.pcardRow_Mi').classList.add('hideme') }
+    else{                            document.querySelector('.pcardRow_Mi').classList.remove('hideme') }
     onlyCards_mi.sort(util.compareValues('value'));
     onlyCards_mi.map(card => {
         const code = `<button type="button" class="pcard pcard_mi ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
         allCardCode_mi += code;
     })
 
+    // the next two are a simple version for hiding these if you have no cards...hide or not is more complex for other types...
+    if (onlyCards_nc.length === 0) { document.querySelector('.pcardRow_Nc').classList.add('hideme') }
+    else{                            document.querySelector('.pcardRow_Nc').classList.remove('hideme') }
     onlyCards_nc.sort(util.compareValues('value'));
     onlyCards_nc.map(card => {
         const code = `<button type="button" class="pcard pcard_nc ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
         allCardCode_nc += code;
+    })
+
+    // the next two are a simple version for hiding these if you have no cards...hide or not is more complex for other types...
+    if (onlyCards_om.length === 0) { document.querySelector('.pcardRow_Om').classList.add('hideme') }
+    else{                            document.querySelector('.pcardRow_Om').classList.remove('hideme') }
+    onlyCards_om.sort(util.compareValues('value'));
+    onlyCards_om.map(card => {
+        const code = `<button type="button" class="pcard pcard_om ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
+        allCardCode_om += code;
+    })
+
+    // the next two are a simple version for hiding these if you have no cards...hide or not is more complex for other types...
+    if (onlyCards_ro.length === 0) { document.querySelector('.pcardRow_Ro').classList.add('hideme') }
+    else{                            document.querySelector('.pcardRow_Ro').classList.remove('hideme') }
+    onlyCards_ro.sort(util.compareValues('value'));
+    onlyCards_ro.map(card => {
+        const code = `<button type="button" class="pcard pcard_ro ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
+        allCardCode_ro += code;
+    })
+
+    // the next two are a simple version for hiding these if you have no cards...hide or not is more complex for other types...
+    if (onlyCards_mo.length === 0) { document.querySelector('.pcardRow_Mo').classList.add('hideme') }
+    else{                            document.querySelector('.pcardRow_Mo').classList.remove('hideme') }
+    onlyCards_mo.sort(util.compareValues('value'));
+    onlyCards_mo.map(card => {
+        const code = `<button type="button" class="pcard pcard_mo ${card.isSelected ? 'pcard--selected' : ''}" value="${card.value}" data-id="${card.id}"><input type="checkbox" class="cb1" tabindex="-1" ${card.isSelected ? 'checked="checked"' : ''} />${card.value}</button>`;
+        allCardCode_mo += code;
     })
 
     document.getElementById('pCardRenderInsertionPoint_or').innerHTML = allCardCode_or;
@@ -292,6 +386,9 @@ export function render() {
     document.getElementById('pCardRenderInsertionPoint_re').innerHTML = allCardCode_re;
     document.getElementById('pCardRenderInsertionPoint_mi').innerHTML = allCardCode_mi;
     document.getElementById('pCardRenderInsertionPoint_nc').innerHTML = allCardCode_nc;
+    document.getElementById('pCardRenderInsertionPoint_om').innerHTML = allCardCode_om;
+    document.getElementById('pCardRenderInsertionPoint_ro').innerHTML = allCardCode_ro;
+    document.getElementById('pCardRenderInsertionPoint_mo').innerHTML = allCardCode_mo;
 
     document.getElementById('cardsMax').innerHTML = cardsMax.toString();
 
@@ -336,6 +433,9 @@ export function render() {
         let countRe = 0;
         let countMi = 0;
         let countNc = 0;
+        let countOm = 0;
+        let countRo = 0;
+        let countMo = 0;
         player.cards.map(card => {
             if (card.cardType === 'Or') { countOr++; }
             if (card.cardType === 'Wa') { countWa++; }
@@ -343,6 +443,9 @@ export function render() {
             if (card.cardType === 'Re') { countRe++; }
             if (card.cardType === 'Mi') { countMi++; }
             if (card.cardType === 'Nc') { countNc++; }
+            if (card.cardType === 'Om') { countOm++; }
+            if (card.cardType === 'Ro') { countRo++; }
+            if (card.cardType === 'Mo') { countMo++; }
         })
         rowCode += `<div class="overviewColx">
         ${countOr > 0 ? `<span class="bgOrBorder">${countOr}</span>` + '<span class="bgOr bgOrBorder">Or</span>' : ''} 
@@ -351,6 +454,9 @@ export function render() {
         ${countRe > 0 ? `<span class="bgReBorder">${countRe}</span>` + '<span class="bgRe bgReBorder">Re</span>' : ''}
         ${countMi > 0 ? `<span class="bgMiBorder">${countMi}</span>` + '<span class="bgMi bgMiBorder">Mi</span>' : ''}
         ${countNc > 0 ? `<span class="bgNcBorder">${countNc}</span>` + '<span class="bgNc bgNcBorder">Nc</span>' : ''}
+        ${countOm > 0 ? `<span class="bgOmBorder">${countOm}</span>` + '<span class="bgOm bgOmBorder">Om</span>' : ''}
+        ${countRo > 0 ? `<span class="bgRoBorder">${countRo}</span>` + '<span class="bgRo bgRoBorder">Ro</span>' : ''}
+        ${countMo > 0 ? `<span class="bgMoBorder">${countMo}</span>` + '<span class="bgMo bgMoBorder">Mo</span>' : ''}
         </div>`;
     });
     rowCode += `</div>`
@@ -427,6 +533,30 @@ export function render() {
     rowCode += `<div class="overviewCol1">Factories - <span class="bgNcBorder">Nc</span></div>`;
     state.players.map(player => {
         rowCode += `<div class="overviewColx bgNcBorder">${player.NcManned} of ${player.NcCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+    
+    rowCode = `<div class="rowOverview ${util.getPlayerMe().isUnlocked_Om ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1">Factories - <span class="bgOmBorder">Om</span></div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx bgOmBorder">${player.OmManned} of ${player.OmCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+    
+    rowCode = `<div class="rowOverview ${util.getPlayerMe().isUnlocked_Ro ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1">Factories - <span class="bgRoBorder">Ro</span></div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx bgRoBorder">${player.RoManned} of ${player.RoCount}</div>`;
+    });
+    rowCode += `</div>`
+    allOverViewCode += rowCode;
+    
+    rowCode = `<div class="rowOverview ${util.getPlayerMe().isUnlocked_Mo ? '' :'hideme'}">`;
+    rowCode += `<div class="overviewCol1">Factories - <span class="bgMoBorder">Mo</span></div>`;
+    state.players.map(player => {
+        rowCode += `<div class="overviewColx bgMoBorder">${player.MoManned} of ${player.MoCount}</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
@@ -813,6 +943,9 @@ export function render() {
         if (factory.type === 'ScientistsFactory'){
             factory.mannedBy = 'na';
         }
+        if (factory.type === 'OrbitalLabFactory'){
+            factory.mannedBy = 'na';
+        }
         let factoryTemplate = `
         <button type="button" class="factoryBtn factoryBtn_${factory.type}" data-state="${factory.mannedBy}" data-ownerId="${player.id}" data-guid="${factory.id}">
             <i class="fas fa-industry"></i>
@@ -849,11 +982,11 @@ export function drawCard(cardType, playerId) {
         possibleCards = [7, 8, 9, 10, 11, 12, 13];
     }
     if (cardType === 'Re' || cardType === 'ScientistsFactory') {
-        cardType === 'Re'; // override incoming cardType ScientistsFactory
+        cardType = 'Re'; // override incoming cardType ScientistsFactory
         possibleCards = [9, 10, 11, 12, 13, 14, 15, 16, 17];
     }
     if (cardType === 'Mi' || cardType === 'OrbitalLabFactory') {
-        cardType === 'Mi'; // override incoming cardType OrbitalLabFactory
+        cardType = 'Mi'; // override incoming cardType OrbitalLabFactory
         possibleCards = [14, 15, 16, 17, 18, 19, 20];
     }
     if (cardType === 'Nc') {
@@ -903,6 +1036,9 @@ export function addFactory(player, reqType = 'Or') {
     if (reqType === 'Nc') { f.type = reqType; f.ownerId = player.id; }
     if (reqType === 'ScientistsFactory') { f.type = reqType; f.ownerId = player.id; }
     if (reqType === 'OrbitalLabFactory') { f.type = reqType; f.ownerId = player.id; }
+    if (reqType === 'Om') { f.type = reqType; f.ownerId = player.id; }
+    if (reqType === 'Ro') { f.type = reqType; f.ownerId = player.id; }
+    if (reqType === 'Mo') { f.type = reqType; f.ownerId = player.id; }
     f.isManned = false;
     // auto-man logic attempt
     f.mannedBy = 'unmanned';

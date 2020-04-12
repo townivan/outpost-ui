@@ -192,7 +192,7 @@ function processAuctionWinner(){
         if (player.discountOnColonists < 5){
             player.discountOnColonists += 5;
         }
-        player.discountOnOutpost += 5;
+        player.discountOnOutpost += 10;
     }
     if (eq.name == 'Scientists'){
         player.factories.push(main.addFactory(player, 'ScientistsFactory'));
@@ -202,6 +202,26 @@ function processAuctionWinner(){
     }
     if (eq.name == 'Robots'){
         player.robots++;
+    }
+    if (eq.name == 'Laboratory'){
+        player.factories.push(main.addFactory(player, 'Re'));
+    }
+    if (eq.name == 'Outpost'){
+        player.colonistMax += 5;
+        player.handLimit += 5;
+        player.factories.push(main.addFactory(player, 'Ti'));
+    }
+    if (eq.name == 'Space Station'){
+        // player.factories.push(main.addFactory(player, 'OrbitalMedicineFactory'));
+        player.factories.push(main.addFactory(player, 'Om'));
+    }
+    if (eq.name == 'Planetary Cruiser'){
+        // player.factories.push(main.addFactory(player, 'RingOreFactory'));
+        player.factories.push(main.addFactory(player, 'Ro'));
+    }
+    if (eq.name == 'Moonbase'){
+        // player.factories.push(main.addFactory(player, 'MoonOreFactory'));
+        player.factories.push(main.addFactory(player, 'Mo'));
     }
 
 

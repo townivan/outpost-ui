@@ -19,6 +19,15 @@
 .bgNc {
   background-color: #009747; }
 
+.bgOm {
+  background-color: #678f33; }
+
+.bgRo {
+  background-color: #9b5dca; }
+
+.bgMo {
+  background-color: #efb162; }
+
 .bgOrBorder {
   border: 2px #d59667 solid; }
 
@@ -36,6 +45,15 @@
 
 .bgNcBorder {
   border: 2px #009747 solid; }
+
+.bgOmBorder {
+  border: 2px #678f33 solid; }
+
+.bgRoBorder {
+  border: 2px #9b5dca solid; }
+
+.bgMoBorder {
+  border: 2px #efb162 solid; }
 
 body {
   font-size: 17px;
@@ -153,6 +171,18 @@ body {
     background-color: #31ff92; }
     .pcard_nc.pcard--selected {
       background-color: #009747; }
+  .pcard_om {
+    background-color: #b3d487; }
+    .pcard_om.pcard--selected {
+      background-color: #678f33; }
+  .pcard_ro {
+    background-color: #e2d0f0; }
+    .pcard_ro.pcard--selected {
+      background-color: #9b5dca; }
+  .pcard_mo {
+    background-color: #fdf6ed; }
+    .pcard_mo.pcard--selected {
+      background-color: #efb162; }
 
 .cb1 {
   position: absolute;
@@ -201,6 +231,15 @@ body {
     padding: 1rem 1rem; }
   .factoryBtn_OrbitalLabFactory {
     background-color: #d1228b;
+    padding: 1rem 1rem; }
+  .factoryBtn_Om {
+    background-color: #678f33;
+    padding: 1rem 1rem; }
+  .factoryBtn_Ro {
+    background-color: #9b5dca;
+    padding: 1rem 1rem; }
+  .factoryBtn_Mo {
+    background-color: #efb162;
     padding: 1rem 1rem; }
 
 .factoryBtn * {
