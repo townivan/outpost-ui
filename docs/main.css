@@ -116,6 +116,8 @@ body {
   border-radius: 4px;
   margin-right: 1rem;
   min-width: 80px; }
+  .standardBtn--positive {
+    background-color: lightgreen; }
 
 .pcardRow {
   display: flex;

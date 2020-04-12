@@ -132,6 +132,25 @@ export function firstInit() {
     document.getElementById('endTurnBtn').addEventListener('click', function (e) {
         turn.endTurnBtn();
     })
+    document.getElementById('firstTurnHandForWaterBtn').addEventListener('click', function (e) {
+        let me = util.getPlayerMe();
+        // select all cards
+        let allpcards = [...document.querySelectorAll('.pcard')];
+        allpcards.map(pcard => {
+            pcard.classList.add('pcard--selected');
+            const cb = pcard.querySelector('input');
+            cb.checked = true; // the inner checkbox
+            const cardObj = util.getCardById(pcard.dataset.id*1);
+            cardObj.isSelected = true;
+        })
+        util.spendCards();
+        me.factories.push(main.addFactory(me, 'Wa'));
+        document.getElementById('firstTurnHandForWaterBtn').classList.add('hideme');
+        main.calcVp();
+        main.render();
+        util.logit(`${me.name} turns in their initial hand for a water factory.`);
+
+    })
     document.getElementById('buyButton').addEventListener('click', function (e) {
         let me = util.getPlayerMe();
         let buyNumber = document.getElementById('buyNumber').value;

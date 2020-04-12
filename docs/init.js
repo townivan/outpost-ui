@@ -16,6 +16,8 @@ export function initialize() {
     main.state.players[2].isYou = true;
     main.state.players.push(main.addPlayer('Gabriel'));
 
+    let me = util.getPlayerMe();
+
     // set era3 trigger based on number of players
     if (main.state.players.length == 5 || main.state.players.length == 8){
         main.state.era3Trigger = 30;
@@ -44,6 +46,12 @@ export function initialize() {
             player.playerSeatedAfterMe = main.state.players[0]
         }
     })
+
+    // firstTurnHandForWaterBtn
+    let myMaxFirstHand = util.getMaxHandValue(me)
+    if (myMaxFirstHand < 20){
+        document.getElementById('firstTurnHandForWaterBtn').classList.remove('hideme');
+    }
 
     main.state.eqMax = main.state.players.length - 1
     // main.state.equipment.map(eq => {
