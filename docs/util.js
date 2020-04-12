@@ -36,12 +36,13 @@ export function shuffleArray(array) {
 
 export function logit(msg) {
     let stamp = displayTime();
-    let targetEl = document.getElementById('log');
-    // targetEl.innerHTML = targetEl.innerHTML + `<div>${stamp} > Round ${main.state.round}: ${msg}</div>`;
-    targetEl.innerHTML = `<div>${stamp} > Round ${main.state.round}: ${msg}</div>` + targetEl.innerHTML;
+    // let targetEl = document.getElementById('log');
+    // targetEl.innerHTML = `<div>${stamp} > Round ${main.state.round}: ${msg}</div>` + targetEl.innerHTML;
+    let targetEl = document.getElementById('log2');
+    targetEl.value = `${stamp} > Round ${main.state.round}: ${msg}\n` + targetEl.value;
 }
 export function auctionlogit(msg) {
-    let stamp = displayTime();
+    // let stamp = displayTime();
     let targetEl = document.getElementById('auctionLog');
     targetEl.innerHTML = `<div>${main.state.bid_actionCount}: ${msg}</div>` + targetEl.innerHTML;
     main.state.bid_actionCount++;

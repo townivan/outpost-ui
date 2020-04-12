@@ -14,37 +14,37 @@
 </head>
 
 <body>
-    <h1>outpost-ui</h1>
 
-    <section id="navPanel">
-        <button type="button" id="overviewViewBtn">Overview</button>
-        <button type="button" id="auctionViewBtn">Auction</button>
-        <button type="button" id="referenceViewBtn">Reference</button>
-    </section>
+    <div class="new-header">
+        <div class="logo-area">
+            <h1>outpost-ui</h1>
+        </div>
+        <div class="header-menu-area">
+            <div class="header-menu-top">
+                Era2@10vp&nbsp;&nbsp;&nbsp;Era3@<span id="era3TriggerDisplay">-</span>vp&nbsp;&nbsp;&nbsp;Victory@75vp
+            </div>
+            <div class="header-menu-bottom">
+                <section class="nav-panel">
+                    <div class="nav-left">
+                        <button type="button" id="overviewViewBtn">Overview</button>
+                        <button type="button" id="auctionViewBtn">Auction</button>
+                    </div>
+                    <div class="nav-right">
+                        <button type="button" id="referenceViewBtn">Reference</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
 
     <div id="nonReferenceBlock">
         <section id="overviewPanel"></section>
 
-        <section id="cardSelectionPanel">
-            <div class="selectArea1">
-                <div class="selectedSummaryNumbersArea1">
-                    Selected: 
-                    <div class="selectedSummaryNumbersArea2">
-                        <span id="cardsSelected" class="numberSpacer numberSpacerLeft">-</span>&nbsp;of&nbsp;<span id="cardsMax" class="numberSpacer numberSpacerRight">-</span> max.
-                    </div>
-                </div>
-
-                <div>
-                    <button type="button" id="pcardmaster_none">None</button>
-                    <button type="button" id="pcardmaster_all">All</button>
-                </div>
-            </div>
-
-            <!-- <div class="selectLockArea">
-                <div><i class="fas fa-lock-open"></i> Research</div>
-                <div><i class="fas fa-lock-open"></i> Microbiotics</div>
-            </div> -->
-        </section>
+        
 
         <section id="productionCardArea">
             <div class="pcardRow pcardRow_Or">
@@ -85,29 +85,58 @@
             </div>
         </section>
 
+        <section id="cardSelectionPanel">
+            <div class="selectArea1">
+                <div>
+                    <button type="button" id="pcardmaster_all" class="standardBtn">All</button>
+                </div>
+                <div class="selectedSummaryNumbersArea1">
+                    Selected: 
+                    <div class="selectedSummaryNumbersArea2">
+                        <span id="cardsSelected" class="numberSpacer numberSpacerLeft">-</span>&nbsp;of&nbsp;<span id="cardsMax" class="numberSpacer numberSpacerRight">-</span> max
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="turnActionsArea">
+
+            <div class="turnActionRow">
+                <div class="turnAction1">
+                    <div class="turnAction1Inner">
+                        <button type="button" id="biddableStartBid" class="standardBtn">Bid (start auction)</button>
+
+                        <div class="turnAction1InnerGroup2">
+                            <span id="availableEq"></span> 
+                            <select id="biddableSelect" class="selectStandard"></select> 
+                            <input id="biddableInitialAmount" type="number" class="hideme" />
+                        </div>
+                    </div>
+                </div>
+                <div class="turnAction2">
+                    <div class="turnAction2Inner">
+                        <button type="button" id="buyButton" class="standardBtn">Buy</button>
+
+                        <div class="turnAction2InnerGroup2">
+                            <div>
+                                <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
+                            </div>
+                            <select id="buySelect" class="selectStandard">
+                                <option value="colonist">colonist (10)</option>
+                                <option value="robot">robot (10)</option>
+                                <option value="factoryOr">factoryOr (10)</option>
+                                <option value="factoryWa">factoryWa (20)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bidError"></div>
+            <div id="purchaseError"></div>
+
             <div class="turnActionsContainer">
-                <button type="button" id="endTurnBtn">End Turn</button>
-                --
-                <div>
-                    <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
-                    <select id="buySelect">
-                        <option value="colonist">colonist</option>
-                        <option value="robot">robot</option>
-                        <option value="factoryOr">factoryOr</option>
-                        <option value="factoryWa">factoryWa</option>
-                    </select>
-                    <button type="button" id="buyButton">Buy</button>
-                    <div id="purchaseError"></div>
-                </div>
-                --
-                <div>
-                    Equipment:
-                    <select id="biddableSelect"></select><!-- updated in turn.replaceEquipment()-->
-                    <input id="biddableInitialAmount" type="number" />
-                    <button type="button" id="biddableStartBid">Bid (start auction)</button>
-                    <div id="bidError"></div>
-                </div>
+                <button type="button" id="endTurnBtn" class="standardBtn">End Turn</button>
             </div>
         </section>
         <br>
@@ -116,7 +145,7 @@
         <section id="biddingArea" class="hideme">
             <div class="biddingAreaContainer">
                 <div id="biddingOpenArea">
-                    <div id="biddingEqUpForBidDesc--currentBid">Current bid 25c by Player A</div>
+                    <div id="biddingEqUpForBidDesc--currentBid"></div>
                     <div id="biddingEqUpForBidDesc--actionsArea">
                         <input type="number" id="newBidAmountInput" class="auctionInputToggle" disabled="disabled" value="26" /> 
                         <button type="button" id="auctionCounterBidBtn" class="auctionInputToggle" disabled="disabled">counter bid</button> or 
@@ -130,7 +159,7 @@
                     <div class="eqUpForBidContainer">
                         <div id="biddingEqUpForBidDesc">
                             <div id="biddingEqUpForBidDesc--desc">
-                                <div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul>
+                                <!-- <div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul> -->
                             </div>
                         </div>
                         <div id="displayDiscountContainer">
@@ -158,11 +187,25 @@
 
         <section id="logArea">
             <div id="log"></div>
+            <textarea id="log2" rows="20" cols="100"></textarea>
         </section>
 
     </div><!-- end nonReferenceBlock -->
 
     <section id="reference" class="hideme">
+        <h4>Abbreviations</h4>
+        <ul class="refAbbreviationsUl">
+            <li><span class="bgOrBorder">Or</span> = Ore.  Average production: 3</li>
+            <li><span class="bgWaBorder">Wa</span> = Water. Average production: 7</li>
+            <li><span class="bgTiBorder">Ti</span> = Titanium. Average production: 10</li>
+            <li><span class="bgReBorder">Re</span> = Research. Average production: 13</li>
+            <li><span class="bgMiBorder">Mi</span> = Microbiotics. Average production: 17</li>
+            <li><span class="bgNcBorder">Nc</span> = New Chemicals. Average production: 20</li>
+            <li><span class="bgOmBorder">Om</span> = Orbital Medicine. Average production: 30</li>
+            <li><span class="bgRoBorder">Ro</span> = Ring Ore. Average production: 40</li>
+            <li><span class="bgMoBorder">Mo</span> = Moon Ore. Average production: 50</li>
+        </ul>
+
         <h4>Equipment Quick Reference</h4>
         <p>
         1. Data Library [c15] (1vp) era1

@@ -300,22 +300,16 @@ export function buyColonists(player, buyNumber){
 
     buyNumber = buyNumber*1;
     console.log(`welcome to buyColonists(player=${player.name})`)
-    // let player = null;
-    // if (playerId === -1){
-    //     player = util.getPlayerMe();
-    // }
-    // else{
-    //     player = getPlayerById(playerId);
-    // }
 
     // handle cards via the local player first.
-
     let selectedAmount = util.getSelectedAmountFromCards();
     console.log('selectedAmount:', selectedAmount)
 
     // calc price of order
     let unitPrice = 10;
     // apply discounts here later (todo)
+    if (player.discountOnColonists > 0) { unitPrice = 5; }
+
     let totalCost = buyNumber * unitPrice;
     console.log('totalCost:', totalCost)
 
@@ -327,18 +321,27 @@ export function buyColonists(player, buyNumber){
         check1 = true;
     }
     else{
-        purchaseErrorReasons += `purchase error: selected amount < total cost. `;
+        purchaseErrorReasons += `Purchase error: selected amount < total cost. `;
     }
 
     if ((player.colonist + buyNumber) <= player.colonistMax){
         check2 = true;
     }
     else{
-        purchaseErrorReasons += `purchase error: exceeds player's colonist max. `;
+        purchaseErrorReasons += `Purchase error: exceeds player's colonist max. `;
     }
     
     if (check1 && check2){
         validPurchase = true;
+    }
+
+    // prevent accidental overspending...
+    if ((selectedAmount > 2*unitPrice) && buyNumber == 1){
+        let confirmAction = confirm('Are you sure that you want to spend that much for just one unit?');
+        if (!confirmAction){
+            validPurchase = false;
+            purchaseErrorReasons += `purchase cancelled.`;
+        }
     }
 
     if (validPurchase){
@@ -349,6 +352,8 @@ export function buyColonists(player, buyNumber){
         main.calcVp();
         main.render();
         util.logit(`${player.name} spends ${selectedAmount}c to purchase ${buyNumber} colonist(s).`);
+        purchaseErrorEl.innerHTML = '';
+        document.getElementById('bidError').innerHTML = ``;
     }
     else {
         // purchase failed! process...
@@ -383,18 +388,27 @@ export function buyRobots(player, buyNumber){
         check1 = true;
     }
     else{
-        purchaseErrorReasons += `purchase error: selected amount < total cost. `;
+        purchaseErrorReasons += `Purchase error: selected amount < total cost. `;
     }
 
     if ((player.robots + buyNumber) <= player.colonist){
         check2 = true;
     }
     else{
-        purchaseErrorReasons += `purchase error: cannot purchase more robots than owned colonists*. `;
+        purchaseErrorReasons += `Purchase error: cannot purchase more robots than owned colonists*. `;
     }
     
     if (check1 && check2){
         validPurchase = true;
+    }
+
+    // prevent accidental overspending...
+    if ((selectedAmount > 2*unitPrice) && buyNumber == 1){
+        let confirmAction = confirm('Are you sure that you want to spend that much for just one unit?');
+        if (!confirmAction){
+            validPurchase = false;
+            purchaseErrorReasons += `purchase cancelled.`;
+        }
     }
 
     if (validPurchase){
@@ -453,7 +467,7 @@ export function buyFactory(player, buyNumber, factoryType){
         check1 = true;
     }
     else{
-        purchaseErrorReasons += `purchase error: selected amount < total cost. `;
+        purchaseErrorReasons += `Purchase error: selected amount < total cost. `;
     }
 
     // ## add rules for purchasing factories here.  (like the New Chemicals rule) TODO
@@ -462,7 +476,7 @@ export function buyFactory(player, buyNumber, factoryType){
     //     check2 = true;
     // }
     // else{
-    //     purchaseErrorReasons += `purchase error: exceeds player's colonist max. `;
+    //     purchaseErrorReasons += `Purchase error: exceeds player's colonist max. `;
     // }
     
     if (check1 && check2){

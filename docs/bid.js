@@ -158,7 +158,7 @@ export function processWinningBid(player){
         check1 = true;
     }
     else{
-        purchaseErrorReasons += `purchase error: selected amount < total cost. `;
+        purchaseErrorReasons += `Purchase error: selected amount < total cost. `;
     }
 
     // ## add other possible rules here

@@ -226,23 +226,25 @@ function processAuctionWinner(){
 
 
     // rebuild buySelect
+    let me = util.getPlayerMe();
+
     let buySelect = document.getElementById('buySelect')
     let buySelectCode = `<select id="buySelect">
-    <option value="colonist">colonist</option>
-    <option value="robot">robot</option>
-    <option value="factoryOr">factoryOr</option>
-    <option value="factoryWa">factoryWa</option>`
+    <option value="colonist">colonist(10${me.discountOnColonists > 0 ? '->5': ''})</option>
+    <option value="robot">robot (10)</option>
+    <option value="factoryOr">factoryOr (10)</option>
+    <option value="factoryWa">factoryWa (20)</option>`
     if (player.isYou && player.isUnlocked_Ti){
-        buySelectCode += `<option value="factoryTi">factoryTi</option>`
+        buySelectCode += `<option value="factoryTi">factoryTi (30)</option>`
     }
     if (player.isYou && player.isUnlocked_Re){
-        buySelectCode += `<option value="factoryRe">factoryRe</option>`
+        buySelectCode += `<option value="factoryRe">factoryRe (30)</option>`
     }
-    if (player.isYou && player.isUnlocked_Mi){
-        buySelectCode += `<option value="factoryMi">factoryMi</option>`
-    }
+    // if (player.isYou && player.isUnlocked_Mi){
+    //     buySelectCode += `<option value="factoryMi">factoryMi</option>`
+    // }
     if (player.isYou && player.isUnlocked_Nc){
-        buySelectCode += `<option value="factoryNc">factoryNc</option>`
+        buySelectCode += `<option value="factoryNc">factoryNc (60)</option>`
     }
     buySelectCode += `</select>`
     buySelect.innerHTML = buySelectCode;
@@ -339,6 +341,9 @@ function processAuctionWinner(){
     main.state.bid_leader = null;
     main.state.bid_currentBid = null;
     main.state.bid_equipment = null;
+
+    // for faster testing only (remove later TODO:)
+    document.getElementById('overviewViewBtn').click();
 }
 
 function updateUI(){

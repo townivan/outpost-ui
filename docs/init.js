@@ -29,6 +29,7 @@ export function initialize() {
     
 
     main.state.currentPlayerNumber = main.state.players[0].turnOrder;
+    document.getElementById('era3TriggerDisplay').innerHTML = main.state.era3Trigger;
 
     // initial draws
     main.state.players.map((player,i) => {

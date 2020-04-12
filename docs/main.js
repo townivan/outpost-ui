@@ -396,7 +396,10 @@ export function render() {
     events.calcProductionCardSelection();
 
     // render overviewPanel
-    let allOverViewCode = `<div id="availableEq">Eq up for bid: ${util.printEqUpForBid()}</div>`;
+    // let allOverViewCode = `<div id="availableEq">Eq up for bid: ${util.printEqUpForBid()}</div>`;
+    // document.getElementById('availableEq').innerHTML = util.printEqUpForBid();
+
+    let allOverViewCode = '';
     let rowCode = ``;
 
     rowCode = `<div class="rowOverview">`;
@@ -889,23 +892,23 @@ export function render() {
 
     // now for general stats...
 
-    rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1">Era 2 Trigger</div>`;
-    rowCode += `<div class="overviewColx">${state.era2Trigger}vp</div>`;
-    rowCode += `</div>`
-    allOverViewCode += rowCode;
+    // rowCode = `<div class="rowOverview">`;
+    // rowCode += `<div class="overviewCol1">Era 2 Trigger</div>`;
+    // rowCode += `<div class="overviewColx">${state.era2Trigger}vp</div>`;
+    // rowCode += `</div>`
+    // allOverViewCode += rowCode;
 
-    rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1">Era 3 Trigger</div>`;
-    rowCode += `<div class="overviewColx">${state.era3Trigger}vp</div>`;
-    rowCode += `</div>`
-    allOverViewCode += rowCode;
+    // rowCode = `<div class="rowOverview">`;
+    // rowCode += `<div class="overviewCol1">Era 3 Trigger</div>`;
+    // rowCode += `<div class="overviewColx">${state.era3Trigger}vp</div>`;
+    // rowCode += `</div>`
+    // allOverViewCode += rowCode;
 
-    rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1">Round</div>`;
-    rowCode += `<div class="overviewColx">${state.round}</div>`;
-    rowCode += `</div>`
-    allOverViewCode += rowCode;
+    // rowCode = `<div class="rowOverview">`;
+    // rowCode += `<div class="overviewCol1">Round</div>`;
+    // rowCode += `<div class="overviewColx">${state.round}</div>`;
+    // rowCode += `</div>`
+    // allOverViewCode += rowCode;
 
 
     // render player factories

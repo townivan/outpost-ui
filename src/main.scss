@@ -107,9 +107,53 @@ body{
     font-size: 17px;
     font-family: 'Oxygen Mono', monospace;
 }
+
+.new-header{
+    display: flex;
+    margin-bottom: 1rem;
+    & h1{
+        margin: 0;
+        padding-top: 11px;
+    }
+}
+.logo-area{
+    // background-color: pink;
+}
+.header-menu-area{
+    flex: 1;
+    // background-color:orange;
+    padding-left: 20px;
+}
+.header-menu-top{
+    // background-color: lightblue;
+    text-align: right;
+}
+.header-menu-bottom{
+    // background-color: lightgreen;
+}
+.nav-panel{
+    display: flex;
+    justify-content: space-between;
+}
+
+.selectStandard{
+    font-size: 1.2rem;
+    padding: 3px;
+}
+
 #availableEq{
     text-align: center;
     margin-bottom: .5rem;
+}
+.up4bid-area{
+    font-family: Arial, Helvetica, sans-serif;
+}
+#biddableInitialAmount{
+    width: 3rem;
+}
+
+#overviewPanel{
+    margin-bottom: 1rem;
 }
 .rowOverview{
     display: flex;
@@ -130,32 +174,13 @@ body{
     text-align: center;
 }
 
-.slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 10px;
-    border-radius: 5px;  
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
-}
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%; 
-    background: #4CAF50;
-    cursor: pointer;
-}
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #4CAF50;
-    cursor: pointer;
+
+
+.standardBtn{
+    height: 44px;
+    border-radius: 4px;
+    margin-right: 1rem;
+    min-width: 80px;
 }
  
 .pcardRow{
@@ -341,11 +366,11 @@ body{
 #cardSelectionPanel{
     display: flex;
     justify-content: space-between;
-    padding-bottom: .5rem;
-    padding-top: .5rem;
+    margin-bottom: .8rem;
 }
 .selectedSummaryNumbersArea1{
     display: flex;
+    align-items: center;
 }
 .selectedSummaryNumbersArea2{
     display: flex;
@@ -366,6 +391,35 @@ body{
     display: flex;
 }
 
+
+.turnActionRow{
+    display: flex;
+    margin-bottom: .8rem;
+}
+.turnAction1{
+    display: flex;
+    align-items: center;
+}
+.turnAction1Inner{
+    display: flex;
+}
+.turnAction1InnerGroup2{
+    display: flex;
+    align-items: center;
+}
+.turnAction2{
+    display: flex;
+    align-items: center;
+    margin-left: 3rem;
+}
+.turnAction2Inner{
+    display: flex;
+}
+.turnAction2InnerGroup2{
+    display: flex;
+    align-items: center;
+}
+
 .selectArea1{
     display: flex;
 }
@@ -373,7 +427,10 @@ body{
     display: flex;
 }
 .buyNumberInput{
-    width: 2rem;
+    width: 3rem;
+    font-size: 1.1rem;
+    padding-left: .5rem;
+    margin-right: .5rem;
 }
 #purchaseError{
     color: red;
@@ -413,6 +470,17 @@ body{
     padding: 1rem;
     padding-left: 3rem;
 }
+
+
+
+// ref styles
+.refAbbreviationsUl{
+    list-style: none;
+    & li {
+        margin-bottom: 7px;
+    }
+}
+
 
 // #lastBidSummary{
 //     color: green;

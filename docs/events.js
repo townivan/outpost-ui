@@ -20,7 +20,7 @@ export function firstInit() {
 
             // console.log('me:', me)
             // console.log('hasRobots:', hasRobots)
-            // console.log('thisFactory:', thisFactory)
+            console.log('thisFactory:', thisFactory)
 
             //console.log('that is a factory');
             let indicator1 = e.target.querySelector('.indicator1'); // x unmanned
@@ -39,8 +39,16 @@ export function firstInit() {
                         e.target.dataset.state = "colonist";
                         thisFactory.mannedBy = 'colonist';
                         thisFactory.isManned = true;
+                        if (thisFactory.type === 'Om' || 
+                            thisFactory.type === 'Ro' || 
+                            thisFactory.type == 'Mo'){
+                                me.colonistMax++;
+                        }
                     }
-                    if (me.availableColonistCount < 1 && me.availableRobotCount > 0){ // no colonist but an available robot
+                    if (me.availableColonistCount < 1 && me.availableRobotCount > 0 
+                        && thisFactory.type !== 'Om'  
+                        && thisFactory.type !== 'Ro' 
+                        && thisFactory.type !== 'Mo'){ // no colonist but an available robot
                         indicator1.classList.add('hideme'); // x unmanned
                         indicator2.classList.add('hideme'); // colonist
                         indicator3.classList.remove('hideme'); // robot
@@ -51,7 +59,10 @@ export function firstInit() {
                 }
                 else if (e.target.dataset.state === 'colonist'){
                     // increment to...
-                    if (hasRobots && me.availableRobotCount > 0){
+                    if (hasRobots && me.availableRobotCount > 0 
+                        && thisFactory.type !== 'Om' 
+                        && thisFactory.type !== 'Ro' 
+                        && thisFactory.type !== 'Mo'){
                         indicator1.classList.add('hideme'); // x unmanned
                         indicator2.classList.add('hideme'); // colonist
                         indicator3.classList.remove('hideme'); // robot
@@ -66,6 +77,11 @@ export function firstInit() {
                         e.target.dataset.state = "unmanned";
                         thisFactory.mannedBy = 'unmanned';
                         thisFactory.isManned = false;
+                        if (thisFactory.type === 'Om' || 
+                            thisFactory.type === 'Ro' || 
+                            thisFactory.type == 'Mo'){
+                                me.colonistMax--;
+                        }
                     }
                 }
                 else if (e.target.dataset.state === 'robot'){
@@ -194,6 +210,7 @@ export function firstInit() {
         }
         else{
             document.getElementById('bidError').innerHTML = ``;
+            document.getElementById('purchaseError').innerHTML = '';
         }
         auction.startAuction(me, selectedAmount, targetEq)
     })
@@ -203,27 +220,35 @@ export function firstInit() {
 
     
 
-    // Mega selectors: None
-    document.getElementById('pcardmaster_none').addEventListener('click', function (e) {
-        let allpcards = [...document.querySelectorAll('.pcard')];
-        allpcards.map(pcard => {
-            pcard.classList.remove('pcard--selected');
-            const cb = pcard.querySelector('input');
-            cb.checked = false; // the inner checkbox
-            const cardObj = util.getCardById(pcard.dataset.id*1);
-            cardObj.isSelected = false;
-        })
-    })
-    // Mega selectors: All
+    // Mega selector: All (toggles between allSelected and noneSelected )
     document.getElementById('pcardmaster_all').addEventListener('click', function (e) {
         let allpcards = [...document.querySelectorAll('.pcard')];
+        let areAllSelectedAlready = true; // assume they are all already selected
         allpcards.map(pcard => {
-            pcard.classList.add('pcard--selected');
-            const cb = pcard.querySelector('input');
-            cb.checked = true; // the inner checkbox
-            const cardObj = util.getCardById(pcard.dataset.id*1);
-            cardObj.isSelected = true;
-        })
+            if (!pcard.classList.contains('pcard--selected')){
+                areAllSelectedAlready = false;
+            }
+        });
+
+        if (areAllSelectedAlready){ // unselect all
+            allpcards.map(pcard => {
+                pcard.classList.remove('pcard--selected');
+                const cb = pcard.querySelector('input');
+                cb.checked = false; // the inner checkbox
+                const cardObj = util.getCardById(pcard.dataset.id*1);
+                cardObj.isSelected = false;
+            })
+        }
+        else{ // select all
+            allpcards.map(pcard => {
+                pcard.classList.add('pcard--selected');
+                const cb = pcard.querySelector('input');
+                cb.checked = true; // the inner checkbox
+                const cardObj = util.getCardById(pcard.dataset.id*1);
+                cardObj.isSelected = true;
+            })
+        }
+        calcProductionCardSelection();
     })
 
 
