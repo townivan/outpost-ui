@@ -4,27 +4,37 @@ import * as auction from './auction.js';
 
 
 export function makeAuctionDecision(player){
+    console.log('welcome to makeAuctionDecision()')
     let playerMaxAvailable = util.getMaxHandValue(player);
     console.log(`At best, ${player.name} could bid ${playerMaxAvailable}.`)
     console.log(`The current bid is ${main.state.bid_currentBid}.`)
+    console.log('player.ai_setting:', player.ai_setting)
 
     if(playerMaxAvailable > main.state.bid_currentBid){
 
-        // if (util.randomBool()){
-            // randomly decided to bid
-            let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1);
+        // never start their own bid...for now...
+        // auction.passBid(player, 'pass');
 
+        if (player.ai_setting === 'easy'){
+            // always tries to win the bid
+            let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1);
             // since the logic to select cards is not optimized, see how much is really in the selected cards..(it's likely higher)
-            // let realBidAmt = 0;
-            // selectedCards.map(card => {
-            //     realBidAmt += card.value;
-            // })
-            // auction.counterBid(player, realBidAmt) // if possible, will always bid
-        // }
-        // else{
-            // randomly decided to pass
+            let realBidAmt = 0;
+            selectedCards.map(card => {
+                realBidAmt += card.value;
+            })
+            auction.counterBid(player, realBidAmt) // if possible, will always counter-bid
+        }
+        if (player.ai_setting === 'medium'){
             auction.passBid(player, 'pass');
-        // }
+        }
+        if (player.ai_setting === 'hard'){
+            auction.passBid(player, 'pass');
+        }
+        if (player.ai_setting === 'passall'){
+            auction.passBid(player, 'pass');
+        }
+
     }
     else{ 
         console.log(`${player.name} decides not to bid...because of insufficient funds.`)
@@ -50,14 +60,32 @@ export function considerBidAi(player){
     
     // randomly decide to bid or not (if able)
     if(playerMaxAvailable > main.state.bid_currentBid){
-        // if (util.randomBool()){
-        if (1==1){ // temp make all counter bid
-            console.log(`${player.name} randomly wants to bid.`)
+
+        if (player.ai_setting === 'easy'){
+            console.log(`${player.name} really wants to bid. (easy)`)
             aiMakeCounterBid(player, main.state.bid_currentBid+1)
         }
-        else{
-            console.log(`${player.name} randomly wants to pass.`)
+        if (player.ai_setting === 'medium'){
+            console.log(`${player.name} wants to pass. (medium)`)
         }
+        if (player.ai_setting === 'hard'){
+            console.log(`${player.name} wants to pass. (hard)`)
+        }
+        if (player.ai_setting === 'random'){
+            console.log(`${player.name} wants to pass. (random)`)
+        }
+        if (player.ai_setting === 'passall'){
+            console.log(`${player.name} wants to pass. (passall)`)
+        }
+
+        // if (util.randomBool()){
+        // if (1==1){ // temp make all counter bid
+        //     console.log(`${player.name} randomly wants to bid.`)
+        //     aiMakeCounterBid(player, main.state.bid_currentBid+1)
+        // }
+        // else{
+        //     console.log(`${player.name} randomly wants to pass.`)
+        // }
     }
     else{
         console.log(`${player.name} decides not to bid...because of insufficient funds.`)

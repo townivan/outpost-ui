@@ -4,7 +4,9 @@ import * as turn from './turn.js';
 import * as init from './init.js';
 import * as auction from './auction.js';
 
-export function firstInit() {
+export function pageInit(){}
+
+export function listenerInit() {
 
     // document-level event handler (Factory management)
     document.addEventListener('click',function(e){
@@ -151,7 +153,7 @@ export function firstInit() {
         let allTabs = [...document.querySelectorAll('.navtab')];
         allTabs.map(tab => tab.classList.remove('navtab--active'));
         e.target.classList.add('navtab--active');
-        
+
         let allViews = [...document.querySelectorAll('.viewIn')];
         allViews.map(view => {
             if(view.classList.contains('viewInSettings')){
@@ -168,8 +170,7 @@ export function firstInit() {
         let playerName = document.getElementById('playerName').value;
         localStorage.setItem("outpostPlayerName", playerName);
 
-        init.initialize();
-        firstInit();
+        init.gameInit();
         console.log('main.state:', main.state)
         turn.startRound();
         main.render();
@@ -222,36 +223,6 @@ export function firstInit() {
         console.log('selectedEq:', selectedEq)
         document.getElementById('biddableInitialAmount').value = selectedEq.price;
     })
-    // turn buttons END
-
-    // auction stuff BEGIN
-    document.getElementById('auctionPassBtn').addEventListener('click', function (e) {
-        let me = util.getPlayerMe();
-        auction.passBid(me, 'pass');
-    })
-    document.getElementById('auctionPassAllBtn').addEventListener('click', function (e) {
-        let me = util.getPlayerMe();
-        auction.passBid(me, 'passall');
-    })
-    document.getElementById('auctionCounterBidBtn').addEventListener('click', function (e) {
-        let me = util.getPlayerMe();
-        let counterBidAmt = document.getElementById('newBidAmountInput').value*1;
-        let selectedAmount = util.getSelectedAmountFromCards();
-
-        let isValidBid = false;
-        if (selectedAmount >= counterBidAmt){
-            if (counterBidAmt > main.state.bid_currentBid){
-                isValidBid = true;
-            }
-        }
-
-        if (!isValidBid){
-            document.getElementById('counterBidError').innerHTML = `Invalid bid. Selected card(s) < currentBid`;
-            return;
-        }
-
-        auction.counterBid(me, counterBidAmt); // counterBid(player, realBidAmt)
-    })
     document.getElementById('biddableStartBid').addEventListener('click', function (e) {
         // turn.startBid();
         let me = util.getPlayerMe();
@@ -282,6 +253,37 @@ export function firstInit() {
         }
         auction.startAuction(me, selectedAmount, targetEq)
     })
+    // turn buttons END
+
+    // auction stuff BEGIN
+    document.getElementById('auctionPassBtn').addEventListener('click', function (e) {
+        let me = util.getPlayerMe();
+        auction.passBid(me, 'pass');
+    })
+    document.getElementById('auctionPassAllBtn').addEventListener('click', function (e) {
+        let me = util.getPlayerMe();
+        auction.passBid(me, 'passall');
+    })
+    document.getElementById('auctionCounterBidBtn').addEventListener('click', function (e) {
+        let me = util.getPlayerMe();
+        let counterBidAmt = document.getElementById('newBidAmountInput').value*1;
+        let selectedAmount = util.getSelectedAmountFromCards();
+
+        let isValidBid = false;
+        if (selectedAmount >= counterBidAmt){
+            if (counterBidAmt > main.state.bid_currentBid){
+                isValidBid = true;
+            }
+        }
+
+        if (!isValidBid){
+            document.getElementById('counterBidError').innerHTML = `Invalid bid. Selected card(s) < currentBid`;
+            return;
+        }
+
+        auction.counterBid(me, counterBidAmt); // counterBid(player, realBidAmt)
+    })
+    
     // auction stuff END
 
 

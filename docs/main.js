@@ -70,10 +70,11 @@ export const state = {
     bid_leader: null,
     bid_equipment: null,
     bid_actionCount: 1,
+    ai_setting: null,
 };
 
-init.initialize();
-events.firstInit();
+init.gameInit();
+events.listenerInit();
 console.log('state:', state)
 turn.startRound();
 render();

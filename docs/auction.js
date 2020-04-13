@@ -54,9 +54,9 @@ export function startAuction(player, realBidAmt, targetEq){
 }
 
 function considerBid(player){
-    // console.log(`welcome to considerBid(${player.name})...`)
+    console.log(`welcome to considerBid(${player.name})...`)
     // console.log('player.bidStatus:', player.bidStatus)
-    // util.printSeatOrder();
+    util.printSeatOrder();
     // results in: 1.counterBid 2.Pass 3.PassAll
     if (player.bidStatus === 'passall'){
         passBid(player, 'passall');
@@ -343,7 +343,7 @@ function processAuctionWinner(){
     main.state.bid_equipment = null;
 
     // for faster testing only (remove later TODO:)
-    document.getElementById('overviewViewBtn').click();
+    // document.getElementById('overviewViewBtn').click();
 }
 
 function updateUI(){

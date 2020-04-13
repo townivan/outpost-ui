@@ -2,7 +2,7 @@ import * as main from './main.js';
 import * as util from './util.js';
 import * as turn from './turn.js';
 
-export function initialize() {
+export function gameInit() {
     util.logit('Game initialization.');
 
     // reset anything from a previous game (due to restart from settings)
@@ -39,20 +39,53 @@ export function initialize() {
     main.state.bid_leader = null;
     main.state.bid_equipment = null;
     main.state.bid_actionCount = 1;
+    main.state.ai_setting = null;
 
 
     // load initial players
     main.state.players.push(main.addPlayer(document.getElementById("playerName").value));
     main.state.players[0].isYou = true;
 
-    if (numberOfAiPlayers >= 1){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName1').innerHTML)); }
-    if (numberOfAiPlayers >= 2){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName2').innerHTML)); }
-    if (numberOfAiPlayers >= 3){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName3').innerHTML)); }
-    if (numberOfAiPlayers >= 4){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName4').innerHTML)); }
-    if (numberOfAiPlayers >= 5){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName5').innerHTML)); }
-    if (numberOfAiPlayers >= 6){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName6').innerHTML)); }
-    if (numberOfAiPlayers >= 7){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName7').innerHTML)); }
-    if (numberOfAiPlayers >= 8){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName8').innerHTML)); }
+    if (numberOfAiPlayers >= 1){ 
+        main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName1').innerHTML));
+        let aiSetting = document.querySelector('input[name="aiDifficulty1"]:checked').dataset.setting;
+        main.state.players[1].ai_setting = aiSetting;
+    }
+    if (numberOfAiPlayers >= 2){ 
+        main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName2').innerHTML)); 
+        let aiSetting = document.querySelector('input[name="aiDifficulty2"]:checked').dataset.setting;
+        main.state.players[2].ai_setting = aiSetting;
+    }
+    if (numberOfAiPlayers >= 3){ 
+        main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName3').innerHTML));
+        let aiSetting = document.querySelector('input[name="aiDifficulty3"]:checked').dataset.setting;
+        main.state.players[3].ai_setting = aiSetting; 
+    }
+    if (numberOfAiPlayers >= 4){ 
+        main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName4').innerHTML));
+        let aiSetting = document.querySelector('input[name="aiDifficulty4"]:checked').dataset.setting;
+        main.state.players[4].ai_setting = aiSetting;  
+    }
+    if (numberOfAiPlayers >= 5){ 
+        main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName5').innerHTML));
+        let aiSetting = document.querySelector('input[name="aiDifficulty5"]:checked').dataset.setting;
+        main.state.players[5].ai_setting = aiSetting;  
+    }
+    if (numberOfAiPlayers >= 6){ 
+        main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName6').innerHTML));
+        let aiSetting = document.querySelector('input[name="aiDifficulty6"]:checked').dataset.setting;
+        main.state.players[6].ai_setting = aiSetting;  
+    }
+    if (numberOfAiPlayers >= 7){ 
+        main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName7').innerHTML));
+        let aiSetting = document.querySelector('input[name="aiDifficulty7"]:checked').dataset.setting;
+        main.state.players[7].ai_setting = aiSetting;  
+    }
+    if (numberOfAiPlayers >= 8){ 
+        main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName8').innerHTML));
+        let aiSetting = document.querySelector('input[name="aiDifficulty8"]:checked').dataset.setting;
+        main.state.players[8].ai_setting = aiSetting;  
+    }
    
     // main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName2').innerHTML));
     // main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName3').innerHTML));

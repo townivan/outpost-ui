@@ -21,7 +21,7 @@
         </div>
         <div class="header-menu-area">
             <div class="header-menu-top">
-                Era2@10vp&nbsp;&nbsp;&nbsp;Era3@<span id="era3TriggerDisplay">-</span>vp&nbsp;&nbsp;&nbsp;Victory@75vp
+                Era2<span class="eraAt">@</span>10vp&nbsp;&nbsp;&nbsp;Era3<span class="eraAt">@</span><span id="era3TriggerDisplay">-</span>vp&nbsp;&nbsp;&nbsp;Victory<span class="eraAt">@</span>75vp
             </div>
 
             <div class="header-menu-bottom">
@@ -314,10 +314,11 @@
                 <div>CPU1:</div>
                 <div id="aiDisplayName1" class="cpuNameCol">Chuckles</div>
                 <div>Difficulty:
-                    <label><input type="radio" name="aiDifficulty1" checked>Easy</label>
-                    <label><input type="radio" name="aiDifficulty1">Medium</label>
-                    <label><input type="radio" name="aiDifficulty1">Hard</label>
-                    <label><input type="radio" name="aiDifficulty1">Random</label>
+                    <label><input type="radio" name="aiDifficulty1" data-setting="easy" checked>Easy</label>
+                    <label><input type="radio" name="aiDifficulty1" data-setting="medium">Medium</label>
+                    <label><input type="radio" name="aiDifficulty1" data-setting="hard">Hard</label>
+                    <label><input type="radio" name="aiDifficulty1" data-setting="random">Random</label>
+                    <label><input type="radio" name="aiDifficulty1" data-setting="alwayspass">AlwaysPass</label>
                 </div>
             </div>
         </div>
@@ -327,10 +328,11 @@
                 <div>CPU2:</div>
                 <div id="aiDisplayName2" class="cpuNameCol">Fluffykins</div>
                 <div>Difficulty:
-                    <label><input type="radio" name="aiDifficulty2" checked>Easy</label>
-                    <label><input type="radio" name="aiDifficulty2">Medium</label>
-                    <label><input type="radio" name="aiDifficulty2">Hard</label>
-                    <label><input type="radio" name="aiDifficulty2">Random</label>
+                    <label><input type="radio" name="aiDifficulty2" data-setting="easy" checked>Easy</label>
+                    <label><input type="radio" name="aiDifficulty2" data-setting="medium">Medium</label>
+                    <label><input type="radio" name="aiDifficulty2" data-setting="hard">Hard</label>
+                    <label><input type="radio" name="aiDifficulty2" data-setting="random">Random</label>
+                    <label><input type="radio" name="aiDifficulty2" data-setting="alwayspass">AlwaysPass</label>
                 </div>
             </div>
         </div>
@@ -340,10 +342,11 @@
                 <div>CPU3:</div>
                 <div id="aiDisplayName3" class="cpuNameCol">Larry</div>
                 <div>Difficulty:
-                    <label><input type="radio" name="aiDifficulty3" checked>Easy</label>
-                    <label><input type="radio" name="aiDifficulty3">Medium</label>
-                    <label><input type="radio" name="aiDifficulty3">Hard</label>
-                    <label><input type="radio" name="aiDifficulty3">Random</label>
+                    <label><input type="radio" name="aiDifficulty3" data-setting="easy">Easy</label>
+                    <label><input type="radio" name="aiDifficulty3" data-setting="medium">Medium</label>
+                    <label><input type="radio" name="aiDifficulty3" data-setting="hard">Hard</label>
+                    <label><input type="radio" name="aiDifficulty3" data-setting="random">Random</label>
+                    <label><input type="radio" name="aiDifficulty3" data-setting="alwayspass" checked>AlwaysPass</label>
                 </div>
             </div>
         </div>
@@ -353,10 +356,11 @@
                 <div>CPU4:</div>
                 <div id="aiDisplayName4" class="cpuNameCol">Hamilton</div>
                 <div>Difficulty:
-                    <label><input type="radio" name="aiDifficulty4" checked>Easy</label>
-                    <label><input type="radio" name="aiDifficulty4">Medium</label>
-                    <label><input type="radio" name="aiDifficulty4">Hard</label>
-                    <label><input type="radio" name="aiDifficulty4">Random</label>
+                    <label><input type="radio" name="aiDifficulty4" data-setting="easy">Easy</label>
+                    <label><input type="radio" name="aiDifficulty4" data-setting="medium">Medium</label>
+                    <label><input type="radio" name="aiDifficulty4" data-setting="hard">Hard</label>
+                    <label><input type="radio" name="aiDifficulty4" data-setting="random">Random</label>
+                    <label><input type="radio" name="aiDifficulty4" data-setting="alwayspass" checked>AlwaysPass</label>
                 </div>
             </div>
         </div>
@@ -366,10 +370,11 @@
                 <div>CPU5:</div>
                 <div id="aiDisplayName5" class="cpuNameCol">Caro</div>
                 <div>Difficulty:
-                    <label><input type="radio" name="aiDifficulty5" checked>Easy</label>
-                    <label><input type="radio" name="aiDifficulty5">Medium</label>
-                    <label><input type="radio" name="aiDifficulty5">Hard</label>
-                    <label><input type="radio" name="aiDifficulty5">Random</label>
+                    <label><input type="radio" name="aiDifficulty5" data-setting="easy">Easy</label>
+                    <label><input type="radio" name="aiDifficulty5" data-setting="medium">Medium</label>
+                    <label><input type="radio" name="aiDifficulty5" data-setting="hard">Hard</label>
+                    <label><input type="radio" name="aiDifficulty5" data-setting="random">Random</label>
+                    <label><input type="radio" name="aiDifficulty5" data-setting="alwayspass" checked>AlwaysPass</label>
                 </div>
             </div>
         </div>
@@ -379,10 +384,11 @@
                 <div>CPU6:</div>
                 <div id="aiDisplayName6" class="cpuNameCol">Bobby</div>
                 <div>Difficulty:
-                    <label><input type="radio" name="aiDifficulty6" checked>Easy</label>
-                    <label><input type="radio" name="aiDifficulty6">Medium</label>
-                    <label><input type="radio" name="aiDifficulty6">Hard</label>
-                    <label><input type="radio" name="aiDifficulty6">Random</label>
+                    <label><input type="radio" name="aiDifficulty6" data-setting="easy">Easy</label>
+                    <label><input type="radio" name="aiDifficulty6" data-setting="medium">Medium</label>
+                    <label><input type="radio" name="aiDifficulty6" data-setting="hard">Hard</label>
+                    <label><input type="radio" name="aiDifficulty6" data-setting="random">Random</label>
+                    <label><input type="radio" name="aiDifficulty6" data-setting="alwayspass" checked>AlwaysPass</label>
                 </div>
             </div>
         </div>
@@ -392,10 +398,11 @@
                 <div>CPU7:</div>
                 <div id="aiDisplayName7" class="cpuNameCol">Ursula</div>
                 <div>Difficulty:
-                    <label><input type="radio" name="aiDifficulty7" checked>Easy</label>
-                    <label><input type="radio" name="aiDifficulty7">Medium</label>
-                    <label><input type="radio" name="aiDifficulty7">Hard</label>
-                    <label><input type="radio" name="aiDifficulty7">Random</label>
+                    <label><input type="radio" name="aiDifficulty7" data-setting="easy">Easy</label>
+                    <label><input type="radio" name="aiDifficulty7" data-setting="medium">Medium</label>
+                    <label><input type="radio" name="aiDifficulty7" data-setting="hard">Hard</label>
+                    <label><input type="radio" name="aiDifficulty7" data-setting="random">Random</label>
+                    <label><input type="radio" name="aiDifficulty7" data-setting="alwayspass" checked>AlwaysPass</label>
                 </div>
             </div>
         </div>
@@ -405,10 +412,11 @@
                 <div>CPU8:</div>
                 <div id="aiDisplayName8" class="cpuNameCol">Foofoo</div>
                 <div>Difficulty:
-                    <label><input type="radio" name="aiDifficulty8" checked>Easy</label>
-                    <label><input type="radio" name="aiDifficulty8">Medium</label>
-                    <label><input type="radio" name="aiDifficulty8">Hard</label>
-                    <label><input type="radio" name="aiDifficulty8">Random</label>
+                    <label><input type="radio" name="aiDifficulty8" data-setting="easy">Easy</label>
+                    <label><input type="radio" name="aiDifficulty8" data-setting="medium">Medium</label>
+                    <label><input type="radio" name="aiDifficulty8" data-setting="hard">Hard</label>
+                    <label><input type="radio" name="aiDifficulty8" data-setting="random">Random</label>
+                    <label><input type="radio" name="aiDifficulty8" data-setting="alwayspass" checked>AlwaysPass</label>
                 </div>
             </div>
         </div>

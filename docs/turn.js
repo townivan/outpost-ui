@@ -40,6 +40,9 @@ export function startTurn(player) {
     if (!player.isYou) {
         endTurn(player);
     }
+    else{
+        util.logit(`Waiting for your turn actions...`);
+    }
 }
 
 
@@ -139,7 +142,7 @@ export function replaceEquipment() {
     let currentItemsUpForBid = main.state.eqUpForBidArray.length;
     let numberOfItemsNeeded = (main.state.players.length) - currentItemsUpForBid;
     let me = util.getPlayerMe();
-    console.log('%c main.state.currentEra:', 'background-color:yellow;', main.state.currentEra)
+    // console.log('%c main.state.currentEra:', 'background-color:yellow;', main.state.currentEra)
     // console.log('numberOfItemsNeeded:', numberOfItemsNeeded)
 
     for (let x = 0; x < numberOfItemsNeeded; x++){
@@ -293,17 +296,17 @@ export function distributeProductionCards(){
     main.render();
 }
 export function buyColonists(player, buyNumber){
-    console.log('welcome to buyColonists()...');
+    // console.log('welcome to buyColonists()...');
     let purchaseErrorEl = document.getElementById('purchaseError');
     purchaseErrorEl.innerHTML = ''; // reset any errors
     let purchaseErrorReasons = '';
 
     buyNumber = buyNumber*1;
-    console.log(`welcome to buyColonists(player=${player.name})`)
+    // console.log(`welcome to buyColonists(player=${player.name})`)
 
     // handle cards via the local player first.
     let selectedAmount = util.getSelectedAmountFromCards();
-    console.log('selectedAmount:', selectedAmount)
+    // console.log('selectedAmount:', selectedAmount)
 
     // calc price of order
     let unitPrice = 10;
@@ -311,7 +314,7 @@ export function buyColonists(player, buyNumber){
     if (player.discountOnColonists > 0) { unitPrice = 5; }
 
     let totalCost = buyNumber * unitPrice;
-    console.log('totalCost:', totalCost)
+    // console.log('totalCost:', totalCost)
 
     let validPurchase = false;
     let check1 = false;
@@ -365,16 +368,16 @@ export function buyColonists(player, buyNumber){
 
 }
 export function buyRobots(player, buyNumber){
-    console.log('welcome to buyRobots()...');
+    // console.log('welcome to buyRobots()...');
     let purchaseErrorEl = document.getElementById('purchaseError');
     purchaseErrorEl.innerHTML = ''; // reset any errors
     let purchaseErrorReasons = '';
 
     buyNumber = buyNumber*1;
-    console.log(`welcome to buyRobots(player=${player.name})`)
+    // console.log(`welcome to buyRobots(player=${player.name})`)
 
     let selectedAmount = util.getSelectedAmountFromCards();
-    console.log('selectedAmount:', selectedAmount)
+    // console.log('selectedAmount:', selectedAmount)
 
     // calc price of order
     let unitPrice = 10;
@@ -430,10 +433,10 @@ export function buyRobots(player, buyNumber){
 
 }
 export function buyFactory(player, buyNumber, factoryType){
-    console.log('welcome to buyFactory()...');
-    console.log('player:', player);
-    console.log('buyNumber:', buyNumber);
-    console.log('factoryType:', factoryType);
+    // console.log('welcome to buyFactory()...');
+    // console.log('player:', player);
+    // console.log('buyNumber:', buyNumber);
+    // console.log('factoryType:', factoryType);
 
     let purchaseErrorEl = document.getElementById('purchaseError');
     purchaseErrorEl.innerHTML = ''; // reset any errors
@@ -457,7 +460,7 @@ export function buyFactory(player, buyNumber, factoryType){
     // if (factoryType == 'factoryMoSpecial'){ unitPrice = 0; }
     // apply discounts here later (todo)
     let totalCost = buyNumber * unitPrice;
-    console.log('totalCost:', totalCost)
+    // console.log('totalCost:', totalCost)
 
     let validPurchase = false;
     let check1 = false;
