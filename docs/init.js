@@ -5,17 +5,59 @@ import * as turn from './turn.js';
 export function initialize() {
     util.logit('Game initialization.');
 
-    // main.state.players.push(main.addPlayer('Ivan'));
-    // main.state.players[0].isYou = true;
-    // main.state.players[0].robotsEqCount = 1; // testing
-    main.state.players.push(main.addPlayer('Jason'));
-    // main.state.players[1].vp = 4; // testing
-    // main.state.players[1].robotsEqCount = 1; // testing
-    main.state.players.push(main.addPlayer('Calvin'));
-    main.state.players.push(main.addPlayer('Ivan'));
-    main.state.players[2].isYou = true;
-    main.state.players.push(main.addPlayer('Gabriel'));
+    // reset anything from a previous game (due to restart from settings)
+    let numberOfAiPlayers = document.querySelector('input[name="aiPlayerAmountRadio"]:checked').dataset.number*1;
+    console.log('numberOfAiPlayers:', numberOfAiPlayers)
+    let calcEra3Trigger = null;
+    if (numberOfAiPlayers === 5 || numberOfAiPlayers === 8){
+        calcEra3Trigger = 30;
+    }
+    if (numberOfAiPlayers === 3 || numberOfAiPlayers === 6 || numberOfAiPlayers === 9){
+        calcEra3Trigger = 35;
+    }
+    if (numberOfAiPlayers === 2 || numberOfAiPlayers === 4 || numberOfAiPlayers === 7){
+        calcEra3Trigger = 40;
+    }
 
+    main.state.playerIdSeed = 0;
+    main.state.players.length = 0;
+    main.state.seatSeed = 0;
+    main.state.cardIdSeed = 0;
+    main.state.factoryIdSeed = 0;
+    main.state.localPlayerId = 0;
+    main.state.era2Trigger = 10;
+    main.state.era3Trigger = calcEra3Trigger;
+    main.state.round = 1;
+    main.state.currentPlayerNumber = null;
+    main.state.currentEra = 1;
+    main.state.eqMax = null;
+    main.state.equipment.length = 0;
+    main.state.equipmentIdSeed = 0;
+    main.state.eqUpForBidArray.length = 0;
+    main.state.playerIdsBySeatArray.length = 0;
+    main.state.bid_currentBid = null;
+    main.state.bid_leader = null;
+    main.state.bid_equipment = null;
+    main.state.bid_actionCount = 1;
+
+
+    // load initial players
+    main.state.players.push(main.addPlayer(document.getElementById("playerName").value));
+    main.state.players[0].isYou = true;
+
+    if (numberOfAiPlayers >= 1){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName1').innerHTML)); }
+    if (numberOfAiPlayers >= 2){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName2').innerHTML)); }
+    if (numberOfAiPlayers >= 3){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName3').innerHTML)); }
+    if (numberOfAiPlayers >= 4){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName4').innerHTML)); }
+    if (numberOfAiPlayers >= 5){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName5').innerHTML)); }
+    if (numberOfAiPlayers >= 6){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName6').innerHTML)); }
+    if (numberOfAiPlayers >= 7){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName7').innerHTML)); }
+    if (numberOfAiPlayers >= 8){ main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName8').innerHTML)); }
+   
+    // main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName2').innerHTML));
+    // main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName3').innerHTML));
+
+    // after players are setup...
     let me = util.getPlayerMe();
 
     // set era3 trigger based on number of players

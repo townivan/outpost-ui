@@ -23,14 +23,17 @@
             <div class="header-menu-top">
                 Era2@10vp&nbsp;&nbsp;&nbsp;Era3@<span id="era3TriggerDisplay">-</span>vp&nbsp;&nbsp;&nbsp;Victory@75vp
             </div>
+
             <div class="header-menu-bottom">
                 <section class="nav-panel">
                     <div class="nav-left">
-                        <button type="button" id="overviewViewBtn">Overview</button>
-                        <button type="button" id="auctionViewBtn">Auction</button>
+                        <button type="button" id="overviewViewBtn" class="navtab navtab--active">Overview</button>
+                        <button type="button" id="auctionViewBtn" class="navtab">Auction</button>
                     </div>
+                    
                     <div class="nav-right">
-                        <button type="button" id="referenceViewBtn">Reference</button>
+                        <button type="button" id="referenceViewBtn" class="navtab">Reference</button>
+                        <button type="button" id="settingsViewBtn" class="navtab">Settings</button>
                     </div>
                 </section>
             </div>
@@ -39,51 +42,46 @@
 
     
 
-    
+    <section id="overviewPanel" class="viewIn viewInOverview"></section>
 
-    <div id="nonReferenceBlock">
-        <section id="overviewPanel"></section>
+    <section id="productionCardArea" class="viewIn viewInOverview viewInAuction">
+        <div class="pcardRow pcardRow_Or">
+            <button type="button" id="pcardmaster_or" class="pcard-master" data-type="pcard_or">all Or</button>
+            <div id="pCardRenderInsertionPoint_or" class="pcardInsertionDiv"></div>
+        </div>
+        <div class="pcardRow pcardRow_Wa">
+            <button type="button" id="pcardmaster_wa" class="pcard-master" data-type="pcard_wa">all Wa</button>
+            <div id="pCardRenderInsertionPoint_wa" class="pcardInsertionDiv"></div>
+        </div>
+        <div id="pcardRow_Ti" class="pcardRow pcardRow_Ti hideme">
+            <button type="button" id="pcardmaster_ti" class="pcard-master" data-type="pcard_ti">all Ti</button>
+            <div id="pCardRenderInsertionPoint_ti" class="pcardInsertionDiv"></div>
+        </div>
+        <div id="pcardRow_Re" class="pcardRow pcardRow_Re hideme">
+            <button type="button" id="pcardmaster_re" class="pcard-master" data-type="pcard_re">all Re</button>
+            <div id="pCardRenderInsertionPoint_re" class="pcardInsertionDiv"></div>
+        </div>
+        <div id="pcardRow_Mi" class="pcardRow pcardRow_Mi hideme">
+            <button type="button" id="pcardmaster_mi" class="pcard-master" data-type="pcard_mi">all Mi</button>
+            <div id="pCardRenderInsertionPoint_mi" class="pcardInsertionDiv"></div>
+        </div>
+        <div id="pcardRow_Nc" class="pcardRow pcardRow_Nc hideme">
+            <button type="button" id="pcardmaster_nc" class="pcard-master" data-type="pcard_nc">all Nc</button>
+            <div id="pCardRenderInsertionPoint_nc" class="pcardInsertionDiv"></div>
+        </div>
+        <div id="pcardRow_Om" class="pcardRow pcardRow_Om hideme">
+            <button type="button" id="pcardmaster_om" class="pcard-master" data-type="pcard_om">all Om</button>
+            <div id="pCardRenderInsertionPoint_om" class="pcardInsertionDiv"></div>
+        </div>
+        <div id="pcardRow_Ro" class="pcardRow pcardRow_Ro hideme">
+            <button type="button" id="pcardmaster_ro" class="pcard-master" data-type="pcard_ro">all Ro</button>
+            <div id="pCardRenderInsertionPoint_ro" class="pcardInsertionDiv"></div>
+        </div>
+        <div id="pcardRow_Mo" class="pcardRow pcardRow_Mo hideme">
+            <button type="button" id="pcardmaster_mo" class="pcard-master" data-type="pcard_mo">all Mo</button>
+            <div id="pCardRenderInsertionPoint_mo" class="pcardInsertionDiv"></div>
+        </div>
 
-        
-
-        <section id="productionCardArea">
-            <div class="pcardRow pcardRow_Or">
-                <button type="button" id="pcardmaster_or" class="pcard-master" data-type="pcard_or">all Or</button>
-                <div id="pCardRenderInsertionPoint_or" class="pcardInsertionDiv"></div>
-            </div>
-            <div class="pcardRow pcardRow_Wa">
-                <button type="button" id="pcardmaster_wa" class="pcard-master" data-type="pcard_wa">all Wa</button>
-                <div id="pCardRenderInsertionPoint_wa" class="pcardInsertionDiv"></div>
-            </div>
-            <div id="pcardRow_Ti" class="pcardRow pcardRow_Ti hideme">
-                <button type="button" id="pcardmaster_ti" class="pcard-master" data-type="pcard_ti">all Ti</button>
-                <div id="pCardRenderInsertionPoint_ti" class="pcardInsertionDiv"></div>
-            </div>
-            <div id="pcardRow_Re" class="pcardRow pcardRow_Re hideme">
-                <button type="button" id="pcardmaster_re" class="pcard-master" data-type="pcard_re">all Re</button>
-                <div id="pCardRenderInsertionPoint_re" class="pcardInsertionDiv"></div>
-            </div>
-            <div id="pcardRow_Mi" class="pcardRow pcardRow_Mi hideme">
-                <button type="button" id="pcardmaster_mi" class="pcard-master" data-type="pcard_mi">all Mi</button>
-                <div id="pCardRenderInsertionPoint_mi" class="pcardInsertionDiv"></div>
-            </div>
-            <div id="pcardRow_Nc" class="pcardRow pcardRow_Nc hideme">
-                <button type="button" id="pcardmaster_nc" class="pcard-master" data-type="pcard_nc">all Nc</button>
-                <div id="pCardRenderInsertionPoint_nc" class="pcardInsertionDiv"></div>
-            </div>
-            <div id="pcardRow_Om" class="pcardRow pcardRow_Om hideme">
-                <button type="button" id="pcardmaster_om" class="pcard-master" data-type="pcard_om">all Om</button>
-                <div id="pCardRenderInsertionPoint_om" class="pcardInsertionDiv"></div>
-            </div>
-            <div id="pcardRow_Ro" class="pcardRow pcardRow_Ro hideme">
-                <button type="button" id="pcardmaster_ro" class="pcard-master" data-type="pcard_ro">all Ro</button>
-                <div id="pCardRenderInsertionPoint_ro" class="pcardInsertionDiv"></div>
-            </div>
-            <div id="pcardRow_Mo" class="pcardRow pcardRow_Mo hideme">
-                <button type="button" id="pcardmaster_mo" class="pcard-master" data-type="pcard_mo">all Mo</button>
-                <div id="pCardRenderInsertionPoint_mo" class="pcardInsertionDiv"></div>
-            </div>
-        </section>
 
         <section id="cardSelectionPanel">
             <div class="selectArea1">
@@ -99,101 +97,97 @@
             </div>
         </section>
 
-        <section id="turnActionsArea">
+    </section>
 
-            <div class="turnActionRow">
-                <div class="turnAction1">
-                    <div class="turnAction1Inner">
-                        <button type="button" id="biddableStartBid" class="standardBtn">Bid (start auction)</button>
+    <section id="turnActionsArea" class="viewIn viewInOverview">
 
-                        <div class="turnAction1InnerGroup2">
-                            <span id="availableEq"></span> 
-                            <select id="biddableSelect" class="selectStandard"></select> 
-                            <input id="biddableInitialAmount" type="number" class="hideme" />
-                        </div>
-                    </div>
-                </div>
-                <div class="turnAction2">
-                    <div class="turnAction2Inner">
-                        <button type="button" id="buyButton" class="standardBtn">Buy</button>
+        <div class="turnActionRow">
+            <div class="turnAction1">
+                <div class="turnAction1Inner">
+                    <button type="button" id="biddableStartBid" class="standardBtn">Bid (start auction)</button>
 
-                        <div class="turnAction2InnerGroup2">
-                            <div>
-                                <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
-                            </div>
-                            <select id="buySelect" class="selectStandard">
-                                <option value="colonist">colonist (10)</option>
-                                <option value="robot">robot (10)</option>
-                                <option value="factoryOr">factoryOr (10)</option>
-                                <option value="factoryWa">factoryWa (20)</option>
-                            </select>
-                        </div>
+                    <div class="turnAction1InnerGroup2">
+                        <span id="availableEq"></span> 
+                        <select id="biddableSelect" class="selectStandard"></select> 
+                        <input id="biddableInitialAmount" type="number" class="hideme" />
                     </div>
                 </div>
             </div>
+            <div class="turnAction2">
+                <div class="turnAction2Inner">
+                    <button type="button" id="buyButton" class="standardBtn">Buy</button>
 
-            <div id="bidError"></div>
-            <div id="purchaseError"></div>
-
-            <div class="turnActionsContainer">
-                <button type="button" id="endTurnBtn" class="standardBtn">End Turn</button>
-                <button type="button" id="firstTurnHandForWaterBtn" class="standardBtn standardBtn--positive hideme">Turn in hand for water factory</button>
-            </div>
-        </section>
-        <br>
-
-        <!-- <div id="biddingClosedArea"><span id="lastBidSummary"></span>  There are currently no active bids.</div> -->
-        <section id="biddingArea" class="hideme">
-            <div class="biddingAreaContainer">
-                <div id="biddingOpenArea">
-                    <div id="biddingEqUpForBidDesc--currentBid"></div>
-                    <div id="biddingEqUpForBidDesc--actionsArea">
-                        <input type="number" id="newBidAmountInput" class="auctionInputToggle" disabled="disabled" value="26" /> 
-                        <button type="button" id="auctionCounterBidBtn" class="auctionInputToggle" disabled="disabled">counter bid</button> or 
-                        <button type="button" id="auctionPassBtn" class="auctionInputToggle" disabled="disabled">pass</button> or 
-                        <button type="button" id="auctionPassAllBtn" class="auctionInputToggle" disabled="disabled">pass all</button>
-                    </div>
-                    <div id="counterBidError"></div>
-
-                    <div id="biddingPlayerListArea" class="biddingPlayerListArea"></div>
-
-                    <div class="eqUpForBidContainer">
-                        <div id="biddingEqUpForBidDesc">
-                            <div id="biddingEqUpForBidDesc--desc">
-                                <!-- <div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul> -->
-                            </div>
+                    <div class="turnAction2InnerGroup2">
+                        <div>
+                            <input type="number" id="buyNumber" class="buyNumberInput" value="1" min="1" max="50" />
                         </div>
-                        <div id="displayDiscountContainer">
-                            <p id="discountDisplay"></p>
-                        </div>
+                        <select id="buySelect" class="selectStandard">
+                            <option value="colonist">colonist (10)</option>
+                            <option value="robot">robot (10)</option>
+                            <option value="factoryOr">factoryOr (10)</option>
+                            <option value="factoryWa">factoryWa (20)</option>
+                        </select>
                     </div>
-
-                    <div id="auctionLog"></div>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section id="turnManageFactoriesArea">
-            <div class="turnManageFactoriesContainer">
-                <div>
-                    <div>Available colonists: <span id="factoriesMyAvailableColonists">0</span></div>
-                    <div>Available robots: <span id="factoriesMyAvailableRobots">0</span></div>
+        <div id="bidError"></div>
+        <div id="purchaseError"></div>
+
+        <div class="turnActionsContainer">
+            <button type="button" id="endTurnBtn" class="standardBtn">End Turn</button>
+            <button type="button" id="firstTurnHandForWaterBtn" class="standardBtn standardBtn--positive hideme">Turn in hand for water factory</button>
+        </div>
+    </section>
+
+    <section id="biddingArea" class="viewIn viewInAuction hideme">
+        <div class="biddingAreaContainer">
+            <div id="biddingOpenArea">
+                <div id="biddingEqUpForBidDesc--currentBid"></div>
+                <div id="biddingEqUpForBidDesc--actionsArea">
+                    <input type="number" id="newBidAmountInput" class="auctionInputToggle" disabled="disabled" value="26" /> 
+                    <button type="button" id="auctionCounterBidBtn" class="auctionInputToggle" disabled="disabled">counter bid</button> or 
+                    <button type="button" id="auctionPassBtn" class="auctionInputToggle" disabled="disabled">pass</button> or 
+                    <button type="button" id="auctionPassAllBtn" class="auctionInputToggle" disabled="disabled">pass all</button>
                 </div>
-                <div id="turnManageFactoriesInsert"></div>
+                <div id="counterBidError"></div>
+
+                <div id="biddingPlayerListArea" class="biddingPlayerListArea"></div>
+
+                <div class="eqUpForBidContainer">
+                    <div id="biddingEqUpForBidDesc">
+                        <div id="biddingEqUpForBidDesc--desc">
+                            <!-- <div>Data Library [c15] (1vp) era1</div><ul><li>c10 discount on <strong>Scientist</strong> cards.</li><li>c10 discount on <strong>Laboratory</strong> cards.</li></ul> -->
+                        </div>
+                    </div>
+                    <div id="displayDiscountContainer">
+                        <p id="discountDisplay"></p>
+                    </div>
+                </div>
+
+                <div id="auctionLog"></div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="purchaseArea"></section>
+    <section id="turnManageFactoriesArea" class="viewIn viewInOverview">
+        <div class="turnManageFactoriesContainer">
+            <div>
+                <!-- <div>Available colonists: <span id="factoriesMyAvailableColonists">0</span></div>
+                <div>Available robots: <span id="factoriesMyAvailableRobots">0</span></div> -->
+                <div>available [colonists:<span id="factoriesMyAvailableColonists">0</span>, robots:<span id="factoriesMyAvailableRobots">0</span>]</div>
+            </div>
+            <div id="turnManageFactoriesInsert"></div>
+        </div>
+    </section>
 
+    <section id="logArea" class="viewIn viewInOverview">
+        <div id="log"></div>
+        <textarea id="log2" rows="20" cols="100"></textarea>
+    </section>
 
-        <section id="logArea">
-            <div id="log"></div>
-            <textarea id="log2" rows="20" cols="100"></textarea>
-        </section>
-
-    </div><!-- end nonReferenceBlock -->
-
-    <section id="reference" class="hideme">
+    <section class="viewIn viewInReference hideme">
         <h4>Abbreviations</h4>
         <ul class="refAbbreviationsUl">
             <li><span class="bgOrBorder">Or</span> = Ore.  Average production: 3</li>
@@ -292,6 +286,136 @@
             </ul> 
         <br>
         </p>
+
+    </section>
+
+    <section class="viewIn viewInSettings hideme">
+        <h2>Settings</h2>
+
+        <div class="input-group">
+            <label for="playerName">Player Name:</label><br>
+            <input id="playerName" value="Ivan">
+        </div>
+
+        <div class="input-group">
+            <label>How many AI oponents?</label><br>
+            <label><input type="radio" name="aiPlayerAmountRadio" data-number="1">1</label>
+            <label><input type="radio" name="aiPlayerAmountRadio" data-number="2">2</label>
+            <label><input type="radio" name="aiPlayerAmountRadio" data-number="3" checked>3</label>
+            <label><input type="radio" name="aiPlayerAmountRadio" data-number="4">4</label>
+            <label><input type="radio" name="aiPlayerAmountRadio" data-number="5">5</label>
+            <label><input type="radio" name="aiPlayerAmountRadio" data-number="6">6</label>
+            <label><input type="radio" name="aiPlayerAmountRadio" data-number="7">7</label>
+            <label><input type="radio" name="aiPlayerAmountRadio" data-number="8">8</label>
+        </div>
+
+        <div class="input-group cpuGroup" data-number="1">
+            <div class="cpuNameField">
+                <div>CPU1:</div>
+                <div id="aiDisplayName1" class="cpuNameCol">Chuckles</div>
+                <div>Difficulty:
+                    <label><input type="radio" name="aiDifficulty1" checked>Easy</label>
+                    <label><input type="radio" name="aiDifficulty1">Medium</label>
+                    <label><input type="radio" name="aiDifficulty1">Hard</label>
+                    <label><input type="radio" name="aiDifficulty1">Random</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group cpuGroup" data-number="2">
+            <div class="cpuNameField">
+                <div>CPU2:</div>
+                <div id="aiDisplayName2" class="cpuNameCol">Fluffykins</div>
+                <div>Difficulty:
+                    <label><input type="radio" name="aiDifficulty2" checked>Easy</label>
+                    <label><input type="radio" name="aiDifficulty2">Medium</label>
+                    <label><input type="radio" name="aiDifficulty2">Hard</label>
+                    <label><input type="radio" name="aiDifficulty2">Random</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group cpuGroup" data-number="3">
+            <div class="cpuNameField">
+                <div>CPU3:</div>
+                <div id="aiDisplayName3" class="cpuNameCol">Larry</div>
+                <div>Difficulty:
+                    <label><input type="radio" name="aiDifficulty3" checked>Easy</label>
+                    <label><input type="radio" name="aiDifficulty3">Medium</label>
+                    <label><input type="radio" name="aiDifficulty3">Hard</label>
+                    <label><input type="radio" name="aiDifficulty3">Random</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group cpuGroup" data-number="4">
+            <div class="cpuNameField">
+                <div>CPU4:</div>
+                <div id="aiDisplayName4" class="cpuNameCol">Hamilton</div>
+                <div>Difficulty:
+                    <label><input type="radio" name="aiDifficulty4" checked>Easy</label>
+                    <label><input type="radio" name="aiDifficulty4">Medium</label>
+                    <label><input type="radio" name="aiDifficulty4">Hard</label>
+                    <label><input type="radio" name="aiDifficulty4">Random</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group cpuGroup" data-number="5">
+            <div class="cpuNameField">
+                <div>CPU5:</div>
+                <div id="aiDisplayName5" class="cpuNameCol">Caro</div>
+                <div>Difficulty:
+                    <label><input type="radio" name="aiDifficulty5" checked>Easy</label>
+                    <label><input type="radio" name="aiDifficulty5">Medium</label>
+                    <label><input type="radio" name="aiDifficulty5">Hard</label>
+                    <label><input type="radio" name="aiDifficulty5">Random</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group cpuGroup" data-number="6">
+            <div class="cpuNameField">
+                <div>CPU6:</div>
+                <div id="aiDisplayName6" class="cpuNameCol">Bobby</div>
+                <div>Difficulty:
+                    <label><input type="radio" name="aiDifficulty6" checked>Easy</label>
+                    <label><input type="radio" name="aiDifficulty6">Medium</label>
+                    <label><input type="radio" name="aiDifficulty6">Hard</label>
+                    <label><input type="radio" name="aiDifficulty6">Random</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group cpuGroup" data-number="7">
+            <div class="cpuNameField">
+                <div>CPU7:</div>
+                <div id="aiDisplayName7" class="cpuNameCol">Ursula</div>
+                <div>Difficulty:
+                    <label><input type="radio" name="aiDifficulty7" checked>Easy</label>
+                    <label><input type="radio" name="aiDifficulty7">Medium</label>
+                    <label><input type="radio" name="aiDifficulty7">Hard</label>
+                    <label><input type="radio" name="aiDifficulty7">Random</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group cpuGroup" data-number="8">
+            <div class="cpuNameField">
+                <div>CPU8:</div>
+                <div id="aiDisplayName8" class="cpuNameCol">Foofoo</div>
+                <div>Difficulty:
+                    <label><input type="radio" name="aiDifficulty8" checked>Easy</label>
+                    <label><input type="radio" name="aiDifficulty8">Medium</label>
+                    <label><input type="radio" name="aiDifficulty8">Hard</label>
+                    <label><input type="radio" name="aiDifficulty8">Random</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <button type="button" id="settingsSaveBtn" class="standardBtn">Save and Restart Game</button>
+        </div>
 
     </section>
 

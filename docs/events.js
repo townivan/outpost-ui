@@ -1,7 +1,7 @@
 import * as main from './main.js';
 import * as util from './util.js';
 import * as turn from './turn.js';
-// import * as bid from './bid.js';
+import * as init from './init.js';
 import * as auction from './auction.js';
 
 export function firstInit() {
@@ -103,28 +103,77 @@ export function firstInit() {
 
     // top nav events
     document.getElementById('overviewViewBtn').addEventListener('click', function (e) {
-        document.getElementById('overviewPanel').classList.remove('hideme');
-        document.getElementById('turnManageFactoriesArea').classList.remove('hideme');
-        document.getElementById('turnActionsArea').classList.remove('hideme');
-        document.getElementById('logArea').classList.remove('hideme');
-        document.getElementById('biddingArea').classList.add('hideme'); // add
-        if (document.getElementById('nonReferenceBlock').classList.contains('hideme')){
-            document.getElementById('referenceViewBtn').click();
-        }
+        let allTabs = [...document.querySelectorAll('.navtab')];
+        allTabs.map(tab => tab.classList.remove('navtab--active'));
+        e.target.classList.add('navtab--active');
+
+        let allViews = [...document.querySelectorAll('.viewIn')];
+        allViews.map(view => {
+            if(view.classList.contains('viewInOverview')){
+                view.classList.remove('hideme');
+            }
+            else{
+                view.classList.add('hideme');
+            }
+        })
     })
     document.getElementById('auctionViewBtn').addEventListener('click', function (e) {
-        document.getElementById('overviewPanel').classList.add('hideme');
-        document.getElementById('turnManageFactoriesArea').classList.add('hideme');
-        document.getElementById('turnActionsArea').classList.add('hideme');
-        document.getElementById('logArea').classList.add('hideme');
-        document.getElementById('biddingArea').classList.remove('hideme'); // remove
-        if (document.getElementById('nonReferenceBlock').classList.contains('hideme')){
-            document.getElementById('referenceViewBtn').click();
-        }
+        let allTabs = [...document.querySelectorAll('.navtab')];
+        allTabs.map(tab => tab.classList.remove('navtab--active'));
+        e.target.classList.add('navtab--active');
+
+        let allViews = [...document.querySelectorAll('.viewIn')];
+        allViews.map(view => {
+            if(view.classList.contains('viewInAuction')){
+                view.classList.remove('hideme');
+            }
+            else{
+                view.classList.add('hideme');
+            }
+        })
     })
     document.getElementById('referenceViewBtn').addEventListener('click', function (e) {
-        document.getElementById('nonReferenceBlock').classList.toggle('hideme');
-        document.getElementById('reference').classList.toggle('hideme');
+        let allTabs = [...document.querySelectorAll('.navtab')];
+        allTabs.map(tab => tab.classList.remove('navtab--active'));
+        e.target.classList.add('navtab--active');
+
+        let allViews = [...document.querySelectorAll('.viewIn')];
+        allViews.map(view => {
+            if(view.classList.contains('viewInReference')){
+                view.classList.remove('hideme');
+            }
+            else{
+                view.classList.add('hideme');
+            }
+        })
+    })
+    document.getElementById('settingsViewBtn').addEventListener('click', function (e) {
+        let allTabs = [...document.querySelectorAll('.navtab')];
+        allTabs.map(tab => tab.classList.remove('navtab--active'));
+        e.target.classList.add('navtab--active');
+        
+        let allViews = [...document.querySelectorAll('.viewIn')];
+        allViews.map(view => {
+            if(view.classList.contains('viewInSettings')){
+                view.classList.remove('hideme');
+            }
+            else{
+                view.classList.add('hideme');
+            }
+        })
+    })
+
+    // settings events
+    document.getElementById('settingsSaveBtn').addEventListener('click', function (e) {
+        let playerName = document.getElementById('playerName').value;
+        localStorage.setItem("outpostPlayerName", playerName);
+
+        init.initialize();
+        firstInit();
+        console.log('main.state:', main.state)
+        turn.startRound();
+        main.render();
+        document.getElementById('overviewViewBtn').click();
     })
 
 

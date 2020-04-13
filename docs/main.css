@@ -55,27 +55,59 @@
 .bgMoBorder {
   border: 2px #efb162 solid; }
 
+* {
+  box-sizing: border-box; }
+
+html {
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll; }
+
 body {
   font-size: 17px;
-  font-family: 'Oxygen Mono', monospace; }
+  font-family: 'Oxygen Mono', monospace;
+  margin: 0; }
 
 .new-header {
+  background-color: #015294;
   display: flex;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  padding: .5rem;
+  padding-bottom: 0; }
   .new-header h1 {
     margin: 0;
-    padding-top: 11px; }
+    margin-bottom: .5rem; }
+
+.viewIn {
+  padding: .5rem; }
 
 .header-menu-area {
   flex: 1;
-  padding-left: 20px; }
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
 
 .header-menu-top {
-  text-align: right; }
+  text-align: right;
+  font-size: .9rem;
+  color: deepskyblue; }
 
 .nav-panel {
   display: flex;
   justify-content: space-between; }
+
+.navtab {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border: 1px transparent solid;
+  border-bottom: 1px;
+  font-size: 1rem;
+  padding: .2rem 1rem;
+  background-color: darkgray; }
+  .navtab--active {
+    background-color: white;
+    border: 1px transparent solid;
+    outline: none; }
 
 .selectStandard {
   font-size: 1.2rem;
@@ -108,7 +140,7 @@ body {
   display: inline-block; }
 
 .overviewColx {
-  width: 120px;
+  width: 125px;
   text-align: center; }
 
 .standardBtn {
@@ -363,6 +395,17 @@ body {
   list-style: none; }
   .refAbbreviationsUl li {
     margin-bottom: 7px; }
+
+.input-group {
+  margin-bottom: 1rem; }
+
+.cpuNameField {
+  display: flex; }
+  .cpuNameField > div:first-child {
+    margin-right: 1rem; }
+
+.cpuNameCol {
+  width: 150px; }
 
 .greenspan {
   color: green; }

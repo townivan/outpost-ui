@@ -10,6 +10,7 @@ $indicator-checked: #0074d9;
 $indicator-active: #84c6ff;
 $red-dark: #b33535;
 $error-bg: rgba(231,86,86,.15);
+$brand-blue: #015294;
 
 // or=Ore wa=Water ti=Titanium re=Research mi=Microbiotics nc=New_Chemicals om=Orbital_Medicine ro=Ring_Ore mo=Moon_Ore
 $Or: #d59667;
@@ -102,38 +103,69 @@ $desktop-width: 1024px;
         @content;
     }
 }
-
+*{
+    box-sizing: border-box;
+}
+html{
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+}
 body{
     font-size: 17px;
     font-family: 'Oxygen Mono', monospace;
+    margin:0;
 }
 
 .new-header{
+    background-color: $brand-blue;
     display: flex;
     margin-bottom: 1rem;
     & h1{
         margin: 0;
-        padding-top: 11px;
+        // padding-top: 11px;
+        margin-bottom: .5rem;
     }
+    padding: .5rem;
+    padding-bottom: 0;
 }
-.logo-area{
-    // background-color: pink;
+.viewIn{
+    padding: .5rem;
 }
+
 .header-menu-area{
     flex: 1;
     // background-color:orange;
     padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .header-menu-top{
     // background-color: lightblue;
     text-align: right;
+    font-size: .9rem;
+    color: deepskyblue;
 }
-.header-menu-bottom{
-    // background-color: lightgreen;
-}
+
 .nav-panel{
     display: flex;
     justify-content: space-between;
+    // margin-bottom: -1px;
+}
+
+.navtab{
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border: 1px transparent solid;
+    border-bottom: 1px;
+    font-size: 1rem;
+    padding: .2rem 1rem;
+    background-color: darkgray;
+    &--active{
+        background-color: white;
+        border: 1px transparent solid;
+        outline: none;
+    }
 }
 
 .selectStandard{
@@ -170,7 +202,7 @@ body{
     display: inline-block;
 }
 .overviewColx{
-    width: 120px;
+    width: 125px;
     text-align: center;
 }
 
@@ -482,6 +514,20 @@ body{
     & li {
         margin-bottom: 7px;
     }
+}
+
+// settings styles
+.input-group{
+    margin-bottom: 1rem;
+}
+.cpuNameField{
+    display: flex;
+    & > div:first-child{
+        margin-right: 1rem;
+    }
+}
+.cpuNameCol{
+    width: 150px;
 }
 
 

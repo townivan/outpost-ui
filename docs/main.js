@@ -3,6 +3,11 @@ import * as util from './util.js';
 import * as init from './init.js';
 import * as turn from './turn.js';
 
+if (localStorage.getItem("outpostPlayerName")){
+    document.getElementById("playerName").value = localStorage.getItem("outpostPlayerName");
+}
+
+
 // or=Ore wa=Water ti=Titanium re=Research mi=Microbiotics nc=New_Chemicals om=Orbital_Medicine ro=Ring_Ore mo=Moon_Ore
 export const state = {
     playerIdSeed: 0,
@@ -406,7 +411,7 @@ export function render() {
     rowCode += `<div class="overviewCol1">Player(TurnOrder)</div>`;
     state.players.map(player => {
         player.updateFactoryCounts();
-        rowCode += `<div class="overviewColx ${player.isYou ? 'highlightme2' : ''}">${player.name} (${player.isAwaitingTurn ? player.turnOrder : 'X'})</div>`;
+        rowCode += `<div class="overviewColx ${player.isYou ? 'highlightme2' : ''}">${player.name}<sup>${player.isAwaitingTurn ? player.turnOrder : 'X'}</sup></div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
