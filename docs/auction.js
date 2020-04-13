@@ -49,11 +49,12 @@ export function startAuction(player, realBidAmt, targetEq){
 
     util.printSeatOrder();
     util.auctionlogit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
+    util.auctionlogit(`Seat order: ${util.getSeatOrder()}`);
     util.logit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
     considerBid(player.playerSeatedAfterMe);
 }
 
-function considerBid(player){
+function considerBid(player){ // decide to counterBid or pass
     console.log(`welcome to considerBid(${player.name})...`)
     // console.log('player.bidStatus:', player.bidStatus)
     util.printSeatOrder();
@@ -76,12 +77,12 @@ function considerBid(player){
 }
 
 export function counterBid(player, realBidAmt){
-    // console.log(`welcome to counterBid(${player.name})...`)
+    console.log(`welcome to counterBid(${player.name})...`)
     main.state.bid_leader = player;
     main.state.bid_currentBid = realBidAmt;
     // main.state.bid_equipment = targetEq;
-    main.state.players.map(player =>  {
-        if (player.bidStatus != "passall"){
+    main.state.players.map(player =>  {  // reset everyone else and make this guy the new leader
+        if (player.bidStatus !== "passall"){
             player.bidStatus = "waiting"}
         }
     )

@@ -10,6 +10,7 @@ export function makeAuctionDecision(player){
     console.log(`The current bid is ${main.state.bid_currentBid}.`)
     console.log('player.ai_setting:', player.ai_setting)
 
+    // do they even have enough to counterBid?
     if(playerMaxAvailable > main.state.bid_currentBid){
 
         // never start their own bid...for now...
@@ -25,14 +26,22 @@ export function makeAuctionDecision(player){
             })
             auction.counterBid(player, realBidAmt) // if possible, will always counter-bid
         }
-        if (player.ai_setting === 'medium'){
+        else if (player.ai_setting === 'medium'){
             auction.passBid(player, 'pass');
         }
-        if (player.ai_setting === 'hard'){
+        else if (player.ai_setting === 'hard'){
             auction.passBid(player, 'pass');
         }
-        if (player.ai_setting === 'passall'){
+        else if (player.ai_setting === 'random'){
             auction.passBid(player, 'pass');
+        }
+        else if (player.ai_setting === 'alwayspass'){
+            auction.passBid(player, 'pass');
+        }
+        else{
+            console.log('%c something is wrong in ai.makeAuctionDecision()...player.ai_setting got past if statements!', 'background-color:red; color:white;')
+            console.log('player:', player);
+        
         }
 
     }

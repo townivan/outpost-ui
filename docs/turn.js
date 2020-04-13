@@ -38,6 +38,7 @@ export function endRound() {
 export function startTurn(player) {
     // for me, await btn click event to endTurn.  otherwise...
     if (!player.isYou) {
+        // TODO: later have ai players decide to buy and/or auction also
         endTurn(player);
     }
     else{

@@ -177,6 +177,26 @@ export function listenerInit() {
         document.getElementById('overviewViewBtn').click();
     })
 
+    const allRadioInputsForPlayerAmount = [...document.getElementsByName("aiPlayerAmountRadio")];
+    allRadioInputsForPlayerAmount.map(radioEl => {
+        radioEl.addEventListener('click', function (e) {
+            // console.log('e.target:', e.target)
+            const thisManyAiOpponents = e.target.dataset.number*1;
+            // console.log('thisManyAiOpponents:', thisManyAiOpponents)
+            
+            const allCPUGroups = [...document.querySelectorAll('.cpuGroup')];
+            allCPUGroups.map(groupEl => {
+                if (groupEl.dataset.number*1 <= thisManyAiOpponents){
+                    groupEl.classList.remove('hideme');
+                }
+                else{
+                    groupEl.classList.add('hideme');
+                }
+            });
+        })
+    })
+    
+
 
     // turn buttons BEGIN
     document.getElementById('endTurnBtn').addEventListener('click', function (e) {

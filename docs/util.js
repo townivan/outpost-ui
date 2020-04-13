@@ -227,3 +227,10 @@ export function printSeatOrder(){
     })
     console.log('seatOrder:', seatOrderReminder)
 }
+export function getSeatOrder(){
+    let seatOrderReminder = '';
+    main.state.playerIdsBySeatArray.map(id => {
+        seatOrderReminder += getPlayerById(id).name + ' '
+    })
+    return seatOrderReminder;
+}
