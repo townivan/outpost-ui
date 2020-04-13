@@ -7,15 +7,16 @@ export function gameInit() {
 
     // reset anything from a previous game (due to restart from settings)
     let numberOfAiPlayers = document.querySelector('input[name="aiPlayerAmountRadio"]:checked').dataset.number*1;
-    console.log('numberOfAiPlayers:', numberOfAiPlayers)
+    // console.log('numberOfAiPlayers:', numberOfAiPlayers)
+    let numberOfTotalPlayers = numberOfAiPlayers+1;// ai + you!
     let calcEra3Trigger = null;
-    if (numberOfAiPlayers === 5 || numberOfAiPlayers === 8){
+    if (numberOfTotalPlayers === 5 || numberOfTotalPlayers === 8){
         calcEra3Trigger = 30;
     }
-    if (numberOfAiPlayers === 3 || numberOfAiPlayers === 6 || numberOfAiPlayers === 9){
+    if (numberOfTotalPlayers === 3 || numberOfTotalPlayers === 6 || numberOfTotalPlayers === 9){
         calcEra3Trigger = 35;
     }
-    if (numberOfAiPlayers === 2 || numberOfAiPlayers === 4 || numberOfAiPlayers === 7){
+    if (numberOfTotalPlayers === 2 || numberOfTotalPlayers === 4 || numberOfTotalPlayers === 7){
         calcEra3Trigger = 40;
     }
 
@@ -81,11 +82,11 @@ export function gameInit() {
         let aiSetting = document.querySelector('input[name="aiDifficulty7"]:checked').dataset.setting;
         main.state.players[7].ai_setting = aiSetting;  
     }
-    if (numberOfAiPlayers >= 8){ 
-        main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName8').innerHTML));
-        let aiSetting = document.querySelector('input[name="aiDifficulty8"]:checked').dataset.setting;
-        main.state.players[8].ai_setting = aiSetting;  
-    }
+    // if (numberOfAiPlayers >= 8){ 
+    //     main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName8').innerHTML));
+    //     let aiSetting = document.querySelector('input[name="aiDifficulty8"]:checked').dataset.setting;
+    //     main.state.players[8].ai_setting = aiSetting;  
+    // }
    
     // main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName2').innerHTML));
     // main.state.players.push(main.addPlayer(document.getElementById('aiDisplayName3').innerHTML));

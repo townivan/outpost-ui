@@ -683,7 +683,7 @@ export function render() {
     
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Data Library');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Data Library (${dataLibraryCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Data Library (${dataLibraryCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -699,7 +699,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Warehouse');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Warehouse (${warehouseCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Warehouse (${warehouseCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -715,7 +715,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Heavy Equipment');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Heavy Equipment (${heavyequipmentCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Heavy Equipment (${heavyequipmentCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -731,7 +731,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Nodule');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Nodule (${noduleCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Nodule (${noduleCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -747,7 +747,7 @@ export function render() {
     
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Scientists');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Scientists (${scientistsCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Scientists (${scientistsCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -763,7 +763,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Orbital Lab');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Orbital Lab (${orbitalLabCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Orbital Lab (${orbitalLabCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -779,7 +779,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Robots');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Robots (${robotsCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Robots (${robotsCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -795,7 +795,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Laboratory');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Laboratory (${laboratoryCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Laboratory (${laboratoryCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -811,7 +811,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Ecoplants');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Ecoplants (${ecoplantsCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Ecoplants (${ecoplantsCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -828,7 +828,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Outpost');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Outpost (${outpostCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Outpost (${outpostCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -845,7 +845,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Space Station');
     rowCode = `<div class="rowOverview ${state.currentEra > 2 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Space Station (${spaceStationCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Space Station (${spaceStationCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -862,7 +862,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Planetary Cruiser');
     rowCode = `<div class="rowOverview ${state.currentEra > 2 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Planetary Cruiser (${planetaryCruiserCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Planetary Cruiser (${planetaryCruiserCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -879,7 +879,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Moonbase');
     rowCode = `<div class="rowOverview ${state.currentEra > 2 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Moonbase (${moonbaseCount} left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Moonbase (${moonbaseCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -967,7 +967,7 @@ export function render() {
     }
 
     // turnManageFactoriesArea
-    console.log('state:', state)
+    // console.log('state:', state)
 
 
     let overviewPanel = document.getElementById('overviewPanel');

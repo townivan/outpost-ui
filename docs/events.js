@@ -180,9 +180,7 @@ export function listenerInit() {
     const allRadioInputsForPlayerAmount = [...document.getElementsByName("aiPlayerAmountRadio")];
     allRadioInputsForPlayerAmount.map(radioEl => {
         radioEl.addEventListener('click', function (e) {
-            // console.log('e.target:', e.target)
             const thisManyAiOpponents = e.target.dataset.number*1;
-            // console.log('thisManyAiOpponents:', thisManyAiOpponents)
             
             const allCPUGroups = [...document.querySelectorAll('.cpuGroup')];
             allCPUGroups.map(groupEl => {

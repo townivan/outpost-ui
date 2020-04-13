@@ -192,6 +192,7 @@ export function replaceEquipment() {
 
     // update biddableSelect select
     let biddableSelectEl = document.getElementById('biddableSelect');
+    biddableSelectEl.innerHTML = ''; // reset first
     let biddableSelectCode = ''
     main.state.eqUpForBidArray.map(eq => {
         let discountedPrice = null;

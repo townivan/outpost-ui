@@ -47,7 +47,7 @@ export function startAuction(player, realBidAmt, targetEq){
         }
     }
 
-    util.printSeatOrder();
+    // util.printSeatOrder();
     util.auctionlogit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
     util.auctionlogit(`Seat order: ${util.getSeatOrder()}`);
     util.logit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);

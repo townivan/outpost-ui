@@ -7,8 +7,8 @@ export function makeAuctionDecision(player){
     console.log('welcome to makeAuctionDecision()')
     let playerMaxAvailable = util.getMaxHandValue(player);
     console.log(`At best, ${player.name} could bid ${playerMaxAvailable}.`)
-    console.log(`The current bid is ${main.state.bid_currentBid}.`)
-    console.log('player.ai_setting:', player.ai_setting)
+    // console.log(`The current bid is ${main.state.bid_currentBid}.`)
+    // console.log('player.ai_setting:', player.ai_setting)
 
     // do they even have enough to counterBid?
     if(playerMaxAvailable > main.state.bid_currentBid){
