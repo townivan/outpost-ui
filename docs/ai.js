@@ -1,6 +1,45 @@
 import * as main from './main.js';
 import * as util from './util.js';
+import * as turn from './turn.js';
 import * as auction from './auction.js';
+
+export function startAiTurn(player){
+    console.log('welcome to startAiTurn(player) :', player)
+    // buy a colonist if possible otherwise pass
+    let playerMaxAvailable = util.getMaxHandValue(player);
+    let unitPrice = 10; // default colonist cost
+    if (player.discountOnColonists > 0) { unitPrice = 5; }
+
+    let isUnderColonistMax = false;
+    if (player.colonist < player.colonistMax){
+        isUnderColonistMax = true;
+    }
+
+    let isAffordable = false;
+    if (playerMaxAvailable >= unitPrice){
+        isAffordable = true;
+    }
+
+    // randomly decide to buy a colonist or not
+    // util.randomIntFromInterval(min, max) or util.randomBool()
+    let isRandomTrueFalse = util.randomBool();
+    
+    if (!isAffordable){
+        console.log(`${player.name} can't afford to buy a colonist this turn.`)
+    }
+    if (isAffordable && !isRandomTrueFalse){
+        console.log(`${player.name} can afford it but decides not to buy a colonist this turn.`)
+    }
+
+    if (isAffordable && isRandomTrueFalse){
+        console.log(`${player.name} can afford it and decides to buy a colonist on their turn.`)
+        turn.buyColonists(player, 1);
+        turn.endTurn(player); // just 1 is good enough for now.:)
+    }
+    else{
+        turn.endTurn(player); // don't buy.  might be for either reason
+    }
+}
 
 
 export function makeAuctionDecision(player){

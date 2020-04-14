@@ -175,43 +175,6 @@ export function spendCards(arrayOfCards = null){
 export function simpleArrayContains(arr, value){
     return (arr.indexOf(value) > -1);
 }
-
-// ai util stuff.
-export function getMaxHandValue(player){
-    let sum = 0;
-    player.cards.map(card => {
-        sum += card.value*1;
-    })
-    return sum;
-}
-export function randomBool(){ // https://stackoverflow.com/a/36756561
-    var a = new Uint8Array(1);
-    crypto.getRandomValues(a);
-    return a[0] > 127;
-}
-export function stupidSelectCardsToPay(player, targetValue){ // sums lowest value cards until target value achieved
-    console.log('welcome to stupidSelectCardsToPay()...')
-    // var clonedCards = JSON.parse(JSON.stringify(player.cards))
-    // clonedCards.sort(compareValues('value'));
-    player.cards.sort(compareValues('value'));
-    // console.log('clonedCards:', clonedCards)
-    // clonedCards.sort(util.compareValues('value', 'desc'));
-    let selectedCards = [];
-    let selectedSum = 0;
-    // for (let x=0; x<clonedCards.length; x++){
-    for (let x=0; x<player.cards.length; x++){
-        selectedCards.push(player.cards[x]);
-        selectedSum += player.cards[x].value;
-        if (selectedSum >= targetValue*1){
-            break;
-        }
-    }
-    // console.log('selectedCards:', selectedCards)
-    return selectedCards;
-}
-export function randomIntFromInterval(min, max) { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
 export function printEqUpForBid(){
     let str = ''
     main.state.eqUpForBidArray.map(eq => {
@@ -233,4 +196,36 @@ export function getSeatOrder(){
         seatOrderReminder += getPlayerById(id).name + ' '
     })
     return seatOrderReminder;
+}
+
+// ai util stuff.
+export function getMaxHandValue(player){
+    let sum = 0;
+    player.cards.map(card => {
+        sum += card.value*1;
+    })
+    return sum;
+}
+export function randomBool(){ // https://stackoverflow.com/a/36756561
+    var a = new Uint8Array(1);
+    crypto.getRandomValues(a);
+    return a[0] > 127;
+}
+export function stupidSelectCardsToPay(player, targetValue){ // sums lowest value cards until target value achieved
+    // console.log('welcome to stupidSelectCardsToPay()...')
+    player.cards.sort(compareValues('value'));
+    let selectedCards = [];
+    let selectedSum = 0;
+    for (let x=0; x<player.cards.length; x++){
+        selectedCards.push(player.cards[x]);
+        selectedSum += player.cards[x].value;
+        if (selectedSum >= targetValue*1){
+            break;
+        }
+    }
+    // console.log('selectedCards:', selectedCards)
+    return selectedCards;
+}
+export function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }

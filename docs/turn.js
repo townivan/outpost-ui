@@ -1,5 +1,6 @@
 import * as main from './main.js';
 import * as util from './util.js';
+import * as ai from './ai.js';
 // import * as ai from './ai.js';
 
 
@@ -38,8 +39,7 @@ export function endRound() {
 export function startTurn(player) {
     // for me, await btn click event to endTurn.  otherwise...
     if (!player.isYou) {
-        // TODO: later have ai players decide to buy and/or auction also
-        endTurn(player);
+        ai.startAiTurn(player);        
     }
     else{
         util.logit(`Waiting for your turn actions...`);
@@ -298,25 +298,33 @@ export function distributeProductionCards(){
     main.render();
 }
 export function buyColonists(player, buyNumber){
-    // console.log('welcome to buyColonists()...');
+    console.log(`welcome to buyColonists(player=${player.name}, buyNumber=${buyNumber})`)
     let purchaseErrorEl = document.getElementById('purchaseError');
-    purchaseErrorEl.innerHTML = ''; // reset any errors
+        purchaseErrorEl.innerHTML = ''; // reset any errors
     let purchaseErrorReasons = '';
 
     buyNumber = buyNumber*1;
-    // console.log(`welcome to buyColonists(player=${player.name})`)
-
-    // handle cards via the local player first.
-    let selectedAmount = util.getSelectedAmountFromCards();
-    // console.log('selectedAmount:', selectedAmount)
 
     // calc price of order
     let unitPrice = 10;
-    // apply discounts here later (todo)
     if (player.discountOnColonists > 0) { unitPrice = 5; }
 
     let totalCost = buyNumber * unitPrice;
-    // console.log('totalCost:', totalCost)
+    console.log('totalCost:', totalCost)
+
+    let selectedAmount = 0;
+    let aiSelectedCards = null;
+    if (player.isYou){ // handle cards via the local player first.
+        selectedAmount = util.getSelectedAmountFromCards();
+    }
+    else{ // select cards for ai players
+        aiSelectedCards = util.stupidSelectCardsToPay(player, totalCost)
+        console.log('aiSelectedCards:', aiSelectedCards)
+        aiSelectedCards.map(card => {
+            selectedAmount += card.value
+        })
+    }
+    console.log('selectedAmount:', selectedAmount)
 
     let validPurchase = false;
     let check1 = false;
@@ -341,18 +349,25 @@ export function buyColonists(player, buyNumber){
     }
 
     // prevent accidental overspending...
-    if ((selectedAmount > 2*unitPrice) && buyNumber == 1){
-        let confirmAction = confirm('Are you sure that you want to spend that much for just one unit?');
-        if (!confirmAction){
-            validPurchase = false;
-            purchaseErrorReasons += `purchase cancelled.`;
+    if (player.isYou){
+        if ((selectedAmount > 2*unitPrice) && buyNumber == 1){
+            let confirmAction = confirm('Are you sure that you want to spend that much for just one unit?');
+            if (!confirmAction){
+                validPurchase = false;
+                purchaseErrorReasons += `purchase cancelled.`;
+            }
         }
     }
 
     if (validPurchase){
         // purchase successful!  process...
         player.colonist += buyNumber;
-        util.spendCards();
+        if (player.isYou){
+            util.spendCards();
+        }
+        else{
+            util.spendCards(aiSelectedCards)
+        }
         // update VP and render
         main.calcVp();
         main.render();

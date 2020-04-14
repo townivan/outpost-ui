@@ -369,6 +369,12 @@ body {
 #counterBidError {
   color: red; }
 
+.vpLeader {
+  color: deepskyblue; }
+
+.turnOver {
+  color: red; }
+
 .biddingPlayerListArea {
   display: flex; }
 

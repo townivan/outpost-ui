@@ -412,15 +412,15 @@ export function render() {
     rowCode += `<div class="overviewCol1">Player(TurnOrder)</div>`;
     state.players.map(player => {
         player.updateFactoryCounts();
-        rowCode += `<div class="overviewColx ${player.isYou ? 'highlightme2' : ''}">${player.name}<sup>${player.isAwaitingTurn ? player.turnOrder : 'X'}</sup></div>`;
+        rowCode += `<div class="overviewColx ${player.isYou ? 'highlightme2' : ''}">${player.name}<sup>${player.isAwaitingTurn ? player.turnOrder : '<span class="turnOver">X</span>'}</sup></div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
 
     rowCode = `<div class="rowOverview">`;
     rowCode += `<div class="overviewCol1">Victory Points</div>`;
-    state.players.map(player => {
-        rowCode += `<div class="overviewColx">${player.vp}vp</div>`;
+    state.players.map((player,i) => {
+        rowCode += `<div class="overviewColx ${i==0 ? 'vpLeader' : ''}">${player.vp}vp</div>`;
     });
     rowCode += `</div>`
     allOverViewCode += rowCode;
