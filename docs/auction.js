@@ -49,7 +49,7 @@ export function startAuction(player, realBidAmt, targetEq){
 
     // util.printSeatOrder();
     util.auctionlogit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
-    util.auctionlogit(`Seat order: ${util.getSeatOrder()}`);
+    // util.auctionlogit(`Seat order: ${util.getSeatOrder()}`);
     util.logit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
     considerBid(player.playerSeatedAfterMe);
 }
@@ -57,7 +57,7 @@ export function startAuction(player, realBidAmt, targetEq){
 function considerBid(player){ // decide to counterBid or pass
     console.log(`welcome to considerBid(${player.name})...`)
     // console.log('player.bidStatus:', player.bidStatus)
-    util.printSeatOrder();
+    // util.printSeatOrder();
     // results in: 1.counterBid 2.Pass 3.PassAll
     if (player.bidStatus === 'passall'){
         passBid(player, 'passall');
@@ -284,28 +284,28 @@ function processAuctionWinner(){
     main.state.eqUpForBidArray.map(eq => {
         let discountedPrice = null;
         if (eq.name === 'Nodule'){
-            if (player.discountOnNodule > 0){
-                discountedPrice = eq.price*1 - player.discountOnNodule*1;
+            if (me.discountOnNodule > 0){
+                discountedPrice = eq.price*1 - me.discountOnNodule*1;
             }
         }
         if (eq.name === 'Warehouse'){
-            if (player.discountOnWarehouse > 0){
-                discountedPrice = eq.price*1 - player.discountOnWarehouse*1;
+            if (me.discountOnWarehouse > 0){
+                discountedPrice = eq.price*1 - me.discountOnWarehouse*1;
             }
         }
         if (eq.name === 'Scientists'){
-            if (player.discountOnScientist > 0){
-                discountedPrice = eq.price*1 - player.discountOnScientist*1;
+            if (me.discountOnScientist > 0){
+                discountedPrice = eq.price*1 - me.discountOnScientist*1;
             }
         }
         if (eq.name === 'Laboratory'){
-            if (player.discountOnLaboratory > 0){
-                discountedPrice = eq.price*1 - player.discountOnLaboratory*1;
+            if (me.discountOnLaboratory > 0){
+                discountedPrice = eq.price*1 - me.discountOnLaboratory*1;
             }
         }
         if (eq.name === 'Outpost'){
-            if (player.discountOnOutpost > 0){
-                discountedPrice = eq.price*1 - player.discountOnOutpost*1;
+            if (me.discountOnOutpost > 0){
+                discountedPrice = eq.price*1 - me.discountOnOutpost*1;
             }
         }
         biddableSelectCode += `<option value="${eq.id}" data-discountedprice="${discountedPrice ? `${discountedPrice}` : `${eq.price}`}">${eq.name} (${eq.price}${discountedPrice ? `->${discountedPrice}` : ''})</option>`;

@@ -31,13 +31,13 @@ export function startAiTurn(player){
         console.log(`${player.name} can afford it but decides not to buy a colonist this turn.`)
     }
 
-    if (isAffordable && isRandomTrueFalse){
+    if (isUnderColonistMax && isAffordable && isRandomTrueFalse){
         console.log(`${player.name} can afford it and decides to buy a colonist on their turn.`)
         turn.buyColonists(player, 1);
         turn.endTurn(player); // just 1 is good enough for now.:)
     }
     else{
-        turn.endTurn(player); // don't buy.  might be for either reason
+        turn.endTurn(player); // don't buy.  might be for any of the above reasons
     }
 }
 
@@ -50,14 +50,35 @@ export function makeAuctionDecision(player){
     // console.log('player.ai_setting:', player.ai_setting)
 
     // do they even have enough to counterBid?
-    if(playerMaxAvailable > main.state.bid_currentBid){
+    // Apply their discounts!
+    let eq = main.state.bid_equipment;
+    let discount = 0;
+    if (eq.name === 'Nodule'){
+        discount = player.discountOnNodule*1;
+    }
+    if (eq.name === 'Warehouse'){
+        discount = player.discountOnWarehouse*1;
+    }
+    if (eq.name === 'Scientists'){
+        discount = player.discountOnScientist*1;
+    }
+    if (eq.name === 'Laboratory'){
+        discount = player.discountOnLaboratory*1;
+    }
+    if (eq.name === 'Outpost'){
+        discount = player.discountOnOutpost*1;
+    }
+    console.log(`${player.name}'s discount for ${eq.name} is ${discount}`)
+
+    if(playerMaxAvailable > (main.state.bid_currentBid - discount)){
 
         // never start their own bid...for now...
         // auction.passBid(player, 'pass');
 
         if (player.ai_setting === 'easy'){
             // always tries to win the bid
-            let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1);
+            console.log(`${player.name} plans to select ${main.state.bid_currentBid+1 - discount} from their cards...`)
+            let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1 - discount);
             // since the logic to select cards is not optimized, see how much is really in the selected cards..(it's likely higher)
             let realBidAmt = 0;
             selectedCards.map(card => {
