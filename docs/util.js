@@ -229,3 +229,150 @@ export function stupidSelectCardsToPay(player, targetValue){ // sums lowest valu
 export function randomIntFromInterval(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+export function smartSelectCardsToPay(player, targetValue){
+    console.log(`%c Welcome to smartSelectCardsToPay()...`, 'background-color:tan')
+    player.cards.sort(compareValues('value'));
+    
+    let results = selectBestCoins(player.cards, targetValue)[0]; // use the new algorithm
+
+    // create an array from these which is connected to the real hand
+    let linkedResults = [];
+    results.map(card => {
+        linkedResults.push(getCardById(card.id));
+    })
+    return linkedResults;
+}
+
+function selectBestCoins(arr, target) {
+    // the final power set
+    var powers = [];
+    var result;
+    // the total number of sets that the power set will contain
+    var total = Math.pow(2, arr.length);
+  
+    // loop through each value from 0 to 2^n
+    for (var i = 0; i < total; i++) {
+      // our set that we add to the power set
+      var tempSet = [];
+      var tempSum = 0;
+      // convert the integer to binary
+      var num = i.toString(2);
+  
+      // pad the binary number so 1 becomes 001 for example
+      while (num.length < arr.length) {
+        num = "0" + num;
+      }
+  
+      // build the set that matches the 1's in the binary number
+      for (var b = 0; b < num.length; b++) {
+        if (num[b] === "1") {
+          tempSet.push(arr[b]);
+          tempSum += arr[b].value;
+        }
+      }
+  
+      // add this set to the final power set
+      if (tempSum >= target) {
+        powers.push(tempSet);
+      }
+    }
+  
+    var filtered_array_value;
+    filtered_array_value = getMinimumByValue(powers);
+    while (true) {
+      var tmp = getMinimumByValue(powers);
+      if (tmp[0]!=undefined && getLastSum(filtered_array_value) == getSumValue(tmp[0],tmp[0].length)) {
+        filtered_array_value.push(tmp[0]);
+      } else {
+        break;
+      }
+    }
+    result = filtered_array_value;
+    if (filtered_array_value.length > 1) {
+      var filtered_array_wieght;
+      filtered_array_wieght=getMinimumByWeight(filtered_array_value);
+      while (true) {
+        var tmp = getMinimumByWeight(filtered_array_value);
+        if (tmp[0]!=undefined && getLastSum(filtered_array_wieght) == getSumWeight(tmp[0],tmp[0].length)) {
+          filtered_array_wieght.push(tmp[0]);
+        } else {
+          break;
+        }
+      }
+      result = filtered_array_wieght;
+    }
+    if (filtered_array_value.length > 1) {
+      var filtered_array_elements;
+      filtered_array_elements=getMinimumByElements(filtered_array_wieght);
+      result = filtered_array_elements;
+    }
+    return result;
+  }
+  function getSumValue(arr,length) {
+    var sum = 0;
+    for (var i = 0; i < length; i++) {
+      sum += arr[i].value;
+    }
+    return sum;
+  }
+  
+  function getSumWeight(arr,length) {
+      var sum = 0;
+      for (var i = 0; i < length; i++) {
+        sum += arr[i].weight;
+      }
+      return sum;
+    }
+  function getLastSum(arr) {
+      var sum = 0;
+      for (var i = 0; i < arr[arr.length-1].length; i++) {
+        sum += arr[arr.length-1][i].value;
+      }
+      return sum;
+    }
+  function getMinimumByValue(arr) {
+    var lowest = Number.POSITIVE_INFINITY;
+    var tmp;
+    var indexOfLowest;
+    for (var i = 0; i < arr.length; i++) {
+      var tmpSum = 0;
+      for (var j = 0; j < arr[i].length; j++) {
+        tmpSum += arr[i][j].value;
+      }
+  
+      if (tmpSum < lowest) {
+        lowest = tmpSum;
+        indexOfLowest = i;
+      }
+    }
+    return arr.splice(indexOfLowest, 1);
+  }
+  
+  function getMinimumByWeight(arr) {
+    var lowest = Number.POSITIVE_INFINITY;
+    var indexOfLowest;
+    for (var i = 0; i < arr.length; i++) {
+      var tmpSum = 0;
+      for (var j = 0; j < arr[i].length; j++) {
+        tmpSum += arr[i][j].weight;
+      }
+  
+      if (tmpSum < lowest) {
+        lowest = tmpSum;
+        indexOfLowest = i;
+      }
+    }
+    return arr.splice(indexOfLowest, 1);
+  }
+  function getMinimumByElements(arr) {
+    var highest = Number.NEGATIVE_INFINITY;
+    var indexOfhighest;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].length > highest) {
+        highest = arr[i].length;
+        indexOfhighest = i;
+      }
+    }
+    return arr.splice(indexOfhighest, 1);
+  }

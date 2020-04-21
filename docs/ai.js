@@ -77,8 +77,11 @@ export function makeAuctionDecision(player){
 
         if (player.ai_setting === 'easy'){
             // always tries to win the bid
+            console.log('player.cards:', player.cards)
             console.log(`${player.name} plans to select ${main.state.bid_currentBid+1 - discount} from their cards...`)
-            let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1 - discount);
+            // let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1 - discount);
+            let selectedCards = util.smartSelectCardsToPay(player, main.state.bid_currentBid+1 - discount);
+            console.log('%c selectedCards:', 'background-color:orange', selectedCards)
             // since the logic to select cards is not optimized, see how much is really in the selected cards..(it's likely higher)
             let realBidAmt = 0;
             selectedCards.map(card => {
