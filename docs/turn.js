@@ -318,7 +318,8 @@ export function buyColonists(player, buyNumber){
         selectedAmount = util.getSelectedAmountFromCards();
     }
     else{ // select cards for ai players
-        aiSelectedCards = util.stupidSelectCardsToPay(player, totalCost)
+        // aiSelectedCards = util.stupidSelectCardsToPay(player, totalCost)
+        aiSelectedCards = util.smartSelectCardsToPay(player, totalCost)
         console.log('aiSelectedCards:', aiSelectedCards)
         aiSelectedCards.map(card => {
             selectedAmount += card.value

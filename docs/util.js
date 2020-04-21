@@ -211,6 +211,9 @@ export function randomBool(){ // https://stackoverflow.com/a/36756561
     crypto.getRandomValues(a);
     return a[0] > 127;
 }
+export function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
 export function stupidSelectCardsToPay(player, targetValue){ // sums lowest value cards until target value achieved
     // console.log('welcome to stupidSelectCardsToPay()...')
     player.cards.sort(compareValues('value'));
@@ -226,10 +229,6 @@ export function stupidSelectCardsToPay(player, targetValue){ // sums lowest valu
     // console.log('selectedCards:', selectedCards)
     return selectedCards;
 }
-export function randomIntFromInterval(min, max) { // min and max included 
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 export function smartSelectCardsToPay(player, targetValue){
     console.log(`%c Welcome to smartSelectCardsToPay()...`, 'background-color:tan')
     player.cards.sort(compareValues('value'));

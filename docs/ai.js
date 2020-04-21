@@ -189,7 +189,8 @@ export function aiMakeCounterBid(player, bidAmt){
     console.log('bidAmt:', bidAmt)
 
     // let selectedCardsCloned = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1);
-    let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1);
+    // let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1);
+    let selectedCards = util.smartSelectCardsToPay(player, main.state.bid_currentBid+1);
     console.log('selectedCards:', selectedCards);
 
     // since the logic to select cards is not optimized, see how much is really in the selected cards..(it's likely higher)

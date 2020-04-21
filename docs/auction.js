@@ -324,7 +324,8 @@ function processAuctionWinner(){
     }
     else{
         //getMaxHandValue(player)
-        let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid);
+        // let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid);
+        let selectedCards = util.smartSelectCardsToPay(player, main.state.bid_currentBid);
         util.spendCards(selectedCards);
     }
     

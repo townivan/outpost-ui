@@ -294,7 +294,10 @@ export function listenerInit() {
             }
         }
 
-        if (!isValidBid){
+        if (isValidBid){
+            document.getElementById('counterBidError').innerHTML = ``;
+        }
+        else{
             document.getElementById('counterBidError').innerHTML = `Invalid bid. Selected card(s) < currentBid`;
             return;
         }
