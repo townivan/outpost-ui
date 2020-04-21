@@ -155,6 +155,22 @@ function processAuctionWinner(){
     let player = main.state.bid_leader; // the winner
     let eq = main.state.bid_equipment;
 
+
+    // process payment
+    let discount = ai.getDiscount(player, eq);
+    if (player.isYou){
+        util.spendCards();// ?? only applies to me
+    }
+    else{
+        let selectedCards = util.smartSelectCardsToPay(player, main.state.bid_currentBid - discount);
+        console.log('selectedCards:', selectedCards)
+        util.spendCards(selectedCards);
+    }
+    util.logit(`${player.name} spends ${main.state.bid_currentBid}c ${discount > 0 ? `(using discount of ${discount}c)`:''} to purchase ${eq.name}.`);
+    document.getElementById('biddingEqUpForBidDesc--currentBid').innerHTML = `<span class="greenspan">${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c! ${discount > 0 ? `(using discount of ${discount}c)`:''}</span>`;
+
+
+
     // process factoryUnlocks for player
     if (eq.name == 'Heavy Equipment'){
         player.isUnlocked_Ti = true;
@@ -319,24 +335,13 @@ function processAuctionWinner(){
         document.getElementById('biddableInitialAmount').value = selectedEq.price;
     }
 
-    if (player.isYou){
-        util.spendCards();// ?? only applies to me
-    }
-    else{
-        //getMaxHandValue(player)
-        // let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid);
-        let selectedCards = util.smartSelectCardsToPay(player, main.state.bid_currentBid);
-        util.spendCards(selectedCards);
-    }
+
     
 
     // endBidding();
     // update VP and render
     main.calcVp();
     main.render();
-    util.logit(`${player.name} spends ${main.state.bid_currentBid}c to purchase ${eq.name}.`);
-    // util.auctionlogit(`${player.name} spends ${main.state.bid_currentBid}c to purchase ${eq.name}.`);
-    document.getElementById('biddingEqUpForBidDesc--currentBid').innerHTML = `<span class="greenspan">${main.state.bid_leader.name} wins the auction for ${main.state.bid_equipment.name} at a cost of ${main.state.bid_currentBid}c!</span>`;
 
     console.log('player:', player)
 

@@ -243,6 +243,7 @@ export function smartSelectCardsToPay(player, targetValue){
     return linkedResults;
 }
 
+// v2: algo(1)
 function selectBestCoins(arr, target) {
     // the final power set
     var powers = [];
@@ -290,9 +291,9 @@ function selectBestCoins(arr, target) {
     result = filtered_array_value;
     if (filtered_array_value.length > 1) {
       var filtered_array_wieght;
-      filtered_array_wieght=getMinimumByWeight(filtered_array_value);
+      filtered_array_wieght=getMaximumByWeight(filtered_array_value);
       while (true) {
-        var tmp = getMinimumByWeight(filtered_array_value);
+        var tmp = getMaximumByWeight(filtered_array_value);
         if (tmp[0]!=undefined && getLastSum(filtered_array_wieght) == getSumWeight(tmp[0],tmp[0].length)) {
           filtered_array_wieght.push(tmp[0]);
         } else {
@@ -348,21 +349,21 @@ function selectBestCoins(arr, target) {
     return arr.splice(indexOfLowest, 1);
   }
   
-  function getMinimumByWeight(arr) {
-    var lowest = Number.POSITIVE_INFINITY;
-    var indexOfLowest;
+  function getMaximumByWeight(arr) {
+    var highest = Number.NEGATIVE_INFINITY;
+    var indexOfhighest;
     for (var i = 0; i < arr.length; i++) {
       var tmpSum = 0;
       for (var j = 0; j < arr[i].length; j++) {
         tmpSum += arr[i][j].weight;
       }
   
-      if (tmpSum < lowest) {
-        lowest = tmpSum;
-        indexOfLowest = i;
+      if (tmpSum > highest) {
+        highest = tmpSum;
+        indexOfhighest = i;
       }
     }
-    return arr.splice(indexOfLowest, 1);
+    return arr.splice(indexOfhighest, 1);
   }
   function getMinimumByElements(arr) {
     var highest = Number.NEGATIVE_INFINITY;

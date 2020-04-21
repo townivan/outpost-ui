@@ -5,6 +5,12 @@ import * as auction from './auction.js';
 
 export function startAiTurn(player){
     console.log('welcome to startAiTurn(player) :', player)
+
+    // a turn could take actions that come back after a delay, like bidding.
+    // so handle multiple turn actions before ending turn.
+
+
+
     // buy a colonist if possible otherwise pass
     let playerMaxAvailable = util.getMaxHandValue(player);
     let unitPrice = 10; // default colonist cost
@@ -52,25 +58,11 @@ export function makeAuctionDecision(player){
     // do they even have enough to counterBid?
     // Apply their discounts!
     let eq = main.state.bid_equipment;
-    let discount = 0;
-    if (eq.name === 'Nodule'){
-        discount = player.discountOnNodule*1;
-    }
-    if (eq.name === 'Warehouse'){
-        discount = player.discountOnWarehouse*1;
-    }
-    if (eq.name === 'Scientists'){
-        discount = player.discountOnScientist*1;
-    }
-    if (eq.name === 'Laboratory'){
-        discount = player.discountOnLaboratory*1;
-    }
-    if (eq.name === 'Outpost'){
-        discount = player.discountOnOutpost*1;
-    }
-    console.log(`${player.name}'s discount for ${eq.name} is ${discount}`)
+    let discount = getDiscount(player, eq); // not used to change the bid, just to check if bid is valid
+    console.log(`${player.name}'s discount for ${eq.name} is ${discount}`);
+    let minForACounterBid = main.state.bid_currentBid + 1;
 
-    if(playerMaxAvailable > (main.state.bid_currentBid - discount)){
+    if(playerMaxAvailable >= (minForACounterBid - discount)){
 
         // never start their own bid...for now...
         // auction.passBid(player, 'pass');
@@ -78,16 +70,17 @@ export function makeAuctionDecision(player){
         if (player.ai_setting === 'easy'){
             // always tries to win the bid
             console.log('player.cards:', player.cards)
-            console.log(`${player.name} plans to select ${main.state.bid_currentBid+1 - discount} from their cards...`)
-            // let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1 - discount);
-            let selectedCards = util.smartSelectCardsToPay(player, main.state.bid_currentBid+1 - discount);
-            console.log('%c selectedCards:', 'background-color:orange', selectedCards)
-            // since the logic to select cards is not optimized, see how much is really in the selected cards..(it's likely higher)
-            let realBidAmt = 0;
-            selectedCards.map(card => {
-                realBidAmt += card.value;
-            })
-            auction.counterBid(player, realBidAmt) // if possible, will always counter-bid
+            console.log(`${player.name} plans to select ${minForACounterBid} from their cards...`)
+            // let selectedCards = util.smartSelectCardsToPay(player, minForACounterBid - discount);
+            // console.log('%c selectedCards:', 'background-color:orange', selectedCards)
+            // // since the logic to select cards is not optimized, see how much is really in the selected cards..(it's likely higher)
+            // let realBidAmt = 0;
+            // selectedCards.map(card => {
+            //     realBidAmt += card.value;
+            // })
+            // console.log('%c realBidAmt based on selectedCards:', 'background-color:brown; color:white', realBidAmt)
+            // auction.counterBid(player, realBidAmt) // if possible, will always counter-bid
+            auction.counterBid(player, minForACounterBid) // if possible, will always counter-bid
         }
         else if (player.ai_setting === 'medium'){
             auction.passBid(player, 'pass');
@@ -116,7 +109,25 @@ export function makeAuctionDecision(player){
     
 }
 
-
+export function getDiscount(player, eq){
+    let discount = 0;
+    if (eq.name === 'Nodule'){
+        discount = player.discountOnNodule*1;
+    }
+    if (eq.name === 'Warehouse'){
+        discount = player.discountOnWarehouse*1;
+    }
+    if (eq.name === 'Scientists'){
+        discount = player.discountOnScientist*1;
+    }
+    if (eq.name === 'Laboratory'){
+        discount = player.discountOnLaboratory*1;
+    }
+    if (eq.name === 'Outpost'){
+        discount = player.discountOnOutpost*1;
+    }
+    return discount;
+}
 
 
 
@@ -188,18 +199,16 @@ export function aiMakeCounterBid(player, bidAmt){
     console.log('player:', player)
     console.log('bidAmt:', bidAmt)
 
-    // let selectedCardsCloned = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1);
-    // let selectedCards = util.stupidSelectCardsToPay(player, main.state.bid_currentBid+1);
-    let selectedCards = util.smartSelectCardsToPay(player, main.state.bid_currentBid+1);
-    console.log('selectedCards:', selectedCards);
+    // let selectedCards = util.smartSelectCardsToPay(player, main.state.bid_currentBid+1);
+    // console.log('selectedCards:', selectedCards);
 
-    // since the logic to select cards is not optimized, see how much is really in the selected cards..(it's likely higher)
-    let realBidAmt = 0;
-    selectedCards.map(card => {
-        realBidAmt += card.value;
-    })
+    // // since the logic to select cards is not optimized, see how much is really in the selected cards..(it's likely higher)
+    // let realBidAmt = 0;
+    // selectedCards.map(card => {
+    //     realBidAmt += card.value;
+    // })
 
-    console.log('realBidAmt:', realBidAmt)
+    // console.log('realBidAmt:', realBidAmt)
 
     main.state.bid_players.map(player =>{
         player.bidStatus = "awaiting";
@@ -208,7 +217,7 @@ export function aiMakeCounterBid(player, bidAmt){
 
     main.state.bid_round++;
     main.state.bid_leader = player;
-    main.state.bid_currentBid = realBidAmt;
-    util.logit(`${player.name} counterbids ${realBidAmt} for ${main.state.bid_equipment.name}.`);
+    main.state.bid_currentBid = bidAmt;
+    util.logit(`${player.name} counterbids ${bidAmt} for ${main.state.bid_equipment.name}.`);
     bid.considerBid(player.playerSeatedAfterMe)
 }
