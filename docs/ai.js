@@ -9,8 +9,27 @@ export function startAiTurn(player){
     // a turn could take actions that come back after a delay, like bidding.
     // so handle multiple turn actions before ending turn.
 
+    // bids come first
 
+    // decide if willing to start a bid
+    console.log('the following eq is up for bid:', main.state.eqUpForBidArray)
+    let turnActionDecision = makeTurnActionDecision(player); // decision = { isBidTime:true, eqToBidOn:{}, isBuyTime:false, isSaveTime:false }
+    console.log('turnActionDecision:', turnActionDecision)
 
+    if (turnActionDecision.isBidTime){
+        initAuctionFromAi(player, turnActionDecision.eqToBidOn)
+    }
+
+    if (turnActionDecision.isBuyTime){
+        console.log('TODO: handle buyTime...for now just endTurn...')
+        turn.endTurn(player);
+    }
+
+    if (turnActionDecision.isSaveTime){
+        turn.endTurn(player);
+    }
+
+    /*
     // buy a colonist if possible otherwise pass
     let playerMaxAvailable = util.getMaxHandValue(player);
     let unitPrice = 10; // default colonist cost
@@ -45,6 +64,76 @@ export function startAiTurn(player){
     else{
         turn.endTurn(player); // don't buy.  might be for any of the above reasons
     }
+    */
+}
+
+export function makeTurnActionDecision(player){
+    console.log(`welcome to makeTurnActionDecision(player=${player.name})`)
+    const decision = { isBidTime:false, eqToBidOn:null, isBuyTime:false, isSaveTime:false };
+    let isAnyEqAvail = false;
+    let isAnyEqAffordable = false;
+    const affordableEq = [];
+    let playerMaxAvailable = util.getMaxHandValue(player);
+    console.log('playerMaxAvailable:', playerMaxAvailable)
+
+    if (main.state.eqUpForBidArray.length > 0){
+        isAnyEqAvail = true;
+        console.log('there appears to be eq available...')
+    }
+    main.state.eqUpForBidArray.map(eq => {
+        let discount = getDiscount(player, eq);
+        if (playerMaxAvailable >= (eq.price - discount)){
+            isAnyEqAffordable = true;
+            affordableEq.push(eq)
+        }
+    })
+    console.log('affordableEq:', affordableEq)
+
+    const randomChoice = util.randomIntFromInterval(1, 3); // 1-3; 1=bidTime, 2=buyTime, 3=saveTime
+    console.log('randomChoice:', randomChoice);
+    let doIWantToBid = false;
+    let doIWantToBuy = false;
+    let doIWantToSave = false;
+    if (randomChoice == 1){ console.log(`it's bidTime!`); doIWantToBid = true; }
+    if (randomChoice == 2){ console.log(`it's buyTime!`); doIWantToBuy = true; }
+    if (randomChoice == 3){ console.log(`it's saveTime!`); doIWantToSave = true; }
+
+    if (doIWantToBid){
+        if (isAnyEqAffordable){
+            let randomIndex = util.randomIntFromInterval(0, affordableEq.length-1);
+            decision.isBidTime = true;
+            decision.eqToBidOn = affordableEq[randomIndex];
+        }
+        else{
+            decision.isSaveTime = true; // I want to bid but no cash
+        }
+    }
+    if (doIWantToBuy){
+        decision.isBuyTime = true;
+    }
+    if (doIWantToSave){
+        decision.isSaveTime = true;
+    }
+    return decision;
+
+}
+
+function initAuctionFromAi(player, eq){
+    console.log(`%c Welcome to initAuctionFromAi(player=${player.name}, eq=${eq.name})`, 'background-color:yellow;')
+    document.getElementById('auctionViewBtn').click();
+    main.state.bid_leader = player;
+    main.state.bid_currentBid = eq.price;
+    main.state.bid_equipment = eq;
+    main.state.players.map(player => player.bidStatus = "waiting")
+    player.bidStatus = "leading";
+    main.state.bid_actionCount = 1;
+    main.state.bid_playerWhoStartedIt = player;
+    document.getElementById('auctionLog').innerHTML = '';
+    let auctionInputs = [...document.querySelectorAll('.auctionInputToggle')]
+    auctionInputs.map(el => el.disabled = false);
+    util.auctionlogit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${eq.price}.`);
+    util.logit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${eq.price}.`);
+    auction.considerBid(player.playerSeatedAfterMe);
 }
 
 
@@ -56,7 +145,6 @@ export function makeAuctionDecision(player){
     // console.log('player.ai_setting:', player.ai_setting)
 
     // do they even have enough to counterBid?
-    // Apply their discounts!
     let eq = main.state.bid_equipment;
     let discount = getDiscount(player, eq); // not used to change the bid, just to check if bid is valid
     console.log(`${player.name}'s discount for ${eq.name} is ${discount}`);
@@ -71,15 +159,6 @@ export function makeAuctionDecision(player){
             // always tries to win the bid
             console.log('player.cards:', player.cards)
             console.log(`${player.name} plans to select ${minForACounterBid} from their cards...`)
-            // let selectedCards = util.smartSelectCardsToPay(player, minForACounterBid - discount);
-            // console.log('%c selectedCards:', 'background-color:orange', selectedCards)
-            // // since the logic to select cards is not optimized, see how much is really in the selected cards..(it's likely higher)
-            // let realBidAmt = 0;
-            // selectedCards.map(card => {
-            //     realBidAmt += card.value;
-            // })
-            // console.log('%c realBidAmt based on selectedCards:', 'background-color:brown; color:white', realBidAmt)
-            // auction.counterBid(player, realBidAmt) // if possible, will always counter-bid
             auction.counterBid(player, minForACounterBid) // if possible, will always counter-bid
         }
         else if (player.ai_setting === 'medium'){

@@ -70,6 +70,7 @@ export const state = {
     bid_leader: null,
     bid_equipment: null,
     bid_actionCount: 1,
+    bid_playerWhoStartedIt: null,
     ai_setting: null,
 };
 

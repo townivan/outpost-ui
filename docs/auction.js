@@ -16,6 +16,8 @@ export function startAuction(player, realBidAmt, targetEq){
     main.state.players.map(player => player.bidStatus = "waiting")
     player.bidStatus = "leading";
     main.state.bid_actionCount = 1;
+    main.state.bid_playerWhoStartedIt = player;
+
     document.getElementById('auctionLog').innerHTML = '';
     let auctionInputs = [...document.querySelectorAll('.auctionInputToggle')]
     auctionInputs.map(el => el.disabled = false);
@@ -49,12 +51,11 @@ export function startAuction(player, realBidAmt, targetEq){
 
     // util.printSeatOrder();
     util.auctionlogit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
-    // util.auctionlogit(`Seat order: ${util.getSeatOrder()}`);
     util.logit(`${player.name} starts an auction for ${main.state.bid_equipment.name} with a bid of ${realBidAmt}.`);
     considerBid(player.playerSeatedAfterMe);
 }
 
-function considerBid(player){ // decide to counterBid or pass
+export function considerBid(player){ // decide to counterBid or pass
     console.log(`welcome to considerBid(${player.name})...`)
     // console.log('player.bidStatus:', player.bidStatus)
     // util.printSeatOrder();
@@ -348,6 +349,12 @@ function processAuctionWinner(){
     main.state.bid_leader = null;
     main.state.bid_currentBid = null;
     main.state.bid_equipment = null;
+
+    // continue the turn if AI:
+    if (!player.isYou){
+        console.log('%c continue to startAiTurn...', 'background-color:blue; color:white')
+        ai.startAiTurn(main.state.bid_playerWhoStartedIt)
+    }
 
     // for faster testing only (remove later TODO:)
     // document.getElementById('overviewViewBtn').click();
