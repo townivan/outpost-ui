@@ -74,11 +74,30 @@ export const state = {
     ai_setting: null,
 };
 
+
+
+
+
 init.gameInit();
 events.listenerInit();
 console.log('state:', state)
 turn.startRound();
 render();
+
+// tippy('[data-tippy-content]');
+// tippy('div.overviewCol1', {
+//     content(reference) {
+//     console.log('heya');
+//     console.log('reference:', reference)
+//     const id = reference.getAttribute('data-template');
+//     console.log('id:', id)
+//     const template = document.getElementById(id);
+//     console.log('template:', template)
+//     return template.innerHTML;
+//     },
+//     allowHTML: true,
+// });
+
 
 export function addPlayer(name = 'Larry') {
     let p = {};
@@ -684,7 +703,7 @@ export function render() {
     
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Data Library');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Data Library (${dataLibraryCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource1">Data Library (${dataLibraryCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -700,7 +719,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Warehouse');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Warehouse (${warehouseCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource2">Warehouse (${warehouseCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -716,7 +735,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Heavy Equipment');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Heavy Equipment (${heavyequipmentCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource3">Heavy Equipment (${heavyequipmentCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -732,7 +751,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Nodule');
     rowCode = `<div class="rowOverview">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Nodule (${noduleCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource4">Nodule (${noduleCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -748,7 +767,7 @@ export function render() {
     
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Scientists');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Scientists (${scientistsCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource5">Scientists (${scientistsCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -764,7 +783,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Orbital Lab');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Orbital Lab (${orbitalLabCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource6">Orbital Lab (${orbitalLabCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -780,7 +799,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Robots');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Robots (${robotsCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource7">Robots (${robotsCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -796,7 +815,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Laboratory');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Laboratory (${laboratoryCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource8">Laboratory (${laboratoryCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -812,7 +831,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Ecoplants');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Ecoplants (${ecoplantsCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource9">Ecoplants (${ecoplantsCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -829,7 +848,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Outpost');
     rowCode = `<div class="rowOverview ${state.currentEra > 1 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Outpost (${outpostCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource10">Outpost (${outpostCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -846,7 +865,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Space Station');
     rowCode = `<div class="rowOverview ${state.currentEra > 2 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Space Station (${spaceStationCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource11">Space Station (${spaceStationCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -863,7 +882,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Planetary Cruiser');
     rowCode = `<div class="rowOverview ${state.currentEra > 2 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Planetary Cruiser (${planetaryCruiserCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource12">Planetary Cruiser (${planetaryCruiserCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -880,7 +899,7 @@ export function render() {
 
     gotEq = util.isObjInHereWithValue(state.eqUpForBidArray, 'name', 'Moonbase');
     rowCode = `<div class="rowOverview ${state.currentEra > 2 ? '' :'hideme'}">`;
-    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}">Moonbase (${moonbaseCount}&nbsp;left)</div>`;
+    rowCode += `<div class="overviewCol1 ${gotEq ? 'highlightme' : ''}" id="tippySource13">Moonbase (${moonbaseCount}&nbsp;left)</div>`;
     state.players.map(player => {
         let playerEqCount = 0;
         player.ownedEquipment.map(eq => {
@@ -973,6 +992,156 @@ export function render() {
 
     let overviewPanel = document.getElementById('overviewPanel');
     overviewPanel.innerHTML = allOverViewCode;
+
+    
+    tippy('#tippySource1', {
+        content: `<p>
+            Data Library [c15] (1vp) era1
+            <ul>
+                <li>c10 discount on <strong>Scientist</strong> cards.</li>
+                <li>c10 discount on <strong>Laboratory</strong> cards.</li>
+            </ul>
+        </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource2', {
+        content: `<p>
+        Warehouse [c25] (1vp) era1
+        <ul>
+            <li><strong>+5</strong> Hand Limit.</li>
+        </ul>
+  </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource3', {
+        content: `<p>
+        Heavy Equipment [c30] (1vp) era1
+        <ul>
+            <li>Required to purchase Titanium Factories.</li>
+            <li>c5 discount on <strong>Nodule</strong> cards.</li>
+            <li>c5 discount on <strong>Warehouse</strong> cards.</li>
+            <li>c15 discount on <strong>Outpost</strong> cards.</li>
+        </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource4', {
+        content: `<p>
+        Nodule [c25] (2vp) era1
+            <ul>
+                <li><strong>+3</strong> Colony Support Limit.</li>
+            </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource5', {
+        content: `<p>
+        Scientists [c40] (2vp) era2
+            <ul>
+                <li>After purchasing, replace this card with the <strong>Scientist</strong> Special Factory counter.</li>
+                <li>This special factory produces one <strong>Research</strong> Production card per turn (no operator required)</li>
+            </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource6', {
+        content: `<p>
+        Orbital Lab [c50] (3vp) era2
+            <ul>
+                <li>After purchasing, replace this card with the <strong>Orbital Lab</strong> Special Factory counter.</li>
+                <li>This special factory produces one <strong>Microbiotics</strong> Production card per turn (no operator required)</li>
+            </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource7', {
+        content: `<p>
+        Robots [c50] (3vp) era2
+            <ul>
+                <li>Required to purchase <strong>Robot</strong> counters.</li>
+                <li>Provides <strong>one</strong> free <strong>Robot</strong> counter.</li>
+            </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource8', {
+        content: `<p>
+        Laboratory [c80] (5vp) era2
+            <ul>
+                <li>Required to purchase <strong>Research</strong> Factories.</li>
+                <li>Provides <strong>one</strong> free <strong>Research</strong> Factory counter (not operated initally).</li>
+            </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource9', {
+        content: `<p>
+        Ecoplants [c30] (5vp) era2
+            <ul>
+                <li><strong>Colonists</strong> now cost <strong>5c</strong> to purchase [not cumulative with multiple Ecoplants].</li>
+                <li><strong>10c</strong> discount on <strong>Outpost</strong> cards.</li>
+            </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource10', {
+        content: `<p>
+        Outpost [c100] (5vp) era2
+            <ul>
+                <li><strong>+5</strong> Colony Support Limit.</li>
+                <li><strong>+5</strong> Hand Limit.</li>
+                <li>Provides <strong>one</strong> free <strong>Titanium</strong> Factory counter (not operated initally).</li>
+            </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource11', {
+        content: `<p>
+        Space Station [c120] (10vp) era3
+            <ul>
+                <li>After purchasing, replace this card with the <strong>Orbital Medicine</strong> Special Factory counter.</li>
+                <li>This special factory produces one <strong>Orbital Medicine</strong> Production card per turn, <strong>if operated.</strong></li>
+                <li>+1 Colony Support Limit, <strong>if operated.</strong></li>
+            </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource12', {
+        content: `<p>
+        Planetary Cruiser [c160] (15vp) era3
+            <ul>
+                <li>After purchasing, replace this card with the <strong>Ring Ore</strong> Special Factory counter.</li>
+                <li>This special factory produces one <strong>Ring Ore</strong> Production card per turn, <strong>if operated.</strong></li>
+                <li>+1 Colony Support Limit, <strong>if operated.</strong></li>
+            </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    tippy('#tippySource13', {
+        content: `<p>
+        Moonbase [c200] (20vp) era3
+            <ul>
+                <li>After purchasing, replace this card with the <strong>Moon Ore</strong> Special Factory counter.</li>
+                <li>This special factory produces one <strong>Moon Ore</strong> Production card per turn, <strong>if operated.</strong></li>
+                <li>+1 Colony Support Limit, <strong>if operated.</strong></li>
+            </ul>
+    </p>`,
+        allowHTML: true,
+    });
+
+    
 }
 
 /**
